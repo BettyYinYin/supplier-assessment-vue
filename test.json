@@ -1,0 +1,50 @@
+{
+    "success": true,
+    "errorMsg": null,
+    "data": [
+        {
+            "id": "1",
+            "projectNo": "XT2018-248",
+            "projectName": "国网安徽省电力有限公司2019年信息系统等保测评服务",
+            "projectType": "运维类项目",
+            "projectNature": "自建",
+            "projectState": "在建",
+            "salaryType": "成本",
+            "constructionName": "信息通信运检中心",
+            "constructionId": "110681263",
+            "headName": "刘婷",
+            "headId": "0113434122674655",
+            "headTel": "0551-63602804",
+            "fullName": "合肥恒卓科技有限公司",
+            "simpleName": "合肥恒卓",
+            "supplierId": "1",
+            "supplierManagerName": "倪世红",
+            "supplierManagerId": "012040060820373750",
+            "supplierManagerTel": "13800000000",
+            "projectIssuedTime": "2016",
+            "remark": "说明"
+        },
+        {
+            "id": "2",
+            "projectNo": "XT2018-249",
+            "projectName": "国网安徽省电力有限公司2019年建设项目",
+            "projectType": "建设类项目",
+            "projectNature": "自建",
+            "projectState": "在建",
+            "salaryType": "成本",
+            "constructionName": "信息通信运检中心",
+            "constructionId": "110681263",
+            "headName": "刘婷",
+            "headId": "0113434122674655",
+            "headTel": "0551-63602804",
+            "fullName": "合肥恒卓科技有限公司",
+            "simpleName": "合肥恒卓",
+            "supplierId": "1",
+            "supplierManagerName": "苏涛",
+            "supplierManagerId": "01230523271066156",
+            "supplierManagerTel": "13800000000",
+            "projectIssuedTime": "2016",
+            "remark": "说明"
+        }
+    ]
+}

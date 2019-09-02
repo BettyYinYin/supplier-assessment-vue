@@ -1,0 +1,8 @@
+position fixed问题解决方案
+1.
+.head,.foot{position:fixed;left:0;height:38px;line-height:38px;width:100%;background-color:#99CC00;}
+.head{top:0;}
+.foot{bottom:0;}
+.main{position:fixed;top:38px;bottom:38px;width:100%;overflow:scroll;background-color:#BABABA;}
+2.
+input框@focus时，隐藏fixed的元素

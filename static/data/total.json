@@ -1,0 +1,9 @@
+{
+  "success":true,
+  "errorMsg":null,
+  "data":{
+    "allUserNum":596,
+    "mainUserNum":0,
+    "outerUserNum":0
+  }
+}

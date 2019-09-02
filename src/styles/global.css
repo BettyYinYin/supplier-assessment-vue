@@ -1,0 +1,33 @@
+.username-icon{
+    display: inline-block;
+    vertical-align: middle;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-right: .5rem;
+    border-radius: 50%;
+    text-align: center;
+    background: #3296fa;
+    color: #fff;
+    font-size: .8rem;
+    flex: 0 0 2.5rem;
+}
+
+.mint-spinner-fading-circle{
+    margin: 0 auto;
+}
+
+.mint-loadmore-bottom{
+    display: none;
+}
+
+.load-more-status {
+    padding-top: 0.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.bg-grey{
+    background: #f6f6f6;
+    height: 1rem;
+}

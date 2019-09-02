@@ -1,0 +1,7 @@
+[
+  { "dept" : "综合管理部", "count" : 20, "main" : 10, "outside" : 10, "isSelector" : false },
+  { "dept" : "公司领导", "count" : 4, "main" : 2, "outside" : 2, "isSelector" : false },
+  { "dept" : "信息通信调控中心", "count" : 26, "main" : 16, "outside" : 10, "isSelector" : false },
+  { "dept" : "信息通信运检中心", "count" : 139, "main" : 100, "outside" : 39, "isSelector" : false },
+  { "dept" : "信息通信工程中心", "count" : 175, "main" : 125, "outside" : 50, "isSelector" : false }
+]

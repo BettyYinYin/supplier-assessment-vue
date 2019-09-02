@@ -1,0 +1,16 @@
+{
+  "success":true,
+  "errorMsg":null,
+  "data":[
+    {"deptId":"110450194","deptName":"信息通信调控中心","userNum":3},
+    {"deptId":"110452256","deptName":"信息通信工程中心","userNum":2},
+    {"deptId":"110503124","deptName":"综合管理部","userNum":12},
+    {"deptId":"110524320","deptName":"技术发展部","userNum":7},
+    {"deptId":"110531220","deptName":"安全监察部","userNum":3},
+    {"deptId":"110532221","deptName":"财务资产部","userNum":6},
+    {"deptId":"110575196","deptName":"公司领导","userNum":4},
+    {"deptId":"110655195","deptName":"党建工作部","userNum":4},
+    {"deptId":"110681263","deptName":"信息通信运检中心","userNum":2},
+    {"deptId":"112275703","deptName":"数据中心","userNum":1},
+    {"deptId":"89231373","deptName":"项目合同外人员","userNum":3530}
+  ]}

@@ -1,0 +1,95 @@
+{
+    "success": true,
+    "errorMsg": null,
+    "data": {
+      "baseInfo": {
+        "mobile": "18055147368",
+        "landline": "0551253654",
+        "stationName": "恒卓6楼601",
+        "sex": 1,
+        "sexName": null,
+        "identityCard": "3425623525142345",
+        "userType": "20014",
+        "userTypeName": "运维人员",
+        "jobName": "测试岗位",
+        "entryTime": 1557940067000,
+        "entryTimeStr": "2019-05-16 01:07:47",
+        "admissionTime": 1557940075000,
+        "admissionTimeStr": "2019-05-16 01:07:55",
+        "firstDegree": 2,
+        "firstDegreeName": null,
+        "firstDegreeSchool": "农大",
+        "firstDegreeMajor": "网络工程",
+        "firstDegreeTime": 1436979996000,
+        "firstDegreeTimeStr": "2015-07-16 01:06:36",
+        "highDegree": 2,
+        "highDegreeName": null,
+        "highDegreeSchool": "农大",
+        "highDegreeMajor": "网络工程",
+        "highDegreeTime": 1436980022000,
+        "highDegreeTimeStr": "2015-07-16 01:07:02",
+        "politicalStatus": 2,
+        "politicalStatusName": null,
+        "maritalStatus": 0,
+        "maritalStatusName": null,
+        "whetherSettle": 1,
+        "whetherSettleName": null,
+        "beginWorkTime": 1436980040000,
+        "beginWorkTimeStr": "2015-07-16 01:07:20",
+        "insideProjectNum": 0,
+        "outsideProjectNum": 0,
+        "workPerformance": "工作业绩测试..."
+      },
+      "workinfos": [
+        {
+          "supplierId": "1",
+          "supplierFullName": "合肥恒卓科技有限公司",
+          "supplierSimpleName": "合肥恒卓",
+          "projectId": "1",
+          "projectName": "国网安徽省电力有限公司2019年信息系统等保测评服务",
+          "deptId": "110681263",
+          "deptName": "信息通信运检中心",
+          "specialtyId": "0113434122674655",
+          "specialtyName": "刘婷",
+          "entryTime": 1557940067000,
+          "entryTimeStr": "2019-05-16 01:07:47",
+          "admissionTime": 1557940075000,
+          "admissionTimeStr": "2019-05-16 01:07:55"
+        }
+      ],
+      "careers": [
+        {
+          "companyName": "单位2",
+          "position": "java2",
+          "entryTime": 1557941977000,
+          "entryTimeStr": "2019-05-16 01:39:37",
+          "leaveTime": 1557941980000,
+          "leaveTimeStr": "2019-05-16 01:39:40"
+        },
+        {
+          "companyName": "单位1",
+          "position": "java",
+          "entryTime": 1557941975000,
+          "entryTimeStr": "2019-05-16 01:39:35",
+          "leaveTime": 1557941982000,
+          "leaveTimeStr": "2019-05-16 01:39:42"
+        }
+      ],
+      "devices": [
+        {
+          "type": 0,
+          "typeName": null,
+          "model": "联想Y480",
+          "serialNum": "23456789",
+          "ipPhone": "182.25.63.21"
+        },
+        {
+          "type": 0,
+          "typeName": null,
+          "model": "联想Y490",
+          "serialNum": "012345678",
+          "ipPhone": "192.168.2.25"
+        }
+      ]
+    }
+  }
