@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // import userMangage from './modules/userManage'
 // import userList from './modules/userList'
 // import journal from './modules/journal'
-// import selectUser from './modules/selectUser'
+import unsubmit from './modules/unsubmit'
 import add from './modules/add'
 import home from './modules/home'
 import version from './modules/version'
@@ -17,7 +17,11 @@ const createRouter = () => new Router({
     // userMangage,
     // userList,
     // journal,
-    // selectUser,
+    {
+      path: '/',
+      redirect: '/home'
+    },
+    ...unsubmit,
     add,
     home,
     version,

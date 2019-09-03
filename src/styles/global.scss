@@ -1,0 +1,64 @@
+@import './variables.scss';
+
+.mint-spinner-fading-circle{
+    margin: 0 auto;
+}
+
+.mint-loadmore-bottom{
+    display: none;
+}
+
+.load-more-status {
+    padding-top: 0.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.bg-grey{
+    background: #f6f6f6;
+    height: 1rem;
+}
+
+.grey-color {
+    color: rgba(25,31,37,.4);
+}
+
+.grey-background{
+    background-color: rgba(25, 31, 37, 0.08);
+}
+
+.center{
+    text-align: center;
+}
+
+.input{
+    -webkit-appearance: none;
+    background-color: $grey-bg-3;
+    background-image: none;
+    border-radius: 2px;
+    // border: 1px solid #dcdfe6;
+    border: none;
+    box-sizing: border-box;
+    // color: #606266;
+    color: $grey-color-3;
+    display: inline-block;
+    font-size: .85rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    outline: none;
+    padding: 0 .5rem;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+  }
+
+  .input:focus{
+    outline: none;
+    // border-color: #409eff;
+    // border-color: $color-primary;
+    // border-color: none;
+  }
+
+  .v-modal{
+      background: #fff;
+  }
+

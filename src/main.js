@@ -6,7 +6,7 @@ import './permissions'
 import './icons' // icon
 import 'mint-ui/lib/style.css' // mint-ui css
 import '@/styles/main.css' // global css
-import '@/styles/global.css'
+import '@/styles/global.scss'
 import * as filters from '@/filters'
 import * as directives from '@/directives'
 import '@/utils/ui.config'

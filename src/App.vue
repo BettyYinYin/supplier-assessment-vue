@@ -32,7 +32,7 @@ export default {
 <style scoped>
 .content{
   position: relative;
-  min-width: 100vw;
+  max-width: 100vw;
   min-height: calc(100vh);
 }
 </style>

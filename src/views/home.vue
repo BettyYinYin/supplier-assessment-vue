@@ -114,6 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables.scss';
 .home {
   min-height: 100vh;
   padding-top: 1rem;
