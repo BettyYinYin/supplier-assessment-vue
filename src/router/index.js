@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import userMangage from './modules/userManage'
 // import userList from './modules/userList'
-// import journal from './modules/journal'
+import supplierList from './modules/supplierList'
 import unsubmit from './modules/unsubmit'
 import add from './modules/add'
 import home from './modules/home'
@@ -16,7 +16,7 @@ const createRouter = () => new Router({
   routes: [
     // userMangage,
     // userList,
-    // journal,
+    supplierList,
     {
       path: '/',
       redirect: '/home'

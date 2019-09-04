@@ -1,95 +1,206 @@
 {
-    "success": true,
-    "errorMsg": null,
-    "data": {
-      "baseInfo": {
-        "mobile": "18055147368",
-        "landline": "0551253654",
-        "stationName": "恒卓6楼601",
-        "sex": 1,
-        "sexName": null,
-        "identityCard": "3425623525142345",
-        "userType": "20014",
-        "userTypeName": "运维人员",
-        "jobName": "测试岗位",
-        "entryTime": 1557940067000,
-        "entryTimeStr": "2019-05-16 01:07:47",
-        "admissionTime": 1557940075000,
-        "admissionTimeStr": "2019-05-16 01:07:55",
-        "firstDegree": 2,
-        "firstDegreeName": null,
-        "firstDegreeSchool": "农大",
-        "firstDegreeMajor": "网络工程",
-        "firstDegreeTime": 1436979996000,
-        "firstDegreeTimeStr": "2015-07-16 01:06:36",
-        "highDegree": 2,
-        "highDegreeName": null,
-        "highDegreeSchool": "农大",
-        "highDegreeMajor": "网络工程",
-        "highDegreeTime": 1436980022000,
-        "highDegreeTimeStr": "2015-07-16 01:07:02",
-        "politicalStatus": 2,
-        "politicalStatusName": null,
-        "maritalStatus": 0,
-        "maritalStatusName": null,
-        "whetherSettle": 1,
-        "whetherSettleName": null,
-        "beginWorkTime": 1436980040000,
-        "beginWorkTimeStr": "2015-07-16 01:07:20",
-        "insideProjectNum": 0,
-        "outsideProjectNum": 0,
-        "workPerformance": "工作业绩测试..."
-      },
-      "workinfos": [
-        {
-          "supplierId": "1",
-          "supplierFullName": "合肥恒卓科技有限公司",
-          "supplierSimpleName": "合肥恒卓",
-          "projectId": "1",
-          "projectName": "国网安徽省电力有限公司2019年信息系统等保测评服务",
-          "deptId": "110681263",
-          "deptName": "信息通信运检中心",
-          "specialtyId": "0113434122674655",
-          "specialtyName": "刘婷",
-          "entryTime": 1557940067000,
-          "entryTimeStr": "2019-05-16 01:07:47",
-          "admissionTime": 1557940075000,
-          "admissionTimeStr": "2019-05-16 01:07:55"
-        }
-      ],
-      "careers": [
-        {
-          "companyName": "单位2",
-          "position": "java2",
-          "entryTime": 1557941977000,
-          "entryTimeStr": "2019-05-16 01:39:37",
-          "leaveTime": 1557941980000,
-          "leaveTimeStr": "2019-05-16 01:39:40"
-        },
-        {
-          "companyName": "单位1",
-          "position": "java",
-          "entryTime": 1557941975000,
-          "entryTimeStr": "2019-05-16 01:39:35",
-          "leaveTime": 1557941982000,
-          "leaveTimeStr": "2019-05-16 01:39:42"
-        }
-      ],
-      "devices": [
-        {
-          "type": 0,
-          "typeName": null,
-          "model": "联想Y480",
-          "serialNum": "23456789",
-          "ipPhone": "182.25.63.21"
-        },
-        {
-          "type": 0,
-          "typeName": null,
-          "model": "联想Y490",
-          "serialNum": "012345678",
-          "ipPhone": "192.168.2.25"
-        }
-      ]
+  "success": true,
+  "errorMsg": null,
+  "data": [
+    {
+      "id": "40b275385be44e6f8aa6751e37b2ca38",
+      "supplierName": "ssss",
+      "bankName": "sss",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "be5db303ebd441eabc50068c3cff2980",
+      "supplierName": "uio",
+      "bankName": "iii",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "4fe8eb69f34c4a3e8f8f5b7412e6d737",
+      "supplierName": "中标单位003",
+      "bankName": "123456",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "62951e54b3574f6f96995709d7667c23",
+      "supplierName": "中标单位002",
+      "bankName": "123",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "1d1b1e30b97f48eea6241c0804b22770",
+      "supplierName": "中标单位003003",
+      "bankName": "123456789",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "4f510346440b4afdb14474bef9513095",
+      "supplierName": "中标单位002002",
+      "bankName": "123456",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "dc98651489834df1b908530b79215b3e",
+      "supplierName": "中标单位001",
+      "bankName": "1212121",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "062e1e98ea804a19a55f5e0394621f29",
+      "supplierName": "中标单位测试",
+      "bankName": "111111111",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "400b270a9db14d9887bd4a3018c08305",
+      "supplierName": "宋晨测试供应商222",
+      "bankName": "浦发英航",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "afdc4637a1664647a83f992f109bf15b",
+      "supplierName": "中标单位826001001",
+      "bankName": "123",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "40b275385be44e6f8aa6751e37b2ca381",
+      "supplierName": "ssss",
+      "bankName": "sss",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "be5db303ebd441eabc50068c3cff29802",
+      "supplierName": "uio",
+      "bankName": "iii",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "4fe8eb69f34c4a3e8f8f5b7412e6d7373",
+      "supplierName": "中标单位003",
+      "bankName": "123456",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "62951e54b3574f6f96995709d7667c234",
+      "supplierName": "中标单位002",
+      "bankName": "123",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "1d1b1e30b97f48eea6241c0804b227705",
+      "supplierName": "中标单位003003",
+      "bankName": "123456789",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "4f510346440b4afdb14474bef95130956",
+      "supplierName": "中标单位002002",
+      "bankName": "123456",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "dc98651489834df1b908530b79215b3e7",
+      "supplierName": "中标单位001",
+      "bankName": "1212121",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "062e1e98ea804a19a55f5e0394621f298",
+      "supplierName": "中标单位测试",
+      "bankName": "111111111",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "400b270a9db14d9887bd4a3018c083059",
+      "supplierName": "宋晨测试供应商222",
+      "bankName": "浦发英航",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
+    },
+    {
+      "id": "afdc4637a1664647a83f992f109bf15b0",
+      "supplierName": "中标单位826001001",
+      "bankName": "123",
+      "accountReceivable": null,
+      "remark": null,
+      "createTime": null,
+      "updateTime": null,
+      "deleteFlag": null
     }
-  }
+  ]
+}

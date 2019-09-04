@@ -1,19 +1,22 @@
 <template>
   <div class="home">
-    <div class="username-condition bg-white">
-      <input
-        type="text"
-        v-model="keyword"
-        ref="searchInp"
-        placeholder="搜索"
-        @input="searchByKeywords"
-      />
+    <div class="username-condition">
+      <div class="search-input" @touchstart.stop="goList">搜索供应商</div>
     </div>
-    <no-data v-if="list.length ===0 && !searchLoading && !loadingError" class="no-data" text="暂无信息" />
+    <no-data
+      v-if="list.length ===0 && !searchLoading && !loadingError"
+      class="no-data"
+      text="暂无信息"
+    />
     <loading :status="searchLoading" />
     <error-info v-show="loadingError && !searchLoading" :text="errorText" />
     <div class="supplier-list">
-      <router-link class="list-item" v-for="(item, index) in list" :key="index" :to="`/${item.value}`">
+      <router-link
+        class="list-item"
+        v-for="(item, index) in list"
+        :key="index"
+        :to="`/${item.value}`"
+      >
         <span class="item-wrap">
           <span class="item-label">{{item.label}}</span>
           <span class="item-num">({{item.num}})</span>
@@ -40,28 +43,28 @@ export default {
         {
           label: "待提交",
           num: 1,
-          value: 'noSubmit'
+          value: "noSubmit"
         },
         {
           label: "待审核",
           num: 1,
-          value: 'noApprove'
+          value: "noApprove"
         },
         {
           label: "审核通过",
           num: 1,
-          value: 'agree'
+          value: "agree"
         },
         {
           label: "审核驳回",
           num: 1,
-          value: 'reject'
+          value: "reject"
         }
       ],
       keyword: "",
       searchLoading: false,
       loadingError: false,
-      errorText: ''
+      errorText: ""
     };
   },
   created() {
@@ -71,7 +74,7 @@ export default {
     searchByKeywords: _.debounce(function() {
       this.searchLoading = true;
       this.loadingError = false;
-      this.loadList()
+      this.loadList();
       // userListApi
       //   .getUserList({
       //     userName: this.username
@@ -106,21 +109,22 @@ export default {
       //     this.searchLoading = false;
       //   });
     }, 500),
-    loadList() {
-
+    loadList() {},
+    goList() {
+      this.$router.push("/supplierList");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 .home {
   min-height: 100vh;
   padding-top: 1rem;
   .username-condition {
     padding: 0.5rem 1rem 0.5rem;
-    margin: 0 .5rem 2rem .5rem;
+    margin-bottom: 1rem;
     .search-input {
       width: 100%;
       padding: 0.5rem;
@@ -164,7 +168,7 @@ export default {
   margin-bottom: 0;
   .item-wrap {
     background-color: rgba(25, 31, 37, 0.08);
-    color: rgba(25,31,37,.4);
+    color: rgba(25, 31, 37, 0.4);
     font-size: 0.8rem;
     .svg-icon {
       font-size: 1.2rem;

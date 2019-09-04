@@ -8,7 +8,7 @@
     <slot name="list"></slot>
     <p v-show="status === 'success' && list.length ===0" class="no-data">暂无数据</p>
     <p v-show="status === 'loaded'" class="no-more">没有更多了</p>
-    <p v-show="status === 'error'" class="no-more">{{errorText}}</p>
+    <p v-show="status === 'error'" class="error-text">{{errorText}}</p>
     <!-- <span v-show="showLoading">加载中...</span> -->
     <div class="load-more-status">
       <loading :status="showLoading"/>
@@ -138,12 +138,21 @@ export default {
     text-align: center;
   }
   .no-data,
-  .no-more {
+  .error-text
+   {
     width: 50vw;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .no-more{
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
     text-align: center;
   }
 }

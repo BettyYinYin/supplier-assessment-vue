@@ -1,8 +1,8 @@
 <template>
   <div class="unsubmit-list">
     <!-- <router-link to="/unsubmit/edit"> -->
-    <template-item v-for="item in list" :supplier="item" :key="item.id" >
-      <router-link to="/unsubmit/edit"/>
+    <template-item v-for="item in list" :supplier="item" :key="item.id" to="/unsubmit/edit">
+      <!-- <router-link to="/unsubmit/edit"/> -->
     </template-item>
     <!-- </router-link> -->
     
@@ -21,7 +21,13 @@ export default {
     return {
       list: [
         {
-          name: "名称商名称供应商商名称",
+          name: "名称商名称供应商商名称1",
+          time: "2019-09-03",
+          status: "未提交",
+          score: "-5"
+        },
+        {
+          name: "名称商名称供应商商名称2",
           time: "2019-09-03",
           status: "未提交",
           score: "-5"
