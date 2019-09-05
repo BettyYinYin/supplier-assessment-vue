@@ -1,11 +1,12 @@
 <template>
   <div class="unsubmit-list">
-    <!-- <router-link to="/unsubmit/edit"> -->
-    <template-item v-for="item in list" :supplier="item" :key="item.id" to="/unsubmit/edit">
-      <!-- <router-link to="/unsubmit/edit"/> -->
-    </template-item>
-    <!-- </router-link> -->
-    
+    <template-item
+      v-for="item in list"
+      :supplier="item"
+      :key="item.id"
+      :isSearch="no"
+      to="/unsubmit/edit"
+    ></template-item>
   </div>
 </template>
 <script>

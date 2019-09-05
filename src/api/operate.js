@@ -20,3 +20,23 @@ export const getList = (params) => {
     params
   })
 }
+
+// quotaMaintain/getList
+export const getQuotaMaintainList = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX_DD}/quotaMaintain/getList`,
+    params
+  })
+}
+
+
+// supplier-evaluation-audit-server/supplierEvaluation/info
+// 查看或编辑
+export const info = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX}/supplierEvaluation/info`,
+    params
+  })
+}

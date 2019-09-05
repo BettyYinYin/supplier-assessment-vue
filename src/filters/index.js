@@ -13,3 +13,8 @@ export function dateFormat(val) {
     }
     return val
 }
+
+
+export function formatQuotaScore(quotaScore, quotaType ) {
+    return `${quotaType===0 && quotaScore!== 0? '+' : quotaType===1 && quotaScore !==0 ? '-' : ''}${quotaScore}`
+}

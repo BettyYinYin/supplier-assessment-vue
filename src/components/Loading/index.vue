@@ -18,14 +18,13 @@ export default {
 <style scoped>
 .loading-data {
   width: 50vw;
+  height: 2rem;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
-
 </style>
 
 

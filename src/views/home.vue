@@ -3,23 +3,17 @@
     <div class="username-condition">
       <div class="search-input" @touchstart.stop="goList">搜索供应商</div>
     </div>
-    <no-data
-      v-if="list.length ===0 && !searchLoading && !loadingError"
-      class="no-data"
-      text="暂无信息"
-    />
-    <loading :status="searchLoading" />
-    <error-info v-show="loadingError && !searchLoading" :text="errorText" />
+
     <div class="supplier-list">
       <router-link
         class="list-item"
         v-for="(item, index) in list"
         :key="index"
-        :to="`/${item.value}`"
+        :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
       >
         <span class="item-wrap">
           <span class="item-label">{{item.label}}</span>
-          <span class="item-num">({{item.num}})</span>
+          <span class="item-num">({{nums[item.value]}})</span>
         </span>
       </router-link>
       <router-link class="list-item new-add" to="/add">
@@ -29,12 +23,15 @@
         </span>
       </router-link>
     </div>
+    <loading :status="loading" />
   </div>
 </template>
 
 <script>
-import { setTitle } from "@/utils";
+import { setTitle, showPreloader, hidePreloader } from "@/utils";
 import _ from "lodash";
+import { getTotalSupplierEvaluate } from "@/api/home.js";
+import { getQuotaMaintainList } from "@/api/operate.js";
 export default {
   name: "home",
   data() {
@@ -53,7 +50,7 @@ export default {
         {
           label: "审核通过",
           num: 1,
-          value: "agree"
+          value: "pass"
         },
         {
           label: "审核驳回",
@@ -61,57 +58,54 @@ export default {
           value: "reject"
         }
       ],
+      nums: {
+        noSubmit: "",
+        noApprove: "",
+        pass: "",
+        reject: ""
+      },
+      supplierStatus: {
+        noSubmit: "0",
+        noApprove: "1",
+        pass: "2",
+        reject: "3"
+      },
       keyword: "",
-      searchLoading: false,
+      loading: false,
       loadingError: false,
       errorText: ""
     };
   },
   created() {
     setTitle("供应商评价");
+    this.getTotalSupplierEvaluate();
+    this.getQuotaMaintainList()
   },
   methods: {
-    searchByKeywords: _.debounce(function() {
-      this.searchLoading = true;
-      this.loadingError = false;
-      this.loadList();
-      // userListApi
-      //   .getUserList({
-      //     userName: this.username
-      //   })
-      //   .then(result => {
-      //     let data = result.data;
-      //     const allSelectUsersLength = this.allSelectUsers.length;
-      //     data = data.map(user => {
-      //       user.deptNames = user.deptNames.split(",");
-      //       if (
-      //         allSelectUsersLength !== 0 &&
-      //         this.allSelectUsers.findIndex(current => {
-      //           return user.id === current.id;
-      //         }) !== -1
-      //       ) {
-      //         user.isSelector = true;
-      //       } else {
-      //         user.isSelector = false;
-      //       }
-      //       if (allSelectUsersLength === 0 || !user.isSelector) {
-      //         this.isAllSelector = false;
-      //       }
-      //       return user;
-      //     });
-      //     this.userList = data;
-      //   })
-      //   .catch(err => {
-      //     this.loadingError = false;
-      //     this.errorText = err.message;
-      //   })
-      //   .finally(() => {
-      //     this.searchLoading = false;
-      //   });
-    }, 500),
-    loadList() {},
+    getTotalSupplierEvaluate() {
+      showPreloader()
+      getTotalSupplierEvaluate()
+        .then(res => {
+          const data = res.data;
+          this.nums.noSubmit = data.waitSubmitNum;
+          this.nums.noApprove = data.waitAuditNum;
+          this.nums.pass = data.passNum;
+          this.nums.reject = data.rejectNum;
+        })
+        .catch(err => {})
+        .finally(() => {
+          hidePreloader()
+        });
+    },
     goList() {
-      this.$router.push("/supplierList");
+      this.$router.push({path: "/supplierList", query: {searchFlag: 'yes', evaluateState: ''}});
+    },
+    getQuotaMaintainList() {
+      getQuotaMaintainList().then(res => {
+
+      }).catch(err => {
+
+      })
     }
   }
 };
@@ -127,11 +121,13 @@ export default {
     margin-bottom: 1rem;
     .search-input {
       width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #eee;
+      height: 1.6rem;
+      line-height: 1.6rem;
+      padding-left: 0.5rem;
+      background-color: $grey-bg-3;
       border-radius: 2px;
-      color: #777;
-      font-size: 0.8rem;
+      color: $grey-color-3;
+      font-size: 0.85rem;
     }
   }
 }

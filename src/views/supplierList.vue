@@ -1,26 +1,44 @@
 <template>
-  <div>
-    <list-wrapper
+  <div class="supplier-list">
+    <div class="search-btn-wrap">
+      <form action="#" class="search-form" onsubmit="return false;">
+        <input
+          type="search"
+          autocomplete="off"
+          v-model="keyword"
+          @keydown="search($event)"
+          class="input"
+          placeholder="搜索供应商"
+        />
+      </form>
+      <div @click="goHome" class="close-select-btn" v-if="isSearch === 'yes'">取消</div>
+    </div>
+    <div>
+      <list-wrapper
       :requestData="getList.bind(this)"
       :onDataChange="updateList"
       :allowRefresh="true"
       :allowLoadmore="true"
-      :pageSize="10"
+      :pageSize="20"
       ref="listWrapper"
-      class="list"
+      class="list-height"
     >
-      <template-list :list="list" slot="list" v-if="list.length !== 0"></template-list>
+      <template-list :list="list" slot="list" :isSearch="isSearch" v-if="list.length !== 0"></template-list>
     </list-wrapper>
+    </div>
+    
   </div>
 </template> 
 
 <script>
 import TemplateList from "@/views/template/list.vue";
+import TemplateItem from "@/views/template/item.vue";
 import { getList } from "@/api/supplierList.js";
 import { setTitle } from "@/utils";
 export default {
   components: {
-    TemplateList
+    TemplateList,
+    TemplateItem
   },
   data() {
     return {
@@ -28,26 +46,26 @@ export default {
       loading: false,
       errorText: "",
       loadingError: false,
-      pageNo: 1,
-      pageSize: 10
+      keyword: "",
+      isSearch: false,
+      evaluateState: ''
     };
   },
   created() {
-    // this.getList();
     setTitle("供应商评价");
+    const {searchFlag, evaluateState} = this.$route.query
+    this.isSearch = searchFlag
+    this.evaluateState = evaluateState
   },
   methods: {
     getList({ current, pageSize }) {
-      this.loading = true;
-      this.loadingError = false;
       return getList({
-        supplierName: this.supplierName,
-        pageNo: this.pageNo,
-        pageSize: this.pageSize
+        supplierName: this.keyword,
+        evaluateState: this.evaluateState,
+        pageNo: current,
+        pageSize
       })
         .then(res => {
-          // const data = res.data;
-          // this.list = data.result;
           const { success, data, errorMsg } = res;
           if (success) {
             return Promise.resolve((data && data.result) || []);
@@ -66,10 +84,28 @@ export default {
     },
     updateList(list) {
       this.list = list;
+    },
+    search(e) {
+      if (e.keyCode == 13) {
+        this.list = []
+        this.$refs.listWrapper.refresh()
+      }
+    },
+    goHome() {
+      this.$router.push('/home')
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.supplier-list {
+  padding: 0.5rem;
+  .search-form {
+    flex: 1;
+  }
+  .list-height{
+    height: calc(100vh - 3.6rem) !important;
+  }
+}
 </style>

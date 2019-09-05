@@ -77,7 +77,7 @@ export function setTitle(title) {
 
 
 export function chosen(source, onSuccess) {
-  if(dd.version){
+  if (dd.version) {
     dd.ready(function () {
       dd.biz.util.chosen({
         // source:[{
@@ -98,11 +98,35 @@ export function chosen(source, onSuccess) {
         //           value: '234'
         //       }
         //       */
-  
+
         //   },
       })
     })
   }
-  
 
+
+}
+
+// 显示加载
+export function showPreloader() {
+  if (dd.version) {
+    dd.ready(function () {
+      dd.device.notification.showPreloader({
+        text: "加载中..", //loading显示的字符，空表示不显示文字
+        showIcon: true, //是否显示icon，默认true
+      })
+    })
+  }
+}
+
+// 隐藏加载
+export function hidePreloader() {
+  if (dd.version) {
+    dd.ready(function () {
+      dd.device.notification.hidePreloader({
+        text: "加载中..", //loading显示的字符，空表示不显示文字
+        showIcon: true, //是否显示icon，默认true
+      })
+    })
+  }
 }

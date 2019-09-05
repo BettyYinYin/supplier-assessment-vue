@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import userMangage from './modules/userManage'
-// import userList from './modules/userList'
+import check from './modules/check'
 import supplierList from './modules/supplierList'
 import unsubmit from './modules/unsubmit'
 import add from './modules/add'
@@ -15,7 +15,7 @@ const createRouter = () => new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     // userMangage,
-    // userList,
+    check,
     supplierList,
     {
       path: '/',

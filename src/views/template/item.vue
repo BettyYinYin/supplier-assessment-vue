@@ -3,7 +3,7 @@
     <div class="template-item">
       <div class="name-status">
         <div class="supplier-name">{{supplier.supplierName}}</div>
-        <div class="supplier-status">{{(supplier.evaluateState || supplier.evaluateState === 0) && supplierStatus[supplier.evaluateState]}}</div>
+        <div class="supplier-status" v-if="isSearch === 'yes'">{{(supplier.evaluateState || supplier.evaluateState === 0) && supplierStatus[supplier.evaluateState]}}</div>
       </div>
       <div class="template-item-right">
         <div class="time-score">
@@ -27,6 +27,10 @@ export default {
     },
     to: {
       type: String,
+      required: true
+    },
+    isSearch: {
+      type: String, // yes no
       required: true
     }
   },

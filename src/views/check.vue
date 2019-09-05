@@ -4,46 +4,38 @@
       <span class="label">
         <span class="required-index">*</span>供应商名称
       </span>
-      <span class="grey-color select-zone" @click="showSelectSupplierName">
-        <!-- :class="[operateForm.supplierName? '' :'right']" -->
+      <span class="grey-color select-zone">
         <span
-          :class="[!!operateForm.supplierName? '' :'right']"
-        >{{operateForm.supplierName? operateForm.supplierName: '请选择'}}</span>
+          :class="[checkForm.supplierName? '' :'right']"
+        >{{checkForm.supplierName? checkForm.supplierName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
     <div class="form-item">
       <span class="label">项目名称</span>
-      <span class="grey-color select-zone" @click="selectProject">
-        <!-- :class="[supplier.projectName? '' :'right']" -->
-        <span
-          :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.projectName? supplier.projectName: '请选择'}}</span>
+      <span class="grey-color select-zone">
+        <span :class="[supplier.project? '' :'right']">{{supplier.project? supplier.project: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
     <div class="form-item">
       <span class="label">合同名称</span>
-      <span class="grey-color select-zone" @click="selectContract">
-        <span
-          :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.contractName? supplier.contractName: '请选择'}}</span>
+      <span class="grey-color">
+        <span>{{supplier.contract? supplier.contract: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
     <div class="form-item">
       <span class="label">项目负责人</span>
-      <span class="grey-color select-zone">{{supplier.leader? supplier.leader: ''}}</span>
+      <span class="grey-color">{{supplier.leader? supplier.leader: ''}}</span>
     </div>
     <div class="title">指标详情</div>
     <div class="form-item">
       <span class="label">
         <span class="required-index">*</span>一级指标
       </span>
-      <span class="grey-color select-zone">
-        <span
-          :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.oneQuotaName? supplier.oneQuotaName: '请选择'}}</span>
+      <span class="grey-color">
+        <span>{{supplier.fstStandard? supplier.fstStandard: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -51,10 +43,8 @@
       <span class="label">
         <span class="required-index">*</span>二级指标
       </span>
-      <span class="grey-color select-zone">
-        <span
-          :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.twoQuotaName? supplier.twoQuotaName: '请选择'}}</span>
+      <span class="grey-color">
+        <span>{{supplier.secStandard? supplier.secStandard: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -62,15 +52,8 @@
       <span class="label">
         <span class="required-index">*</span>分值
       </span>
-      <span class="grey-color select-zone">
-        <!-- supplier.quotaScore || supplier.quotaScore === 0? (supplier.quotaScore | formatQuotaScore( supplier.quotaType)): '请选择' -->
-        <span :class="[!!operateForm.supplierName || supplier.quotaScore === 0? '' :'right']">
-          <span
-            v-if="supplier.quotaScore || supplier.quotaScore === 0"
-          >{{supplier.quotaScore | formatQuotaScore( supplier.quotaType)}}</span>
-          <span v-else>请选择</span>
-        </span>
-
+      <span class="grey-color">
+        <span>{{supplier.score? supplier.score: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -102,25 +85,14 @@
     </div>
 
     <!-- popup-transition="popup-fade" -->
-    <mt-popup v-model="isSelectSupplierName" class="select-supplier" position="right">
+    <mt-popup v-model="showSelectSupplierName" class="select-supplier" position="right">
       <div ref="popupContent" class="popup-content">
         <div>
           <div class="search-btn-wrap">
-            <!-- <input type="text" ref="searchInput" class="input" placeholder="请输入供应商名称" /> -->
-            <form action="#" class="search-form" onsubmit="return false;">
-              <input
-                type="search"
-                autocomplete="off"
-                v-model="keyword"
-                @keydown="search($event)"
-                ref="searchInput"
-                class="input"
-                placeholder="搜索供应商"
-              />
-            </form>
-            <div @click="isSelectSupplierName=false" class="close-select-btn">取消</div>
+            <input type="text" ref="searchInput" class="input" placeholder="请输入供应商名称" />
+            <div @click="showSelectSupplierName=false" class="close-select-btn">取消</div>
           </div>
-          <div v-if="supplierList.length !== 0">
+          <div>
             <div
               class="supplier-item"
               v-for="supplier in supplierList"
@@ -131,10 +103,6 @@
               <svg-icon iconClass="arrow-right"></svg-icon>
             </div>
           </div>
-          <div v-else>
-            <loading :status="loadingSupplierList"/>
-            <no-data v-if="!loadingSupplierList"></no-data>
-          </div>
         </div>
       </div>
     </mt-popup>
@@ -142,33 +110,13 @@
 </template>
 
 <script>
-import { chosen } from "@/utils";
-import * as operateApi from "@/api/operate.js";
+import { chosen, setTitle } from "@/utils";
+import {info} from "@/api/operate.js";
 import BScroll from "better-scroll";
 export default {
-  props: {
-    supplier: {
-      type: Object,
-      default: {}
-    },
-    isAdd: {
-      type: Boolean,
-      required: true
-    }
-  },
   data() {
     return {
-      supplierList: [],
-      projectNames: [],
-      contractNames: [],
-      supplierName: "",
-      projectName: "",
-      contractName: "",
-      isSelectSupplierName: false,
-      desc: "",
-      handle: "",
-      scroll: null,
-      operateForm: {
+      checkForm: {
         supplierId: "",
         supplierName: "",
         projectId: "",
@@ -184,84 +132,20 @@ export default {
         quotaType: "",
         problemDescript: "",
         treatmentMeasure: ""
-      },
-      keyword: '',
-      loadingSupplierList: false
+      }
     };
   },
-  watch: {
-    isSelectSupplierName(val) {
-      if (val) {
-        this.$nextTick(() => {
-          this.$refs.searchInput.focus();
-          this.scroll = new BScroll(this.$refs.popupContent, {
-            scrollY: true,
-            click: true,
-            bounce: false,
-            mouseWheel: true
-          });
-        });
-      }
-    },
-    supplier(val) {
-      this.operateForm = this.supplier;
-    },
-    "operateForm.supplierId"() {}
-  },
   created() {
-    this.getSupplierList();
+    this.info();
+    setTitle('查看')
   },
   methods: {
-    // 获取供应商下拉列表
-    getSupplierList() {
-      this.loadingSupplierList = true
-      operateApi
-        .getSupplierList({
-          param: this.keyword
-        })
-        .then(res => {
-          this.supplierList = res.data;
-          chosen(
-            [
-              {
-                key: "选项一",
-                value: "1"
-              },
-              {
-                key: "选项二",
-                value: "2"
-              }
-            ],
-            function(res) {
-              this.supplierName = res.vlaue;
-            }
-          );
-        })
-        .catch(err => {
+    info() {
+      info().then(res => {
+        this.checkForm = res.data
+      }).catch(err => {
 
-        }).finally(() =>{
-          this.loadingSupplierList = false
-        });
-    },
-    getProjectNames() {},
-    getContractNames() {},
-    selectProject() {},
-    selectContract() {},
-    // 选择供应商
-    selectSupplier(id, supplierName) {
-      this.operateForm.supplierName = supplierName;
-      this.operateForm.supplierId = id;
-      this.isSelectSupplierName = false;
-    },
-    // 搜索供应商
-    search(e) {
-      if (e.keyCode == 13) {
-        this.supplierList = []
-        this.getSupplierList()
-      }
-    },
-    showSelectSupplierName() {
-      this.isSelectSupplierName = true
+      })
     }
   }
 };
@@ -360,9 +244,6 @@ export default {
     justify-content: space-around;
     align-items: center;
     margin-bottom: 1rem;
-    .search-form{
-      flex: 1;
-    }
     .close-select-btn {
       font-size: 0.9rem;
       color: $color-primary;

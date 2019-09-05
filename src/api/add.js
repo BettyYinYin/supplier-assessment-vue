@@ -2,7 +2,6 @@ import request from '../utils/request'
 import Config from '@/config.js';
 
 // supplier-evaluation-audit-server/supplierEvaluation/add
-console.log('config', Config.API_PREFIX)
 export const fetchInitial = () => {
   return request({
     method: 'get',

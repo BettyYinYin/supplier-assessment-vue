@@ -15,6 +15,7 @@ import moment from 'moment'
 moment.locale('zh-cn');
 
 Object.keys(filters).forEach(key => {
+  console.log('key', key)
   Vue.filter(key, filters[key])
 })
 

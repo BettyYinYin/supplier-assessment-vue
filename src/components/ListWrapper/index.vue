@@ -1,16 +1,17 @@
 <template>
+<!-- infinite-scroll-disabled="loading" -->
   <div
     class="list-wrapper"
     v-infinite-scroll="loadmore"
-    infinite-scroll-disabled="loading"
     infinite-scroll-distance="10"
+    :infinite-scroll-immediate-check="true"
   >
     <slot name="list"></slot>
     <p v-show="status === 'success' && list.length ===0" class="no-data">暂无数据</p>
     <p v-show="status === 'loaded'" class="no-more">没有更多了</p>
     <p v-show="status === 'error'" class="error-text">{{errorText}}</p>
     <!-- <span v-show="showLoading">加载中...</span> -->
-    <div class="load-more-status">
+    <div class="load-more-status" v-if="showLoading">
       <loading :status="showLoading"/>
     </div>
   </div>
@@ -81,11 +82,15 @@ export default {
 
       this.status = "loading";
       this.errorText = '查询失败'
+      
       this.requestData({ current, pageSize: this.pageSize || 10 })
         .then(res => {
+
           if (res.length === 0) {
-            this.status = "loaded";
-            if (current === 1 && this.list.length) {
+            if(current === 1 && this.list.length === 0){
+              this.status = 'success'
+            }else if (current === 1 && this.list.length) {
+              this.status = "loaded";
               this.list = [];
               this.onDataChange(this.list);
             }
@@ -111,6 +116,8 @@ export default {
     },
     refresh() {
       if (this.allowRefresh) {
+        this.list = []
+        this.status = 'init'
         this.getData(1);
       } else {
         this.$refs.loadmore.onTopLoaded();
@@ -148,12 +155,15 @@ export default {
     text-align: center;
   }
   .no-more{
-    width: 50vw;
-    position: absolute;
-    left: 50%;
-    bottom: 1rem;
-    transform: translateX(-50%);
+    // width: 50vw;
+    // position: absolute;
+    // left: 50%;
+    // bottom: 1rem;
+    // transform: translateX(-50%);
     text-align: center;
+  }
+  .load-more-status{
+    height: 2rem;
   }
 }
 </style>
