@@ -527,7 +527,7 @@ export default {
         formData.append("sysCode", "project");
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
-        formData.append("file");
+        formData.append("file", file);
         operateApi.upload(formData);
       });
     },
