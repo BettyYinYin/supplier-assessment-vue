@@ -26,7 +26,7 @@ export default {
       required: true
     },
     to: {
-      type: String,
+      type: String | Object,
       required: true
     },
     isSearch: {

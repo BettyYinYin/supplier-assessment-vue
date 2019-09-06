@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import qs from 'query-string'
+import qs from 'qs'
 
 // 查询所有版本
 const findAllVersionList = (params) => {

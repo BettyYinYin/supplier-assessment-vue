@@ -1,6 +1,6 @@
 import request from '../utils/request'
 import Config from '@/config.js';
-
+import Qs from 'qs'
 // supplier-evaluation-audit-server/supplierEvaluation/getSupplierList?param
 // 查看所有供应商名称
 export const getSupplierList = (params) => {
@@ -38,5 +38,66 @@ export const info = (params) => {
     method: 'get',
     url: `${Config.API_PREFIX}/supplierEvaluation/info`,
     params
+  })
+}
+
+// supplier-evaluation-audit-server/supplierEvaluation/getContractList 
+// 根据供应商id获取合同列表和项目列表
+export const getContractList = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX}/supplierEvaluation/getContractList`,
+    params
+  })
+}
+
+// supplier-evaluation-audit-server/supplierEvaluation/getOneQuotaList
+// 获取一级指标
+export const getOneQuotaList = () => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX}/supplierEvaluation/getOneQuotaList`
+  })
+}
+
+// supplier-evaluation-audit-server/supplierEvaluation/getTwoQuotaList
+// 获取二级指标
+export const getTwoQuotaList = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX}/supplierEvaluation/getTwoQuotaList`,
+    params
+  })
+}
+
+// supplier-file-server/file/upload
+export const upload = (data) => {
+  return request({
+    method: 'post',
+    url: `${Config.API_PREFIX}/supplierEvaluation/upload`,
+    'content-type': 'multipart/form-data',
+    data
+  })
+}
+
+// supplier-file-server/file/deleteFile
+export const deleteFile = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_FILE_SERVER}/file/deleteFile`,
+    params
+  })
+}
+
+// findFileList
+export const findFileList = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_FILE_SERVER}/file/findFileList`,
+    params: {
+      sysCode: 'project',
+      businessNode: 'project_supplier',
+      ...params
+    }
   })
 }

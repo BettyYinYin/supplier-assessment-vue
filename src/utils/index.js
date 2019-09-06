@@ -76,7 +76,7 @@ export function setTitle(title) {
 }
 
 
-export function chosen(source, onSuccess) {
+export function chosen(source, selectedKey, onSuccess) {
   if (dd.version) {
     dd.ready(function () {
       dd.biz.util.chosen({
@@ -88,7 +88,7 @@ export function chosen(source, onSuccess) {
         //     value: '234'
         // }],
         source,
-        selectedKey: '', // 默认选中的key
+        selectedKey, // 默认选中的key
         onSuccess
         //  onSuccess : function(result) {
         //   //onSuccess将在点击完成之后回调

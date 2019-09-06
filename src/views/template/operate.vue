@@ -5,7 +5,6 @@
         <span class="required-index">*</span>供应商名称
       </span>
       <span class="grey-color select-zone" @click="showSelectSupplierName">
-        <!-- :class="[operateForm.supplierName? '' :'right']" -->
         <span
           :class="[!!operateForm.supplierName? '' :'right']"
         >{{operateForm.supplierName? operateForm.supplierName: '请选择'}}</span>
@@ -18,7 +17,7 @@
         <!-- :class="[supplier.projectName? '' :'right']" -->
         <span
           :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.projectName? supplier.projectName: '请选择'}}</span>
+        >{{operateForm.projectName? operateForm.projectName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -27,23 +26,23 @@
       <span class="grey-color select-zone" @click="selectContract">
         <span
           :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.contractName? supplier.contractName: '请选择'}}</span>
+        >{{operateForm.contractName? operateForm.contractName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
     <div class="form-item">
       <span class="label">项目负责人</span>
-      <span class="grey-color select-zone">{{supplier.leader? supplier.leader: ''}}</span>
+      <span class="grey-color select-zone">{{operateForm.leader? operateForm.leader: ''}}</span>
     </div>
     <div class="title">指标详情</div>
     <div class="form-item">
       <span class="label">
         <span class="required-index">*</span>一级指标
       </span>
-      <span class="grey-color select-zone">
+      <span class="grey-color select-zone" @click="selectOneQuota">
         <span
           :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.oneQuotaName? supplier.oneQuotaName: '请选择'}}</span>
+        >{{operateForm.oneQuotaName? operateForm.oneQuotaName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -51,10 +50,10 @@
       <span class="label">
         <span class="required-index">*</span>二级指标
       </span>
-      <span class="grey-color select-zone">
+      <span class="grey-color select-zone" @click="selectTwoQuota">
         <span
           :class="[!!operateForm.supplierName? '' :'right']"
-        >{{supplier.twoQuotaName? supplier.twoQuotaName: '请选择'}}</span>
+        >{{operateForm.twoQuotaName? operateForm.twoQuotaName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
     </div>
@@ -62,12 +61,12 @@
       <span class="label">
         <span class="required-index">*</span>分值
       </span>
-      <span class="grey-color select-zone">
+      <span class="grey-color select-zone" @click="selectScore">
         <!-- supplier.quotaScore || supplier.quotaScore === 0? (supplier.quotaScore | formatQuotaScore( supplier.quotaType)): '请选择' -->
-        <span :class="[!!operateForm.supplierName || supplier.quotaScore === 0? '' :'right']">
+        <span :class="[!!operateForm.supplierName || operateForm.quotaScore === 0? '' :'right']">
           <span
-            v-if="supplier.quotaScore || supplier.quotaScore === 0"
-          >{{supplier.quotaScore | formatQuotaScore( supplier.quotaType)}}</span>
+            v-if="operateForm.quotaScore || operateForm.quotaScore === 0"
+          >{{operateForm.quotaScore | formatQuotaScore( operateForm.quotaType)}}</span>
           <span v-else>请选择</span>
         </span>
 
@@ -78,23 +77,49 @@
       <span class="label">
         <span class="required-index">*</span>问题描述
       </span>
-      <textarea class="textarea" cols="30" rows="3" v-model="desc" placeholder="请输入问题描述"></textarea>
+      <textarea
+        class="textarea"
+        cols="30"
+        rows="3"
+        v-model="operateForm.problemDescript"
+        placeholder="请输入问题描述"
+      ></textarea>
     </div>
     <div class="form-item form-item-input">
       <span class="label">建议处理措施</span>
-      <textarea class="textarea" cols="30" rows="3" v-model="handle" placeholder="请输入建立处理措施"></textarea>
+      <textarea
+        class="textarea"
+        cols="30"
+        rows="3"
+        v-model="operateForm.treatmentMeasure"
+        placeholder="请输入建立处理措施"
+      ></textarea>
     </div>
     <div class="form-item upload-btn-wrap">
       <span class="label">佐证材料</span>
-      <div>
-        <div v-for="file in supplier.files" class="file-item" :key="file.id">{{file.name}}</div>
-      </div>
-      <div>
-        <span class="upload-btn">上传附件</span>(建议上传)
+      <div></div>
+      <div class="file-list">
+        <div class="upload-btn">
+          <span>上传附件</span>
+          <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
+        </div>(建议上传)
+        <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
+          <span class="file-name">{{file.name}}</span>
+          <span class="delete-btn" @click="deleteRemoteFile(file, index)">
+            <svg-icon icon-class="clear2" />
+          </span>
+        </div>
+        <div v-for="(file,index) in fileList" class="file-item" :key="file.name">
+          <span class="file-name">{{file.name}}</span>
+          <span class="delete-btn" @click="deleteFile(index)">
+            <svg-icon icon-class="clear2" />
+          </span>
+        </div>
+
       </div>
     </div>
     <div class="operate-btn">
-      <mt-button size="small" type="primary" v-if="isAdd" @click>暂存</mt-button>
+      <mt-button size="small" type="primary" v-if="isAdd">暂存</mt-button>
       <mt-button size="small" type="primary" v-if="isAdd">提交</mt-button>
       <mt-button size="small" type="primary" v-if="!isAdd">暂存</mt-button>
       <mt-button size="small" type="primary" v-if="!isAdd">提交</mt-button>
@@ -118,7 +143,7 @@
                 placeholder="搜索供应商"
               />
             </form>
-            <div @click="isSelectSupplierName=false" class="close-select-btn">取消</div>
+            <div @click="closeSelectSupplierName" class="close-select-btn">取消</div>
           </div>
           <div v-if="supplierList.length !== 0">
             <div
@@ -132,7 +157,7 @@
             </div>
           </div>
           <div v-else>
-            <loading :status="loadingSupplierList"/>
+            <loading :status="loadingSupplierList" />
             <no-data v-if="!loadingSupplierList"></no-data>
           </div>
         </div>
@@ -159,8 +184,10 @@ export default {
   data() {
     return {
       supplierList: [],
-      projectNames: [],
-      contractNames: [],
+      projectList: [],
+      contractList: [],
+      oneQutoaList: [],
+      twoQutoaList: [],
       supplierName: "",
       projectName: "",
       contractName: "",
@@ -185,9 +212,77 @@ export default {
         problemDescript: "",
         treatmentMeasure: ""
       },
-      keyword: '',
-      loadingSupplierList: false
+      keyword: "",
+      loadingSupplierList: false,
+      loadingContract: false,
+      loadingOneQutoaList: false,
+      loadingTwoQutoaList: false,
+      remoteFileList: [],
+      fileList: []
     };
+  },
+  computed: {
+    formatContractList() {
+      let res;
+      if (this.operateForm.projectId) {
+        res = this.contractList.filter(item => {
+          return item.projectId === this.operateForm.projectId;
+        });
+        return res.map(item => {
+          return {
+            key: item.contractName,
+            value: item.id
+          };
+        });
+      }
+      res = this.contractList.map(item => {
+        return {
+          key: item.contractName,
+          value: item.id
+        };
+      });
+      return res;
+    },
+    formatProjectList() {
+      return this.projectList.map(item => {
+        return {
+          key: item.name,
+          value: item.id
+        };
+      });
+    },
+    formatOneQutoaList() {
+      return this.oneQutoaList.map(item => {
+        return {
+          key: item.name,
+          value: item.id
+        };
+      });
+    },
+    formatTwoQutoaList() {
+      return this.twoQutoaList.map(item => {
+        return {
+          key: item.name,
+          value: item.id
+        };
+      });
+    },
+    formatScoreList() {
+      const twoQuota = this.twoQutoaList.find(item => {
+        return item.id === this.twoQuotaId;
+      });
+
+      const scoreList = twoQuota.quotaScore;
+      let res;
+      scoreList &&
+        (res = scoreList.split(";").map((item, index) => {
+          return {
+            key: twoQuota.quotaType === 0 ? "+" : "-" + item,
+            value: index
+          };
+        }));
+      return res || [];
+    }
   },
   watch: {
     isSelectSupplierName(val) {
@@ -206,62 +301,289 @@ export default {
     supplier(val) {
       this.operateForm = this.supplier;
     },
-    "operateForm.supplierId"() {}
+    "operateForm.supplierName"() {
+      this.getContractList();
+    },
+    "operateForm.oneQuotaId"() {
+      this.getTwoQuotaList();
+    },
+    'operateForm.id'(val) {
+      if(val){
+        this.findFileList()
+      }
+    }
   },
   created() {
     this.getSupplierList();
+    this.getContractList();
+    this.getOneQuotaList();
+    this.getTwoQuotaList();
   },
   methods: {
+    getProjectNames() {},
+    getContractNames() {},
+    // 选择项目
+    selectProject() {
+      if (this.loadingContract) {
+        return this.$toast({
+          message: "加载中,请稍后重试",
+          duration: 2000
+        });
+      }
+
+      chosen(
+        this.formatProjectList,
+        this.operateForm.projectName || "",
+        res => {
+          this.operateForm.projectId = res.value;
+          this.operateForm.projectName = res.key;
+          this.operateForm.leader = this.formatProjectList.find(item => {
+            item.id === this.operateForm.projectId;
+          });
+        }
+      );
+    },
+    // 选择合同
+    selectContract() {
+      if (this.loadingContract) {
+        return this.$toast({
+          message: "加载中,请稍后重试",
+          duration: 2000
+        });
+      }
+      chosen(
+        this.formatContractList,
+        this.operateForm.contractName || "",
+        res => {
+          this.operateForm.contractId = res.value;
+          this.operateForm.contractName = res.key;
+          const contract = this.projectList.find(item => {
+            return item.id === res.value;
+          });
+          this.operateForm.projectId = contract.projectId;
+          this.operateForm.projectName = contract.projectName;
+          this.operateForm.leader = contract.leader;
+        }
+      );
+    },
     // 获取供应商下拉列表
     getSupplierList() {
-      this.loadingSupplierList = true
+      this.loadingSupplierList = true;
       operateApi
         .getSupplierList({
           param: this.keyword
         })
         .then(res => {
           this.supplierList = res.data;
-          chosen(
-            [
-              {
-                key: "选项一",
-                value: "1"
-              },
-              {
-                key: "选项二",
-                value: "2"
-              }
-            ],
-            function(res) {
-              this.supplierName = res.vlaue;
-            }
-          );
         })
-        .catch(err => {
-
-        }).finally(() =>{
-          this.loadingSupplierList = false
+        .catch(err => {})
+        .finally(() => {
+          this.loadingSupplierList = false;
         });
     },
-    getProjectNames() {},
-    getContractNames() {},
-    selectProject() {},
-    selectContract() {},
     // 选择供应商
     selectSupplier(id, supplierName) {
       this.operateForm.supplierName = supplierName;
       this.operateForm.supplierId = id;
+      this.operateForm.contractId = "";
+      this.operateForm.contractName = "";
+      this.operateForm.projectId = "";
+      this.operateForm.projectName = "";
+      this.operateForm.leader = "";
       this.isSelectSupplierName = false;
     },
     // 搜索供应商
     search(e) {
       if (e.keyCode == 13) {
-        this.supplierList = []
-        this.getSupplierList()
+        this.supplierList = [];
+        this.getSupplierList();
       }
     },
+    // 显示供应商下拉列表弹窗
     showSelectSupplierName() {
-      this.isSelectSupplierName = true
+      this.isSelectSupplierName = true;
+    },
+    // 关闭供应商下拉列表弹窗
+    closeSelectSupplierName() {
+      this.isSelectSupplierName = false;
+    },
+    // 获取合同和项目下拉列表
+    getContractList() {
+      if (!this.operateForm.supplierName) {
+        return;
+      }
+      this.loadingContract = true;
+      this.contractList = [];
+      this.projectList = [];
+      operateApi
+        .getContractList({
+          supplierName: this.operateForm.supplierName
+        })
+        .then(res => {
+          const { projectList, contractList } = res.data || {
+            projectList: [],
+            contractList: []
+          };
+          this.contractList = contractList;
+          this.projectList = projectList;
+        })
+        .finally(() => {
+          this.loadingContract = false;
+        });
+    },
+    // 获取一级指标下拉列表
+    getOneQuotaList() {
+      this.loadingOneQutoaList = true;
+      operateApi
+        .getOneQuotaList()
+        .then(res => {
+          this.oneQutoaList = res.data || [];
+        })
+        .catch(err => {})
+        .finally(() => {
+          this.loadingOneQutoaList = false;
+        });
+    },
+    // 获取二级指标列表
+    getTwoQuotaList() {
+      if (!this.operateForm.oneQuotaName) {
+        return;
+      }
+      this.loadingTwoQutoaList = true;
+      operateApi
+        .getTwoQuotaList({
+          parentId: this.operateForm.oneQuotaId
+        })
+        .then(res => {
+          this.twoQutoaList = res.data;
+        })
+        .finally(() => {
+          this.loadingTwoQutoaList = false;
+        });
+    },
+    // 选择一级指标
+    selectOneQuota() {
+      if (this.loadingOneQutoaList) {
+        return this.$toast({
+          message: "加载中,请稍后重试",
+          duration: 2000
+        });
+      }
+
+      chosen(
+        this.formatOneQutoaList,
+        this.operateForm.oneQuotaName || "",
+        res => {
+          this.operateForm.oneQuotaId = res.value;
+          this.operateForm.oneQuotaName = res.key;
+        }
+      );
+    },
+    // 选择二级指标
+    selectTwoQuota() {
+      if (!this.operateForm.oneQuotaId) {
+        return this.$toast({
+          message: "请选择一级指标",
+          duration: 2000
+        });
+      }
+      if (this.loadingTwoQutoaList) {
+        return this.$toast({
+          message: "加载中,请稍后重试",
+          duration: 2000
+        });
+      }
+
+      chosen(
+        this.formatTwoQutoaList,
+        this.operateForm.twoQuotaName || "",
+        res => {
+          this.operateForm.twoQuotaId = res.value;
+          this.operateForm.twoQuotaName = res.key;
+        }
+      );
+    },
+    selectScore() {
+      if (!this.operateForm.oneQuotaId || !this.operateForm.twoQuotaId) {
+        return this.$toast({
+          message: "请先选择指标",
+          duration: 2000
+        });
+      }
+
+      if (loadingTwoQutoaList) {
+        return this.$toast({
+          message: "加载中,请稍后重试",
+          duration: 2000
+        });
+      }
+
+      chosen(this.formatScoreList, this.operateForm.quotaScore || "", res => {
+        this.operateForm.twoQuotaId = res.value;
+        this.operateForm.twoQuotaName = res.key;
+      });
+    },
+    uploadFile() {},
+    fileChange(file) {
+      let fileMap = {};
+      let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
+      fileList = fileList.reduce((pre, cur) => {
+        if (fileMap[cur.name]) {
+          fileMap[cur.name] = "";
+          this.$toast({
+            message: `${cur.name}存在重复`,
+            duration: 2000
+          });
+        } else {
+          fileMap[cur.name] = true;
+          if (cur.size === 0) {
+            this.$toast({
+              message: `${cur.name}材料为空`,
+              duration: 2000
+            });
+          } else if (!(cur.size / 1024 / 1024 < 20)) {
+            this.$toast({
+              message: `${cur.name}材料超过20M最大限制`,
+              duration: 2000
+            });
+          } else {
+            pre.push(cur);
+          }
+        }
+        return pre;
+      }, []);
+      this.fileList = fileList;
+    },
+    deleteFile(index) {
+      this.fileList.splice(index, 1)
+    },
+    deleteRemoteFile(file, index) {
+      operateApi.deleteFile({
+        id: file.id
+      }).then(res => {
+        this.$toast({
+          message: '删除成功',
+          duration: 2000
+        })
+        this.remoteFileList.splice(index, 1)
+      }).catch(err => {
+        this.$toast({
+          message: '删除失败',
+          duration: 2000
+        })
+      })
+    },
+    findFileList() {
+      operateApi.findFileList({
+        businessId: this.operateForm.id
+      }).then(res => {
+        this.remoteFileList = res.data
+      }).catch(err => {
+        this.$toast({
+          message: '获取文件列表失败',
+          duration: 2000
+        })
+      })
     }
   }
 };
@@ -322,12 +644,44 @@ export default {
 
   &.upload-btn-wrap {
     justify-content: flex-start;
-    .file-item {
-      color: $color-primary;
+    align-items: flex-start;
+    .file-list {
+      flex: 1;
+      .file-item {
+        color: $color-primary;
+        line-height: 1.4rem;
+        font-size: 0.8rem;
+        position: relative;
+        .file-name {
+          display: block;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin-right: 1.2rem;
+        }
+        .delete-btn {
+          position: absolute;
+          right: 5px;
+          top: 0;
+          line-height: inherit;
+        }
+      }
     }
+
     .upload-btn {
+      display: inline-block;
       color: $color-primary;
       margin-right: 0.5rem;
+      position: relative;
+      .uploader {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        opacity: 0;
+        width: 4rem;
+      }
     }
   }
 }
@@ -360,7 +714,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     margin-bottom: 1rem;
-    .search-form{
+    .search-form {
       flex: 1;
     }
     .close-select-btn {
