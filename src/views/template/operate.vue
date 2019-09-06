@@ -115,7 +115,6 @@
             <svg-icon icon-class="clear2" />
           </span>
         </div>
-
       </div>
     </div>
     <div class="operate-btn">
@@ -179,6 +178,9 @@ export default {
     isAdd: {
       type: Boolean,
       required: true
+    },
+    id: {
+      type: String
     }
   },
   data() {
@@ -306,11 +308,6 @@ export default {
     },
     "operateForm.oneQuotaId"() {
       this.getTwoQuotaList();
-    },
-    'operateForm.id'(val) {
-      if(val){
-        this.findFileList()
-      }
     }
   },
   created() {
@@ -318,6 +315,7 @@ export default {
     this.getContractList();
     this.getOneQuotaList();
     this.getTwoQuotaList();
+    this.findFileList();
   },
   methods: {
     getProjectNames() {},
@@ -523,7 +521,16 @@ export default {
         this.operateForm.twoQuotaName = res.key;
       });
     },
-    uploadFile() {},
+    uploadFile() {
+      this.fileList.forEach(file => {
+        let formData = new FormData();
+        formData.append("sysCode", "project");
+        formData.append("businessNode", "project_supplier");
+        formData.append("businessId", this.id);
+        formData.append("file");
+        operateApi.upload(formData);
+      });
+    },
     fileChange(file) {
       let fileMap = {};
       let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
@@ -555,35 +562,41 @@ export default {
       this.fileList = fileList;
     },
     deleteFile(index) {
-      this.fileList.splice(index, 1)
+      this.fileList.splice(index, 1);
     },
     deleteRemoteFile(file, index) {
-      operateApi.deleteFile({
-        id: file.id
-      }).then(res => {
-        this.$toast({
-          message: '删除成功',
-          duration: 2000
+      operateApi
+        .deleteFile({
+          id: file.id
         })
-        this.remoteFileList.splice(index, 1)
-      }).catch(err => {
-        this.$toast({
-          message: '删除失败',
-          duration: 2000
+        .then(res => {
+          this.$toast({
+            message: "删除成功",
+            duration: 2000
+          });
+          this.remoteFileList.splice(index, 1);
         })
-      })
+        .catch(err => {
+          this.$toast({
+            message: "删除失败",
+            duration: 2000
+          });
+        });
     },
     findFileList() {
-      operateApi.findFileList({
-        businessId: this.operateForm.id
-      }).then(res => {
-        this.remoteFileList = res.data
-      }).catch(err => {
-        this.$toast({
-          message: '获取文件列表失败',
-          duration: 2000
+      operateApi
+        .findFileList({
+          businessId: this.id
         })
-      })
+        .then(res => {
+          this.remoteFileList = res.data;
+        })
+        .catch(err => {
+          this.$toast({
+            message: "获取文件列表失败",
+            duration: 2000
+          });
+        });
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <operate :supplier="supplier" :isAdd="false" />
+    <operate :supplier="supplier" :isAdd="false" :id="id" />
   </div>
 </template>
 <script>
