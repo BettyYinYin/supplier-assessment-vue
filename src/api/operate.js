@@ -74,7 +74,7 @@ export const getTwoQuotaList = (params) => {
 export const upload = (data) => {
   return request({
     method: 'post',
-    url: `${Config.API_PREFIX}/supplierEvaluation/upload`,
+    url: `${Config.API_FILE_SERVER}/file/upload`,
     'content-type': 'multipart/form-data',
     data
   })
@@ -99,5 +99,26 @@ export const findFileList = (params) => {
       businessNode: 'project_supplier',
       ...params
     }
+  })
+}
+
+// supplier-evaluation-audit-server/supplierEvaluation/save
+// 暂存/提交
+export const save = (data) => {
+  return request({
+    method: 'post',
+    url: `${Config.API_PREFIX}/supplierEvaluation/save`,
+    data
+  })
+}
+
+
+// supplier-evaluation-audit-server/supplierEvaluation/update
+// 撤销/删除接口
+export const update = (params) => {
+  return request({
+    method: 'get',
+    url: `${Config.API_PREFIX}/supplierEvaluation/update`,
+    params
   })
 }

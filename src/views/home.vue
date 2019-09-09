@@ -79,7 +79,6 @@ export default {
   created() {
     setTitle("供应商评价");
     this.getTotalSupplierEvaluate();
-    this.getQuotaMaintainList()
   },
   methods: {
     getTotalSupplierEvaluate() {
@@ -99,13 +98,6 @@ export default {
     },
     goList() {
       this.$router.push({path: "/supplierList", query: {searchFlag: 'yes', evaluateState: ''}});
-    },
-    getQuotaMaintainList() {
-      getQuotaMaintainList().then(res => {
-
-      }).catch(err => {
-
-      })
     }
   }
 };

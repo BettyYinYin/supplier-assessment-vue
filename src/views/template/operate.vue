@@ -16,7 +16,7 @@
       <span class="grey-color select-zone" @click="selectProject">
         <!-- :class="[supplier.projectName? '' :'right']" -->
         <span
-          :class="[!!operateForm.supplierName? '' :'right']"
+          :class="[!!operateForm.projectName? '' :'right']"
         >{{operateForm.projectName? operateForm.projectName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
@@ -25,7 +25,7 @@
       <span class="label">合同名称</span>
       <span class="grey-color select-zone" @click="selectContract">
         <span
-          :class="[!!operateForm.supplierName? '' :'right']"
+          :class="[!!operateForm.contractName? '' :'right']"
         >{{operateForm.contractName? operateForm.contractName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
@@ -41,7 +41,7 @@
       </span>
       <span class="grey-color select-zone" @click="selectOneQuota">
         <span
-          :class="[!!operateForm.supplierName? '' :'right']"
+          :class="[!!operateForm.oneQuotaName? '' :'right']"
         >{{operateForm.oneQuotaName? operateForm.oneQuotaName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
@@ -52,7 +52,7 @@
       </span>
       <span class="grey-color select-zone" @click="selectTwoQuota">
         <span
-          :class="[!!operateForm.supplierName? '' :'right']"
+          :class="[!!operateForm.twoQuotaName? '' :'right']"
         >{{operateForm.twoQuotaName? operateForm.twoQuotaName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </span>
@@ -63,7 +63,7 @@
       </span>
       <span class="grey-color select-zone" @click="selectScore">
         <!-- supplier.quotaScore || supplier.quotaScore === 0? (supplier.quotaScore | formatQuotaScore( supplier.quotaType)): '请选择' -->
-        <span :class="[!!operateForm.supplierName || operateForm.quotaScore === 0? '' :'right']">
+        <span :class="[!!operateForm.quotaScore || operateForm.quotaScore === 0? '' :'right']">
           <span
             v-if="operateForm.quotaScore || operateForm.quotaScore === 0"
           >{{operateForm.quotaScore | formatQuotaScore( operateForm.quotaType)}}</span>
@@ -97,14 +97,13 @@
     </div>
     <div class="form-item upload-btn-wrap">
       <span class="label">佐证材料</span>
-      <div></div>
       <div class="file-list">
         <div class="upload-btn">
           <span>上传附件</span>
           <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
         </div>(建议上传)
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
-          <span class="file-name">{{file.name}}</span>
+          <span class="file-name" @click="download(file)">{{file.oldFileName}}</span>
           <span class="delete-btn" @click="deleteRemoteFile(file, index)">
             <svg-icon icon-class="clear2" />
           </span>
@@ -118,11 +117,13 @@
       </div>
     </div>
     <div class="operate-btn">
-      <mt-button size="small" type="primary" v-if="isAdd">暂存</mt-button>
-      <mt-button size="small" type="primary" v-if="isAdd">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">暂存</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">删除</mt-button>
+      <!--  v-if="isAdd" -->
+      <!--  v-if="isAdd" -->
+      <mt-button size="small" type="primary" @click="storage">暂存</mt-button>
+      <mt-button size="small" type="primary" @click="submit">提交</mt-button>
+      <!-- <mt-button size="small" type="primary" v-if="!isAdd" @click="save">暂存</mt-button> -->
+      <!-- <mt-button size="small" type="primary" v-if="!isAdd">提交</mt-button> -->
+      <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
     </div>
 
     <!-- popup-transition="popup-fade" -->
@@ -169,6 +170,7 @@
 import { chosen } from "@/utils";
 import * as operateApi from "@/api/operate.js";
 import BScroll from "better-scroll";
+import Config from "@/config.js";
 export default {
   props: {
     supplier: {
@@ -284,6 +286,23 @@ export default {
           };
         }));
       return res || [];
+    },
+    submitParams() {
+      return {
+        id: this.id,
+        supplierId: this.operateForm.supplierId,
+        supplierName: this.operateForm.supplierName,
+        contractId: this.operateForm.contractId,
+        contractName: this.operateForm.contractName,
+        projectId: this.operateForm.projectId,
+        projectName: this.operateForm.projectName,
+        leader: this.operateForm.leader,
+        oneQuotaId: this.operateForm.oneQuotaId,
+        twoQuotaId: this.operateForm.twoQuotaId,
+        quotaScore: this.operateForm.quotaScore,
+        problemDescript: this.operateForm.problemDescript,
+        treatmentMeasure: this.operateForm.treatmentMeasure
+      };
     }
   },
   watch: {
@@ -315,7 +334,9 @@ export default {
     this.getContractList();
     this.getOneQuotaList();
     this.getTwoQuotaList();
-    this.findFileList();
+    if (!this.isAdd) {
+      this.findFileList();
+    }
   },
   methods: {
     getProjectNames() {},
@@ -521,6 +542,14 @@ export default {
         this.operateForm.twoQuotaName = res.key;
       });
     },
+    // 暂存
+    storage() {
+      this.save(0);
+    },
+    // 提交
+    submit() {
+      this.save(1);
+    },
     uploadFile() {
       this.fileList.forEach(file => {
         let formData = new FormData();
@@ -528,7 +557,20 @@ export default {
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
         formData.append("file", file);
-        operateApi.upload(formData);
+        operateApi
+          .upload(formData)
+          .then(res => {
+            this.$toast({
+              message: `${file.name}上传成功`,
+              duration: 2000
+            });
+          })
+          .catch(err => {
+            this.$toast({
+              message: `${file.name}上传失败`,
+              duration: 2000
+            });
+          });
       });
     },
     fileChange(file) {
@@ -567,7 +609,7 @@ export default {
     deleteRemoteFile(file, index) {
       operateApi
         .deleteFile({
-          id: file.id
+          fileId: file.id
         })
         .then(res => {
           this.$toast({
@@ -597,6 +639,87 @@ export default {
             duration: 2000
           });
         });
+    },
+    download(file) {
+      window.open(`${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`);
+    },
+    // 暂存接口
+    save(evaluateState) {
+      // 暂存和提交,供应商名称都不能为空
+      // 提交时,还要校验其他参数
+      if (
+        (evaluateState === 0 &&
+          this.validateRequired(
+            this.operateForm.supplierId,
+            "供应商名称不能为空"
+          )) ||
+        (evaluateState === 1 &&
+          this.validateRequired(
+            this.operateForm.supplierId,
+            "供应商名称不能为空"
+          ) &&
+          this.validateRequired(
+            this.operateForm.oneQuotaId,
+            "一级指标不能为空"
+          ) &&
+          this.validateRequired(
+            this.operateForm.twoQuotaId,
+            "二级指标不能为空"
+          ) &&
+          this.validateRequired(this.operateForm.quotaScore, "分值不能为空") &&
+          this.validateRequired(
+            this.operateForm.problemDescript,
+            "问题描述不能为空"
+          ))
+      ) {
+        this.uploadFile();
+        operateApi.save({ ...this.submitParams, evaluateState }).then(res => {
+          this.$toast({
+            message: evaluateState === 0? '暂存成功': '提交成功',
+            duration: 2000
+          });
+          if(this.isAdd){
+            this.$router.push({
+              path: '/home'
+            })
+          }else {
+            this.$router.push({
+              path: '/supplierList',
+              query: {
+                evaluateState: '0',
+                searchFlag: 'no'
+              }
+            })
+          }
+        }).catch(err => {
+          this.$toast({
+            message: err.message || (evaluateState === 0? '暂存失败': '提交失败')
+          })
+        });
+      }
+    },
+    validateRequired(key, message) {
+      if (!key) {
+        this.$toast({
+          message,
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+    deleteSupplier() {
+      operateApi.update({
+        id: this.id,
+        delteFlag: 1
+      }).then(res =>{
+        this.$toast({
+          message: '删除成功',
+          duration: 2000
+        })
+      }).catch(err => {
+
+      })
     }
   }
 };

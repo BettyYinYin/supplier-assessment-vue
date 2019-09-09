@@ -15,18 +15,17 @@
     </div>
     <div>
       <list-wrapper
-      :requestData="getList.bind(this)"
-      :onDataChange="updateList"
-      :allowRefresh="true"
-      :allowLoadmore="true"
-      :pageSize="20"
-      ref="listWrapper"
-      class="list-height"
-    >
-      <template-list :list="list" slot="list" :isSearch="isSearch" v-if="list.length !== 0"></template-list>
-    </list-wrapper>
+        :requestData="getList.bind(this)"
+        :onDataChange="updateList"
+        :allowRefresh="true"
+        :allowLoadmore="true"
+        :pageSize="20"
+        ref="listWrapper"
+        class="list-height"
+      >
+        <template-list :list="list" slot="list" :isSearch="isSearch" v-if="list.length !== 0"></template-list>
+      </list-wrapper>
     </div>
-    
   </div>
 </template> 
 
@@ -35,6 +34,7 @@ import TemplateList from "@/views/template/list.vue";
 import TemplateItem from "@/views/template/item.vue";
 import { getList } from "@/api/supplierList.js";
 import { setTitle } from "@/utils";
+import { isString } from "util";
 export default {
   components: {
     TemplateList,
@@ -47,15 +47,25 @@ export default {
       errorText: "",
       loadingError: false,
       keyword: "",
-      isSearch: false,
-      evaluateState: ''
+      isSearch: "yes",
+      evaluateState: "",
+      titleMap: {
+        0: "待提交",
+        1: "待审核",
+        2: "审核通过",
+        3: "审核驳回"
+      }
     };
   },
   created() {
-    setTitle("供应商评价");
-    const {searchFlag, evaluateState} = this.$route.query
-    this.isSearch = searchFlag
-    this.evaluateState = evaluateState
+    const { searchFlag, evaluateState } = this.$route.query;
+    this.isSearch = searchFlag;
+    this.evaluateState = evaluateState;
+    if (isSearch === "yes") {
+      setTitle("供应商评价");
+    } else {
+      setTitle(this.titleMap[this.evaluateState]);
+    }
   },
   methods: {
     getList({ current, pageSize }) {
@@ -87,12 +97,12 @@ export default {
     },
     search(e) {
       if (e.keyCode == 13) {
-        this.list = []
-        this.$refs.listWrapper.refresh()
+        this.list = [];
+        this.$refs.listWrapper.refresh();
       }
     },
     goHome() {
-      this.$router.push('/home')
+      this.$router.push("/home");
     }
   }
 };
@@ -104,7 +114,7 @@ export default {
   .search-form {
     flex: 1;
   }
-  .list-height{
+  .list-height {
     height: calc(100vh - 3.6rem) !important;
   }
 }

@@ -1,36 +1,39 @@
 <template>
   <div>
-    <operate :supplier="supplier" :isAdd="true" />
+    <operate :supplier="supplier" :isAdd="true" :id="id" />
   </div>
 </template>
 
 <script>
 import Operate from "@/views/template/operate.vue";
 import { fetchInitial } from "@/api/add";
+import { setTitle, showPreloader, hidePreloader } from "@/utils";
 export default {
   components: {
     Operate
   },
   data() {
     return {
-      supplier: {}
+      supplier: {},
+      id: ''
     };
   },
   created() {
+    setTitle('新增')
     this.fetchInitial();
-    setTimeout(() => {
-      this.supplier = {
-        supplierName: "12321"
-      };
-    }, 5000);
   },
   methods: {
     fetchInitial() {
+      showPreloader()
       fetchInitial()
         .then(res => {
-          this.supplier = res.data;
+          const data = res.data;
+          this.supplier = data.projectEvaluateTemp;
+          this.id = data.id;
         })
-        .catch(err => {});
+        .catch(err => {}).finally(() => {
+          hidePreloader()
+        });
     }
   }
 };
