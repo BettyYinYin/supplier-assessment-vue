@@ -108,7 +108,7 @@ export const save = (data) => {
   return request({
     method: 'post',
     url: `${Config.API_PREFIX}/supplierEvaluation/save`,
-    data
+    data: Qs.stringify(data)
   })
 }
 

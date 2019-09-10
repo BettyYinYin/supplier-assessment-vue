@@ -61,7 +61,7 @@ export default {
     const { searchFlag, evaluateState } = this.$route.query;
     this.isSearch = searchFlag;
     this.evaluateState = evaluateState;
-    if (isSearch === "yes") {
+    if (this.isSearch === "yes") {
       setTitle("供应商评价");
     } else {
       setTitle(this.titleMap[this.evaluateState]);

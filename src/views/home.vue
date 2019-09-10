@@ -86,10 +86,10 @@ export default {
       getTotalSupplierEvaluate()
         .then(res => {
           const data = res.data;
-          this.nums.noSubmit = data.waitSubmitNum;
-          this.nums.noApprove = data.waitAuditNum;
-          this.nums.pass = data.passNum;
-          this.nums.reject = data.rejectNum;
+          this.nums.noSubmit = data.waitSubmitNum || 0;
+          this.nums.noApprove = data.waitAuditNum || 0;
+          this.nums.pass = data.passNum || 0;
+          this.nums.reject = data.rejectNum || 0;
         })
         .catch(err => {})
         .finally(() => {

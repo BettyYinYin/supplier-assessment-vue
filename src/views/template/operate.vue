@@ -560,10 +560,10 @@ export default {
         operateApi
           .upload(formData)
           .then(res => {
-            this.$toast({
-              message: `${file.name}上传成功`,
-              duration: 2000
-            });
+            // this.$toast({
+            //   message: `${file.name}上传成功`,
+            //   duration: 2000
+            // });
           })
           .catch(err => {
             this.$toast({
