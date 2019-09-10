@@ -73,8 +73,13 @@
       <div class="title">
         审核
       </div>
+      <div class="label">
+        <span class="required-index">*</span>审核结果
+      </div>
+      
       <div class="label"><span class="required-index">*</span>审核意见</div>
       <textarea
+      ref="reason"
         class="textarea"
         cols="30"
         rows="3"
@@ -82,7 +87,7 @@
         placeholder="请填写审核意见"
       ></textarea>
       <div>
-        
+
       </div>
     </mt-popup>
     
@@ -122,6 +127,15 @@ export default {
       isAudit: false,
       reason: ''
     };
+  },
+  watch: {
+    isAudit(val){
+      if(val){
+        this.$nextTick(() => {
+          this.$refs.reason.focus()
+        })
+      }
+    }
   },
   created() {
     const {id, evaluateState} = this.$route.query
@@ -257,6 +271,7 @@ export default {
   .label{
     font-size: .9rem;
     padding-bottom: .5rem;
+    color: $grey-color-1;
   }
   .required-index {
     color: #c00;
@@ -274,11 +289,12 @@ export default {
     line-height: 1.5;
     border-radius: 0.2rem;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: $grey-color-1;
   }
 
   .textarea:focus {
     outline: none;
-    // border-color: #409eff;
+    border-color: #409eff;
     // border-color: $color-primary;
   }
   .popup-content {
