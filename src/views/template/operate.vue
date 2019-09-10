@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="operate">
     <div class="form-item">
       <span class="label">
         <span class="required-index">*</span>供应商名称
@@ -670,29 +670,33 @@ export default {
           ))
       ) {
         this.uploadFile();
-        operateApi.save({ ...this.submitParams, evaluateState }).then(res => {
-          this.$toast({
-            message: evaluateState === 0? '暂存成功': '提交成功',
-            duration: 2000
-          });
-          if(this.isAdd){
-            this.$router.push({
-              path: '/home'
-            })
-          }else {
-            this.$router.push({
-              path: '/supplierList',
-              query: {
-                evaluateState: '0',
-                searchFlag: 'no'
-              }
-            })
-          }
-        }).catch(err => {
-          this.$toast({
-            message: err.message || (evaluateState === 0? '暂存失败': '提交失败')
+        operateApi
+          .save({ ...this.submitParams, evaluateState })
+          .then(res => {
+            this.$toast({
+              message: evaluateState === 0 ? "暂存成功" : "提交成功",
+              duration: 2000
+            });
+            if (this.isAdd) {
+              this.$router.push({
+                path: "/home"
+              });
+            } else {
+              this.$router.push({
+                path: "/supplierList",
+                query: {
+                  evaluateState: "0",
+                  searchFlag: "no"
+                }
+              });
+            }
           })
-        });
+          .catch(err => {
+            this.$toast({
+              message:
+                err.message || (evaluateState === 0 ? "暂存失败" : "提交失败")
+            });
+          });
       }
     },
     validateRequired(key, message) {
@@ -706,21 +710,27 @@ export default {
       return true;
     },
     deleteSupplier() {
-      operateApi.update({
-        id: this.id,
-        delteFlag: 1
-      }).then(res =>{
-        this.$toast({
-          message: '删除成功',
-          duration: 2000
+      operateApi
+        .update({
+          id: this.id,
+          delteFlag: 1
         })
-        this.$router.push({path: 'supplierList', query: {searchFlag: 'no', evaluateState: 0}})
-      }).catch(err => {
-        this.$toast({
-          message: '删除失败',
-          duration: 2000
+        .then(res => {
+          this.$toast({
+            message: "删除成功",
+            duration: 2000
+          });
+          this.$router.push({
+            path: "supplierList",
+            query: { searchFlag: "no", evaluateState: 0 }
+          });
         })
-      })
+        .catch(err => {
+          this.$toast({
+            message: "删除失败",
+            duration: 2000
+          });
+        });
     }
   }
 };
@@ -729,6 +739,11 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 
+.operate {
+  /deep/ .v-modal {
+    background: #fff;
+  }
+}
 .form-item {
   display: flex;
   font-size: 0.9rem;
@@ -749,6 +764,7 @@ export default {
     flex: 1;
     justify-content: space-between;
     align-items: center;
+    word-break: break-all;
     .svg-icon {
       flex: 0 0 0.9rem;
     }

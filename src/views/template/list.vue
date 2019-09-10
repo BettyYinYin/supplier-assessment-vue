@@ -1,6 +1,6 @@
 <template>
   <div class="template-list">
-    <item v-for="item in list" :isSearch="isSearch" :supplier="item" :key="item.id" :to="{path: pathMap[item.evaluateState], query: {id: item.id}}"></item>
+    <item v-for="item in list" :isSearch="isSearch" :supplier="item" :key="item.id" :to="{path: pathMap[item.evaluateState], query: {id: item.id, evaluateState: item.evaluateState}}"></item>
   </div>
 </template>
 <script>
