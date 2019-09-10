@@ -74,7 +74,7 @@ export const getTwoQuotaList = (params) => {
 export const upload = (data) => {
   return request({
     method: 'post',
-    url: `${Config.API_FILE_SERVER}/file/upload`,
+    url: `${Config.API_PREFIX_DD}/file/upload`,
     'content-type': 'multipart/form-data',
     data
   })
@@ -84,7 +84,7 @@ export const upload = (data) => {
 export const deleteFile = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_FILE_SERVER}/file/deleteFile`,
+    url: `${Config.API_PREFIX_DD}/file/deleteFile`,
     params
   })
 }
@@ -93,7 +93,7 @@ export const deleteFile = (params) => {
 export const findFileList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_FILE_SERVER}/file/findFileList`,
+    url: `${Config.API_PREFIX_DD}/file/findFileList`,
     params: {
       sysCode: 'project',
       businessNode: 'project_supplier',

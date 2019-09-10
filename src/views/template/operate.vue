@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import { chosen } from "@/utils";
+import { chosen, showPreloader, hidePreloader } from "@/utils";
 import * as operateApi from "@/api/operate.js";
 import BScroll from "better-scroll";
 import Config from "@/config.js";
@@ -269,10 +269,13 @@ export default {
       });
     },
     formatScoreList() {
+
       const twoQuota = this.twoQutoaList.find(item => {
         return item.id === this.twoQuotaId;
       });
-
+      if(!twoQuota){
+        return []
+      }
       const scoreList = twoQuota.quotaScore;
       let res;
       scoreList &&
@@ -669,6 +672,7 @@ export default {
             "问题描述不能为空"
           ))
       ) {
+        showPreloader();
         this.uploadFile();
         operateApi
           .save({ ...this.submitParams, evaluateState })
@@ -682,13 +686,14 @@ export default {
                 path: "/home"
               });
             } else {
-              this.$router.push({
-                path: "/supplierList",
-                query: {
-                  evaluateState: "0",
-                  searchFlag: "no"
-                }
-              });
+              // this.$router.push({
+              //   path: "/supplierList",
+              //   query: {
+              //     evaluateState: "0",
+              //     searchFlag: "no"
+              //   }
+              // });
+              this.$router.go(-1)
             }
           })
           .catch(err => {
@@ -696,6 +701,8 @@ export default {
               message:
                 err.message || (evaluateState === 0 ? "暂存失败" : "提交失败")
             });
+          }).finally(() => {
+            hidePreloader();
           });
       }
     },
@@ -710,6 +717,7 @@ export default {
       return true;
     },
     deleteSupplier() {
+      showPreloader()
       operateApi
         .update({
           id: this.id,
@@ -730,6 +738,8 @@ export default {
             message: "删除失败",
             duration: 2000
           });
+        }).finally(() => {
+          hidePreloader()
         });
     }
   }
@@ -807,10 +817,12 @@ export default {
         position: relative;
         .file-name {
           display: block;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+          // overflow: hidden;
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
           margin-right: 1.2rem;
+          margin-bottom: .5rem;
+          word-break: break-all;
         }
         .delete-btn {
           position: absolute;

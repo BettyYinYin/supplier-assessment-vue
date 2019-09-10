@@ -129,6 +129,7 @@ export default {
   justify-content: space-between;
   // height: 50vh;
   flex-wrap: wrap;
+  margin: 0 10%;
 }
 .list-item {
   flex: 0 0 50%;
@@ -138,7 +139,7 @@ export default {
     display: inline-block;
     background: #3296fa;
     color: #fff;
-    width: 5rem;
+    width: 4.5rem;
     height: 5.5rem;
     line-height: 1.5rem;
     font-size: 0.9rem;

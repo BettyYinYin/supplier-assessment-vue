@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import { Popup } from 'mint-ui';
-import { Checklist } from 'mint-ui';
-import { DatetimePicker } from 'mint-ui';
 import { Loadmore } from 'mint-ui';
 import { Spinner } from 'mint-ui';
-import { Picker } from 'mint-ui';
 import { Toast } from 'mint-ui';
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
@@ -12,18 +9,20 @@ import { MessageBox } from 'mint-ui';
 import { Field } from 'mint-ui';
 import { Button } from 'mint-ui';
 import { InfiniteScroll } from 'mint-ui';
+import { Radio } from 'mint-ui';
+
+
 
 
 
 
 Vue.prototype.$message = MessageBox
 Vue.prototype.$toast = Toast
-Vue.component(DatetimePicker.name, DatetimePicker)
-Vue.component(Checklist.name, Checklist)
+
 Vue.component(Popup.name, Popup)
 Vue.component(Loadmore.name, Loadmore);
 Vue.component(Spinner.name, Spinner)
-Vue.component(Picker.name, Picker);
+Vue.component(Radio.name, Radio);
 Vue.component(Field.name, Field)
 Vue.component(Button.name, Button);
 Vue.use(InfiniteScroll);
