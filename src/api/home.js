@@ -6,6 +6,6 @@ import Config from '@/config.js';
 export const getTotalSupplierEvaluate = () => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getTotalSupplierEvaluate`
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getTotalSupplierEvaluate`
   })
 }

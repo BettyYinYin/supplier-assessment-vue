@@ -6,7 +6,7 @@ import Config from '@/config.js';
 export const getList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getList`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getList`,
     params
   })
 }

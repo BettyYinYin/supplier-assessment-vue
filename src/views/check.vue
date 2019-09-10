@@ -1,118 +1,71 @@
 <template>
   <div>
     <div class="form-item">
-      <span class="label">
-        <span class="required-index">*</span>供应商名称
-      </span>
+      <span class="label">供应商名称</span>
       <span class="grey-color select-zone">
-        <span
-          :class="[checkForm.supplierName? '' :'right']"
-        >{{checkForm.supplierName? checkForm.supplierName: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+        <span>{{checkForm.supplierName}}</span>
       </span>
     </div>
     <div class="form-item">
       <span class="label">项目名称</span>
       <span class="grey-color select-zone">
-        <span :class="[supplier.project? '' :'right']">{{supplier.project? supplier.project: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+        <span>{{checkForm.projectName}}</span>
       </span>
     </div>
     <div class="form-item">
       <span class="label">合同名称</span>
-      <span class="grey-color">
-        <span>{{supplier.contract? supplier.contract: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+      <span class="grey-color select-zone">
+        <span>{{checkForm.contractName}}</span>
       </span>
     </div>
     <div class="form-item">
       <span class="label">项目负责人</span>
-      <span class="grey-color">{{supplier.leader? supplier.leader: ''}}</span>
+      <span class="grey-color select-zone">{{checkForm.leader}}</span>
     </div>
     <div class="title">指标详情</div>
     <div class="form-item">
-      <span class="label">
-        <span class="required-index">*</span>一级指标
-      </span>
-      <span class="grey-color">
-        <span>{{supplier.fstStandard? supplier.fstStandard: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+      <span class="label">一级指标</span>
+      <span class="grey-color select-zone">
+        <span>{{checkForm.oneQuotaName}}</span>
       </span>
     </div>
     <div class="form-item">
-      <span class="label">
-        <span class="required-index">*</span>二级指标
-      </span>
-      <span class="grey-color">
-        <span>{{supplier.secStandard? supplier.secStandard: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+      <span class="label">二级指标</span>
+      <span class="grey-color select-zone">
+        <span>{{checkForm.twoQuotaName}}</span>
       </span>
     </div>
     <div class="form-item">
-      <span class="label">
-        <span class="required-index">*</span>分值
-      </span>
-      <span class="grey-color">
-        <span>{{supplier.score? supplier.score: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
-      </span>
+      <span class="label">分值</span>
+      <span
+        class="grey-color select-zone"
+      >{{checkForm.quotaScore | formatQuotaScore( checkForm.quotaType)}}</span>
     </div>
     <div class="form-item form-item-input">
-      <span class="label">
-        <span class="required-index">*</span>问题描述
-      </span>
-      <textarea class="textarea" cols="30" rows="3" v-model="desc" placeholder="请输入问题描述"></textarea>
+      <span class="label">问题描述</span>
+      <span class="grey-color select-zone">{{checkForm.problemDescript}}</span>
     </div>
     <div class="form-item form-item-input">
       <span class="label">建议处理措施</span>
-      <textarea class="textarea" cols="30" rows="3" v-model="handle" placeholder="请输入建立处理措施"></textarea>
+      <span class="grey-color select-zone">{{checkForm.treatmentMeasure}}</span>
     </div>
     <div class="form-item upload-btn-wrap">
       <span class="label">佐证材料</span>
       <div>
-        <div v-for="file in supplier.files" class="file-item" :key="file.id">{{file.name}}</div>
-      </div>
-      <div>
-        <span class="upload-btn">上传附件</span>(建议上传)
+        <div v-for="file in remoteFileList" class="file-item" @click="download(file)" :key="file.id">{{file.oldFileName}}</div>
       </div>
     </div>
     <div class="operate-btn">
-      <mt-button size="small" type="primary" v-if="isAdd" @click>暂存</mt-button>
-      <mt-button size="small" type="primary" v-if="isAdd">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">暂存</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd">删除</mt-button>
+      <mt-button size="small" type="primary">暂存</mt-button>
     </div>
-
-    <!-- popup-transition="popup-fade" -->
-    <mt-popup v-model="showSelectSupplierName" class="select-supplier" position="right">
-      <div ref="popupContent" class="popup-content">
-        <div>
-          <div class="search-btn-wrap">
-            <input type="text" ref="searchInput" class="input" placeholder="请输入供应商名称" />
-            <div @click="showSelectSupplierName=false" class="close-select-btn">取消</div>
-          </div>
-          <div>
-            <div
-              class="supplier-item"
-              v-for="supplier in supplierList"
-              :key="supplier.id"
-              @click="selectSupplier(supplier.id, supplier.supplierName)"
-            >
-              <div class="supplier-name">{{supplier.supplierName}}</div>
-              <svg-icon iconClass="arrow-right"></svg-icon>
-            </div>
-          </div>
-        </div>
-      </div>
-    </mt-popup>
   </div>
 </template>
 
 <script>
 import { chosen, setTitle } from "@/utils";
-import {info} from "@/api/operate.js";
+import { info } from "@/api/operate.js";
 import BScroll from "better-scroll";
+import { findFileList } from "@/api/operate.js";
 export default {
   data() {
     return {
@@ -132,20 +85,43 @@ export default {
         quotaType: "",
         problemDescript: "",
         treatmentMeasure: ""
-      }
+      },
+      id: "",
+      remoteFileList: []
     };
   },
   created() {
+    this.id = this.$route.query.id;
     this.info();
-    setTitle('查看')
+    setTitle("查看");
+    this.findFileList();
   },
   methods: {
     info() {
-      info().then(res => {
-        this.checkForm = res.data
-      }).catch(err => {
-
+      info({
+        id: this.id
       })
+        .then(res => {
+          this.checkForm = res.data;
+        })
+        .catch(err => {});
+    },
+    findFileList() {
+      findFileList({
+        businessId: this.id
+      })
+        .then(res => {
+          this.remoteFileList = res.data;
+        })
+        .catch(err => {
+          this.$toast({
+            message: "获取文件列表失败",
+            duration: 2000
+          });
+        });
+    },
+    download(file) {
+      window.open(`${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`);
     }
   }
 };

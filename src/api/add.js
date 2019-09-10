@@ -5,6 +5,6 @@ import Config from '@/config.js';
 export const fetchInitial = () => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/add`
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/add`
   })
 }

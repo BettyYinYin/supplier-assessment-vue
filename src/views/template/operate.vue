@@ -121,12 +121,9 @@
       <!--  v-if="isAdd" -->
       <mt-button size="small" type="primary" @click="storage">暂存</mt-button>
       <mt-button size="small" type="primary" @click="submit">提交</mt-button>
-      <!-- <mt-button size="small" type="primary" v-if="!isAdd" @click="save">暂存</mt-button> -->
-      <!-- <mt-button size="small" type="primary" v-if="!isAdd">提交</mt-button> -->
       <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
     </div>
 
-    <!-- popup-transition="popup-fade" -->
     <mt-popup v-model="isSelectSupplierName" class="select-supplier" position="right">
       <div ref="popupContent" class="popup-content">
         <div>
@@ -717,8 +714,12 @@ export default {
           message: '删除成功',
           duration: 2000
         })
+        this.$router.push({path: 'supplierList', query: {searchFlag: 'no', evaluateState: 0}})
       }).catch(err => {
-
+        this.$toast({
+          message: '删除失败',
+          duration: 2000
+        })
       })
     }
   }

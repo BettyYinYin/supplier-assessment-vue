@@ -6,7 +6,7 @@ import Qs from 'qs'
 export const getSupplierList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getSupplierList`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getSupplierList`,
     params
   })
 }
@@ -16,7 +16,7 @@ export const getSupplierList = (params) => {
 export const getList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getList`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getList`,
     params
   })
 }
@@ -36,7 +36,7 @@ export const getQuotaMaintainList = (params) => {
 export const info = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/info`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/info`,
     params
   })
 }
@@ -46,7 +46,7 @@ export const info = (params) => {
 export const getContractList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getContractList`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getContractList`,
     params
   })
 }
@@ -56,7 +56,7 @@ export const getContractList = (params) => {
 export const getOneQuotaList = () => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getOneQuotaList`
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getOneQuotaList`
   })
 }
 
@@ -65,7 +65,7 @@ export const getOneQuotaList = () => {
 export const getTwoQuotaList = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/getTwoQuotaList`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/getTwoQuotaList`,
     params
   })
 }
@@ -107,7 +107,7 @@ export const findFileList = (params) => {
 export const save = (data) => {
   return request({
     method: 'post',
-    url: `${Config.API_PREFIX}/supplierEvaluation/save`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/save`,
     data: Qs.stringify(data)
   })
 }
@@ -118,7 +118,7 @@ export const save = (data) => {
 export const update = (params) => {
   return request({
     method: 'get',
-    url: `${Config.API_PREFIX}/supplierEvaluation/update`,
+    url: `${Config.API_PREFIX_DD}/supplierEvaluation/update`,
     params
   })
 }
