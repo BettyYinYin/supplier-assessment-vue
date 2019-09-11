@@ -545,6 +545,7 @@ export default {
         }
       );
     },
+    // 选择分数
     selectScore() {
       if (!this.operateForm.oneQuotaId || !this.operateForm.twoQuotaId) {
         return this.$toast({
@@ -553,16 +554,20 @@ export default {
         });
       }
 
-      if (loadingTwoQutoaList) {
+      if (this.loadingTwoQutoaList) {
         return this.$toast({
           message: "加载中,请稍后重试",
           duration: 2000
         });
       }
-
-      chosen(this.formatScoreList, this.operateForm.quotaScore || "", res => {
-        this.operateForm.twoQuotaId = res.value;
-        this.operateForm.twoQuotaName = res.key;
+      const currentKey = `${this.operateForm.quotaType===0 && this.operateForm.quotaScore!== 0? '+' : this.operateForm.quotaType===1 && this.operateForm.quotaScore !==0 ? '-' : ''}${this.operateForm.quotaScore}`
+      chosen(this.formatScoreList, currentKey || '', res => {
+        const hasOperator = res.key.indexOf('+') !== -1 || res.key.indexOf('-') !== -1
+        if(hasOperator){
+          this.operateForm.quotaScore = res.key.substr(1)
+        }else {
+          this.operateForm.quotaScore = res.key
+        }
       });
     },
     // 暂存

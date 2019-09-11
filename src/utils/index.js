@@ -131,15 +131,23 @@ export function hidePreloader() {
   }
 }
 
-export function pullToRefresh() {
-  if (dd.version) {
-    dd.ready(function () {
-      dd.ui.pullToRefresh.enable({
-        onSuccess: function() {
-        },
-        onFail: function() {
-        }
+export function pullToRefreshEnable(vm) {
+  if (vm.$route.path === '/supplierList') {
+    if (dd.version) {
+      dd.ready(function () {
+        dd.ui.pullToRefresh.enable({
+          onSuccess: function () {},
+          onFail: function () {}
+        })
       })
+    }
+  }
+}
+
+export function pullToRefreshStop() {
+  if(dd.version){
+    dd.ready(function () {
+      dd.ui.pullToRefresh.stop()
     })
   }
-} 
+}

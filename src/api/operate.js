@@ -42,7 +42,7 @@ export const info = (params) => {
 }
 
 // supplier-evaluation-audit-server/supplierEvaluation/getContractList 
-// 根据供应商id获取合同列表和项目列表
+// 根据供应商名称获取合同列表和项目列表
 export const getContractList = (params) => {
   return request({
     method: 'get',
