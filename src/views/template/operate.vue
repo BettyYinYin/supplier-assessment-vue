@@ -340,7 +340,9 @@ export default {
         const twoQuota = this.twoQutoaList.find(item => {
           return item.id === val;
         });
-        this.operateForm.quotaType = twoQuota.quotaType;
+        if(twoQuota){
+          this.operateForm.quotaType = twoQuota.quotaType;
+        }
       }
     }
   },
