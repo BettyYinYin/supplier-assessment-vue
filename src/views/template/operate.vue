@@ -367,6 +367,14 @@ export default {
         });
       }
 
+      if(this.formatProjectList.length === 0){
+        return this.$toast({
+          message: '项目为空',
+          duration: 2000
+        })
+      }
+
+
       chosen(
         this.formatProjectList,
         this.operateForm.projectName || "",
@@ -391,6 +399,14 @@ export default {
           duration: 2000
         });
       }
+
+      if(this.formatContractList.length === 0){
+        return this.$toast({
+          message: '合同为空',
+          duration: 2000
+        })
+      }
+
       chosen(
         this.formatContractList,
         this.operateForm.contractName || "",
@@ -512,6 +528,13 @@ export default {
         });
       }
 
+      if(this.formatOneQutoaList.length === 0){
+        return this.$toast({
+          message: '一级指标为空',
+          duration: 2000
+        })
+      }
+
       chosen(
         this.formatOneQutoaList,
         this.operateForm.oneQuotaName || "",
@@ -542,6 +565,13 @@ export default {
         });
       }
 
+      if(this.formatTwoQutoaList.length === 0){
+        return this.$toast({
+          message: '二级指标为空',
+          duration: 2000
+        })
+      }
+
       chosen(
         this.formatTwoQutoaList,
         this.operateForm.twoQuotaName || "",
@@ -566,6 +596,14 @@ export default {
           duration: 2000
         });
       }
+
+      if(this.formatScoreList.length === 0){
+        return this.$toast({
+          message: '二级指标为空',
+          duration: 2000
+        })
+      }
+
       const currentKey = `${
         this.operateForm.quotaType === 0 && this.operateForm.quotaScore !== 0
           ? "+"

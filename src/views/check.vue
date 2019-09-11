@@ -194,7 +194,8 @@ export default {
       showPreloader()
       update({
         id: this.id,
-        evaluateState: this.evaluateState
+        evaluateState: this.evaluateState,
+        hasback: 1
       })
         .then(() => {
           this.$toast({
