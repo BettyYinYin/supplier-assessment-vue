@@ -31,7 +31,6 @@ export default {
       })
         .then(res => {
           this.supplier = res.data;
-          console.log('supplier', this.supplier)
         })
         .catch(err => {})
         .finally(() => {
