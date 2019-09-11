@@ -340,7 +340,7 @@ export default {
         const twoQuota = this.twoQutoaList.find(item => {
           return item.id === val;
         });
-        if(twoQuota){
+        if (twoQuota) {
           this.operateForm.quotaType = twoQuota.quotaType;
         }
       }
@@ -371,11 +371,15 @@ export default {
         this.formatProjectList,
         this.operateForm.projectName || "",
         res => {
-          this.operateForm.projectId = res.value;
-          this.operateForm.projectName = res.key;
-          this.operateForm.leader = this.formatProjectList.find(item => {
-            item.id === this.operateForm.projectId;
-          });
+          if (this.operateForm.projectId !== res.value) {
+            this.operateForm.projectId = res.value;
+            this.operateForm.projectName = res.key;
+            this.operateForm.leader = this.formatProjectList.find(item => {
+              item.id === this.operateForm.projectId;
+            });
+            this.operateForm.contractId = ''
+            this.operateForm.contractName = ''
+          }
         }
       );
     },
@@ -393,7 +397,7 @@ export default {
         res => {
           this.operateForm.contractId = res.value;
           this.operateForm.contractName = res.key;
-          const contract = this.projectList.find(item => {
+          const contract = this.contractList.find(item => {
             return item.id === res.value;
           });
           this.operateForm.projectId = contract.projectId;
@@ -562,13 +566,21 @@ export default {
           duration: 2000
         });
       }
-      const currentKey = `${this.operateForm.quotaType===0 && this.operateForm.quotaScore!== 0? '+' : this.operateForm.quotaType===1 && this.operateForm.quotaScore !==0 ? '-' : ''}${this.operateForm.quotaScore}`
-      chosen(this.formatScoreList, currentKey || '', res => {
-        const hasOperator = res.key.indexOf('+') !== -1 || res.key.indexOf('-') !== -1
-        if(hasOperator){
-          this.operateForm.quotaScore = res.key.substr(1)
-        }else {
-          this.operateForm.quotaScore = res.key
+      const currentKey = `${
+        this.operateForm.quotaType === 0 && this.operateForm.quotaScore !== 0
+          ? "+"
+          : this.operateForm.quotaType === 1 &&
+            this.operateForm.quotaScore !== 0
+          ? "-"
+          : ""
+      }${this.operateForm.quotaScore}`;
+      chosen(this.formatScoreList, currentKey || "", res => {
+        const hasOperator =
+          res.key.indexOf("+") !== -1 || res.key.indexOf("-") !== -1;
+        if (hasOperator) {
+          this.operateForm.quotaScore = res.key.substr(1);
+        } else {
+          this.operateForm.quotaScore = res.key;
         }
       });
     },
