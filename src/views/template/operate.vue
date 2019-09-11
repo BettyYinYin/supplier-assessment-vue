@@ -207,8 +207,12 @@ export default {
         leader: "",
         oneQuotaId: "",
         oneQuotaName: "",
+        // oneQuotaId: "f1a5cf4239c7407680eaafe78cc59e07",
+        // oneQuotaName: "校验测试",
         twoQuotaId: "",
         twoQuotaName: "",
+        // twoQuotaId: "8789a8aa80d54e90967442858dc1e545",
+        // twoQuotaName: "校验测试2",
         quotaScore: "",
         quotaType: "",
         problemDescript: "",
@@ -271,20 +275,23 @@ export default {
     },
     formatScoreList() {
       const twoQuota = this.twoQutoaList.find(item => {
-        return item.id === this.twoQuotaId;
+        return item.id === this.operateForm.twoQuotaId;
       });
-      if(!twoQuota){
-        return []
+      if (!twoQuota) {
+        return [];
       }
       const scoreList = twoQuota.quotaScore;
       let res;
       scoreList &&
         (res = scoreList.split(";").map((item, index) => {
           return {
-            key: twoQuota.quotaType === 0 ? "+" : "-" + item,
+            key:
+              (twoQuota.quotaType === 0 ? "+" : "-") +
+              ((item && item.toString()) || ""),
             value: index
           };
         }));
+
       return res || [];
     },
     submitParams() {
@@ -320,13 +327,21 @@ export default {
       }
     },
     supplier(val) {
-      this.operateForm = this.supplier;
+      this.operateForm = { ...val };
     },
     "operateForm.supplierName"() {
       this.getContractList();
     },
     "operateForm.oneQuotaId"() {
       this.getTwoQuotaList();
+    },
+    "operateForm.twoQuotaId"(val) {
+      if (val) {
+        const twoQuota = this.twoQutoaList.find(item => {
+          return item.id === val;
+        });
+        this.operateForm.quotaType = twoQuota.quotaType;
+      }
     }
   },
   created() {
@@ -402,13 +417,15 @@ export default {
     },
     // 选择供应商
     selectSupplier(id, supplierName) {
-      this.operateForm.supplierName = supplierName;
-      this.operateForm.supplierId = id;
-      this.operateForm.contractId = "";
-      this.operateForm.contractName = "";
-      this.operateForm.projectId = "";
-      this.operateForm.projectName = "";
-      this.operateForm.leader = "";
+      if (this.operateForm.supplierId !== id) {
+        this.operateForm.supplierName = supplierName;
+        this.operateForm.supplierId = id;
+        this.operateForm.contractId = "";
+        this.operateForm.contractName = "";
+        this.operateForm.projectId = "";
+        this.operateForm.projectName = "";
+        this.operateForm.leader = "";
+      }
       this.isSelectSupplierName = false;
     },
     // 搜索供应商
@@ -493,8 +510,14 @@ export default {
         this.formatOneQutoaList,
         this.operateForm.oneQuotaName || "",
         res => {
-          this.operateForm.oneQuotaId = res.value;
-          this.operateForm.oneQuotaName = res.key;
+          if (this.operateForm.oneQuotaId !== res.value) {
+            this.operateForm.oneQuotaId = res.value;
+            this.operateForm.oneQuotaName = res.key;
+            this.operateForm.twoQuotaId = "";
+            this.operateForm.twoQuotaName = "";
+            this.operateForm.quotaScore = "";
+            this.operateForm.quotaType = "";
+          }
         }
       );
     },
@@ -693,7 +716,7 @@ export default {
               //     searchFlag: "no"
               //   }
               // });
-              this.$router.go(-1)
+              this.$router.go(-1);
             }
           })
           .catch(err => {
@@ -701,7 +724,8 @@ export default {
               message:
                 err.message || (evaluateState === 0 ? "暂存失败" : "提交失败")
             });
-          }).finally(() => {
+          })
+          .finally(() => {
             hidePreloader();
           });
       }
@@ -717,7 +741,7 @@ export default {
       return true;
     },
     deleteSupplier() {
-      showPreloader()
+      showPreloader();
       operateApi
         .update({
           id: this.id,
@@ -738,8 +762,9 @@ export default {
             message: "删除失败",
             duration: 2000
           });
-        }).finally(() => {
-          hidePreloader()
+        })
+        .finally(() => {
+          hidePreloader();
         });
     }
   }
@@ -821,7 +846,7 @@ export default {
           // white-space: nowrap;
           // text-overflow: ellipsis;
           margin-right: 1.2rem;
-          margin-bottom: .5rem;
+          margin-bottom: 0.5rem;
           word-break: break-all;
           color: $color-primary;
         }

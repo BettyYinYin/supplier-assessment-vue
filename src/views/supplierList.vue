@@ -66,7 +66,7 @@ export default {
     } else {
       setTitle(this.titleMap[this.evaluateState]);
     }
-    pullToRefresh()
+    pullToRefresh();
   },
   methods: {
     getList({ current, pageSize }) {

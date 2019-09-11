@@ -14,9 +14,7 @@ export default {
   },
   data() {
     return {
-      supplier: {
-        name: "数公因数公因数公因数公因数公因数公因数公因数公因数公因"
-      },
+      supplier: {},
       id: ""
     };
   },
@@ -33,6 +31,7 @@ export default {
       })
         .then(res => {
           this.supplier = res.data;
+          console.log('supplier', this.supplier)
         })
         .catch(err => {})
         .finally(() => {
