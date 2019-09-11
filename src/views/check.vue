@@ -66,7 +66,7 @@
     </div>
     <div class="operate-btn">
       <mt-button size="small" type="primary" v-if="evaluateState === '1'" @click="cancel">撤销</mt-button>
-      <mt-button size="small" type="primary" v-if="evaluateState === '1'" @click="isAudit = true">审核</mt-button>
+      <!-- <mt-button size="small" type="primary" v-if="evaluateState === '1'" @click="isAudit = true">审核</mt-button> -->
       <mt-button size="small" type="primary" v-if="evaluateState === '3'" @click="reaudit">重新评价</mt-button>
     </div>
 
