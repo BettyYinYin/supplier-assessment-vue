@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import userMangage from './modules/userManage'
+import quota from './modules/quota'
 import check from './modules/check'
 import supplierList from './modules/supplierList'
 import unsubmit from './modules/unsubmit'
@@ -14,7 +14,7 @@ const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    // userMangage,
+    quota,
     check,
     supplierList,
     {
