@@ -103,7 +103,8 @@
           <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
         </div>(建议上传)
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
-          <span class="file-name" @click="download(file)">{{file.oldFileName}}</span>
+          <!-- <span class="file-name" @click="download(file)">{{file.oldFileName}}</span> -->
+          <a :href="download(file)" download="file" class="file-name">{{file.oldFileName}}</a>
           <span class="delete-btn" @click="deleteRemoteFile(file, index)">
             <svg-icon icon-class="clear2" />
           </span>
@@ -269,7 +270,6 @@ export default {
       });
     },
     formatScoreList() {
-
       const twoQuota = this.twoQutoaList.find(item => {
         return item.id === this.twoQuotaId;
       });
@@ -641,7 +641,7 @@ export default {
         });
     },
     download(file) {
-      window.open(`${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`);
+      return `${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`;
     },
     // 暂存接口
     save(evaluateState) {
@@ -823,6 +823,7 @@ export default {
           margin-right: 1.2rem;
           margin-bottom: .5rem;
           word-break: break-all;
+          color: $color-primary;
         }
         .delete-btn {
           position: absolute;

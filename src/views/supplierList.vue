@@ -33,7 +33,7 @@
 import TemplateList from "@/views/template/list.vue";
 import TemplateItem from "@/views/template/item.vue";
 import { getList } from "@/api/supplierList.js";
-import { setTitle } from "@/utils";
+import { setTitle, pullToRefresh } from "@/utils";
 import { isString } from "util";
 export default {
   components: {
@@ -66,6 +66,7 @@ export default {
     } else {
       setTitle(this.titleMap[this.evaluateState]);
     }
+    pullToRefresh()
   },
   methods: {
     getList({ current, pageSize }) {

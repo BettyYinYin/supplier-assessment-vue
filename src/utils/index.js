@@ -130,3 +130,16 @@ export function hidePreloader() {
     })
   }
 }
+
+export function pullToRefresh() {
+  if (dd.version) {
+    dd.ready(function () {
+      dd.ui.pullToRefresh.enable({
+        onSuccess: function() {
+        },
+        onFail: function() {
+        }
+      })
+    })
+  }
+} 

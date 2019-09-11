@@ -23,7 +23,7 @@
         </span>
       </router-link>
     </div>
-    <loading :status="loading" />
+    <!-- <loading :status="loading" /> -->
   </div>
 </template>
 
