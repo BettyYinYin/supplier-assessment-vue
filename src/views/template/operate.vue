@@ -725,13 +725,14 @@ export default {
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
         formData.append("file", file);
+        
         operateApi
           .upload(formData)
           .then(res => {
-            // this.$toast({
-            //   message: `${file.name}上传成功`,
-            //   duration: 2000
-            // });
+            this.$toast({
+              message: `${file.name}上传成功`,
+              duration: 2000
+            });
           })
           .catch(err => {
             this.$toast({
