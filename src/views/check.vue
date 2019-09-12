@@ -202,12 +202,14 @@ export default {
             message: "撤销成功",
             duration: 2000
           });
+          this.$router.go(-1)
         })
         .catch(err => {
           this.$toast({
             message: err.message || "撤销失败",
             duration: 2000
           });
+          
         }).finally(() => {
           hidePreloader()
         });
