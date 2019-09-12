@@ -42,7 +42,7 @@ export default {
     }else {
       from.meta.keepAlive = false
     }
-    hidePreloader()
+    // hidePreloader()
     next()
   }
 };
