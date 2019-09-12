@@ -4,8 +4,9 @@
       <span class="label">
         <span class="required-index">*</span>供应商名称
       </span>
-      <span class="grey-color select-zone" @click="showSelectSupplierName">
+      <span class="grey-color select-zone">
         <span
+         @click="showSelectSupplierName"
           :class="[!!operateForm.supplierName? '' :'right']"
         >{{operateForm.supplierName? operateForm.supplierName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
@@ -13,12 +14,14 @@
     </div>
     <div class="form-item">
       <span class="label">项目名称</span>
-      <span class="grey-color select-zone" @click="selectProject">
+      <span class="grey-color select-zone">
         <!-- :class="[supplier.projectName? '' :'right']" -->
         <span
+         @click="selectProject"
           :class="[!!operateForm.projectName? '' :'right']"
         >{{operateForm.projectName? operateForm.projectName: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+        <svg-icon iconClass="arrow-right" v-if="!operateForm.projectName"></svg-icon>
+        <svg-icon iconClass="clear2" v-else @click="clearProject"></svg-icon>
       </span>
     </div>
     <div class="form-item">
@@ -27,7 +30,9 @@
         <span
           :class="[!!operateForm.contractName? '' :'right']"
         >{{operateForm.contractName? operateForm.contractName: '请选择'}}</span>
-        <svg-icon iconClass="arrow-right"></svg-icon>
+        <svg-icon iconClass="arrow-right" v-if="!operateForm.contractName"></svg-icon>
+        <svg-icon iconClass="clear2" v-else @click="clearContract"></svg-icon>
+        
       </span>
     </div>
     <div class="form-item">
@@ -450,10 +455,10 @@ export default {
         this.formatProjectList,
         this.operateForm.projectName || "",
         res => {
-          if (this.operateForm.projectId !== res.value) {
+          if (!this.operateForm.projectId || (this.operateForm.projectId !== res.value)) {
             this.operateForm.projectId = res.value;
             this.operateForm.projectName = res.key;
-            this.operateForm.leader = this.formatProjectList.find(item => {
+            this.operateForm.leader = this.projectList.find(item => {
               item.id === this.operateForm.projectId;
             });
             this.operateForm.contractId = "";
@@ -605,15 +610,11 @@ export default {
           duration: 2000
         });
       }
-      alert("开始选择");
       chosen(
         this.formatOneQutoaList,
         this.operateForm.oneQuotaName || "",
         res => {
-          alert("oneQuotaId", this.operateForm.oneQuotaId);
-          alert("value", res.value);
-          alert(this.operateForm.oneQuotaId !== res.value);
-          if (this.operateForm.oneQuotaId !== res.value) {
+          if (!this.operateForm.oneQuotaId || this.operateForm.oneQuotaId !== res.value) {
             this.operateForm.oneQuotaId = res.value;
             this.operateForm.oneQuotaName = res.key;
             this.operateForm.twoQuotaId = "";
@@ -897,6 +898,15 @@ export default {
         .finally(() => {
           hidePreloader();
         });
+    },
+    clearProject() {
+      this.operateForm.projectId = ''
+      this.operateForm.projectName = ''
+      this.operateForm.leader = ''
+    },
+    clearContract() {
+      this.operateForm.contractId = ''
+      this.operateForm.contractName = ''
     }
     // showQuotaModal() {
     //   this.isSelectQuota = true;
@@ -941,6 +951,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     word-break: break-all;
+    span{
+      flex: 1;
+    }
     .svg-icon {
       flex: 0 0 0.9rem;
     }

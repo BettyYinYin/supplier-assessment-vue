@@ -114,8 +114,8 @@ export default {
     margin-bottom: 1rem;
     .search-input {
       width: 100%;
-      height: 1.6rem;
-      line-height: 1.6rem;
+      height: 2.2rem;
+      line-height: 2.2rem;
       padding-left: 0.5rem;
       background-color: $grey-bg-3;
       border-radius: 2px;

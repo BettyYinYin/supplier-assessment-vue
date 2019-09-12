@@ -116,7 +116,7 @@ export default {
     flex: 1;
   }
   .list-height {
-    height: calc(100vh - 3.6rem) !important;
+    height: calc(100vh - 4.2rem) !important;
   }
 }
 </style>
