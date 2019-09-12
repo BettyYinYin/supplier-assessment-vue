@@ -37,6 +37,22 @@ export default {
           hidePreloader();
         });
     }
+  },
+  // beforeRouteEnter(to, from, next){
+  //   // if(from.path === '/quota'){
+  //   //   to.meta.keepAlive = true
+  //   // }else {
+  //   //   to.meta.keepAlive = false
+  //   // }
+  //   next()
+  // },
+  beforeRouteLeave(to, from, next){
+    if(to.path === '/quota'){
+      from.meta.keepAlive = true
+    }else {
+      from.meta.keepAlive = false
+    }
+    next()
   }
 };
 </script>

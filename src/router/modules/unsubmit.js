@@ -5,7 +5,10 @@ const unsubmit = [{
 }, {
   name: 'unsubmit.edit',
   path: '/unsubmit/edit',
-  component: () => import('@/views/unsubmit/edit')
+  component: () => import('@/views/unsubmit/edit'),
+  meta: {
+    keepAlive: true
+  }
 }]
 
 export default unsubmit

@@ -35,6 +35,14 @@ export default {
           hidePreloader()
         });
     }
+  },
+  beforeRouteLeave(to, from, next){
+    if(to.path === '/quota'){
+      from.meta.keepAlive = true
+    }else {
+      from.meta.keepAlive = false
+    }
+    next()
   }
 };
 </script>  

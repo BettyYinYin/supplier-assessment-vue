@@ -7,6 +7,7 @@
     <div class="supplier-list">
       <router-link
         class="list-item"
+        :class="[item.value]"
         v-for="(item, index) in list"
         :key="index"
         :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
@@ -129,15 +130,45 @@ export default {
   justify-content: space-between;
   // height: 50vh;
   flex-wrap: wrap;
-  margin: 0 10%;
+  margin: 3rem 10% 0;
 }
+
+
+
+
+
+.noSubmit{
+  .item-wrap{
+    background: #ff943e;
+  } 
+}
+
+.reject{
+  .item-wrap{
+    background: #f25643;
+  } 
+}
+
+.noApprove{
+  .item-wrap{
+    background: #576a95;
+  }
+}
+
+.pass{
+  .item-wrap{
+    background: #15bc83;
+  } 
+}
+
+
 .list-item {
   flex: 0 0 50%;
   text-align: center;
   margin-bottom: 1rem;
   .item-wrap {
     display: inline-block;
-    background: #3296fa;
+    // background: #3296fa;
     color: #fff;
     width: 4.5rem;
     height: 5.5rem;

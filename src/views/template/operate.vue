@@ -34,7 +34,10 @@
       <span class="label">项目负责人</span>
       <span class="grey-color select-zone">{{operateForm.leader? operateForm.leader: ''}}</span>
     </div>
-    <div class="title">指标详情</div>
+    <!--  @click="showQuotaModal" -->
+    <div class="title quota-label">
+      <router-link to="/quota" class>指标详情</router-link>
+    </div>
     <div class="form-item">
       <span class="label">
         <span class="required-index">*</span>一级指标
@@ -125,6 +128,7 @@
       <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
     </div>
 
+    <!-- 选择供应商弹窗开始 -->
     <mt-popup v-model="isSelectSupplierName" class="select-supplier" position="right">
       <div ref="popupContent" class="popup-content">
         <div>
@@ -161,14 +165,27 @@
         </div>
       </div>
     </mt-popup>
+    <!-- 选择供应商弹窗结束 -->
+
+    <!-- 选择指标弹窗开始 -->
+    <!-- <mt-popup v-model="isSelectQuota" class="select-quota" position="right">
+      <div ref="popupContentQuota" class="popup-content">
+        <quota @selectQuota="selectQuota"/>
+      </div>
+      
+    </mt-popup>-->
+    <!-- 选择指标弹窗结束 -->
   </div>
 </template>
 
 <script>
 import { chosen, showPreloader, hidePreloader } from "@/utils";
 import * as operateApi from "@/api/operate.js";
+import * as quotaApi from "@/api/quota.js";
 import BScroll from "better-scroll";
 import Config from "@/config.js";
+import Quota from "../quota";
+import { mapGetters } from "vuex";
 export default {
   props: {
     supplier: {
@@ -182,6 +199,9 @@ export default {
     id: {
       type: String
     }
+  },
+  components: {
+    Quota
   },
   data() {
     return {
@@ -207,12 +227,8 @@ export default {
         leader: "",
         oneQuotaId: "",
         oneQuotaName: "",
-        // oneQuotaId: "f1a5cf4239c7407680eaafe78cc59e07",
-        // oneQuotaName: "校验测试",
         twoQuotaId: "",
         twoQuotaName: "",
-        // twoQuotaId: "8789a8aa80d54e90967442858dc1e545",
-        // twoQuotaName: "校验测试2",
         quotaScore: "",
         quotaType: "",
         problemDescript: "",
@@ -225,6 +241,7 @@ export default {
       loadingTwoQutoaList: false,
       remoteFileList: [],
       fileList: []
+      // isSelectQuota: false
     };
   },
   computed: {
@@ -310,7 +327,8 @@ export default {
         problemDescript: this.operateForm.problemDescript,
         treatmentMeasure: this.operateForm.treatmentMeasure
       };
-    }
+    },
+    ...mapGetters(["isSelect", "quotaOne", "quotaTwo"])
   },
   watch: {
     isSelectSupplierName(val) {
@@ -326,13 +344,57 @@ export default {
         });
       }
     },
+    // isSelectQuota(val) {
+    //   if (val) {
+    //     this.$nextTick(() => {
+    //       this.scroll = new BScroll(this.$refs.popupContentQuota, {
+    //         scrollY: true,
+    //         click: true,
+    //         bounce: false,
+    //         mouseWheel: true
+    //       });
+    //     });
+    //   }
+    // },
     supplier(val) {
-      this.operateForm = { ...val };
+      const {
+        supplierId,
+        supplierName,
+        projectId,
+        projectName,
+        contractId,
+        contractName,
+        leader,
+        oneQuotaId,
+        oneQuotaName,
+        twoQuotaId,
+        twoQuotaName,
+        quotaScore,
+        quotaType,
+        problemDescript,
+        treatmentMeasure
+      } = val;
+      this.operateForm.supplierId = supplierId || '';
+      this.operateForm.supplierName = supplierName || '';
+      this.operateForm.projectId = projectId || '';
+      this.operateForm.projectName = projectName || '';
+      this.operateForm.contractId = contractId || '';
+      this.operateForm.contractName = contractName || '';
+      this.operateForm.leader = leader || '';
+      this.operateForm.oneQuotaId = oneQuotaId || '';
+      this.operateForm.oneQuotaName = oneQuotaName || '';
+      this.operateForm.twoQuotaId = twoQuotaId || '';
+      this.operateForm.twoQuotaName = twoQuotaName || '';
+      this.operateForm.quotaScore = quotaScore || '';
+      this.operateForm.quotaType = quotaType || '';
+      this.operateForm.problemDescript = problemDescript || '';
+      this.operateForm.treatmentMeasure = treatmentMeasure || '';
     },
     "operateForm.supplierName"() {
       this.getContractList();
     },
     "operateForm.oneQuotaId"() {
+      console.log(111111111);
       this.getTwoQuotaList();
     },
     "operateForm.twoQuotaId"(val) {
@@ -344,6 +406,15 @@ export default {
           this.operateForm.quotaType = twoQuota.quotaType;
         }
       }
+    },
+    isSelect(val) {
+      if (val) {
+        this.operateForm.oneQuotaId = this.quotaOne.id;
+        this.operateForm.oneQuotaName = this.quotaOne.name;
+        this.operateForm.twoQuotaId = this.quotaTwo.id;
+        this.operateForm.twoQuotaName = this.quotaTwo.name;
+        this.$store.commit("quota/TOGGLE_STATUS");
+      }
     }
   },
   created() {
@@ -354,6 +425,7 @@ export default {
     if (!this.isAdd) {
       this.findFileList();
     }
+    console.log('isSelect', this.isSelect)
   },
   methods: {
     getProjectNames() {},
@@ -367,13 +439,12 @@ export default {
         });
       }
 
-      if(this.formatProjectList.length === 0){
+      if (this.formatProjectList.length === 0) {
         return this.$toast({
-          message: '项目为空',
+          message: "项目为空",
           duration: 2000
-        })
+        });
       }
-
 
       chosen(
         this.formatProjectList,
@@ -385,8 +456,8 @@ export default {
             this.operateForm.leader = this.formatProjectList.find(item => {
               item.id === this.operateForm.projectId;
             });
-            this.operateForm.contractId = ''
-            this.operateForm.contractName = ''
+            this.operateForm.contractId = "";
+            this.operateForm.contractName = "";
           }
         }
       );
@@ -400,11 +471,11 @@ export default {
         });
       }
 
-      if(this.formatContractList.length === 0){
+      if (this.formatContractList.length === 0) {
         return this.$toast({
-          message: '合同为空',
+          message: "合同为空",
           duration: 2000
-        })
+        });
       }
 
       chosen(
@@ -528,17 +599,20 @@ export default {
         });
       }
 
-      if(this.formatOneQutoaList.length === 0){
+      if (this.formatOneQutoaList.length === 0) {
         return this.$toast({
-          message: '一级指标为空',
+          message: "一级指标为空",
           duration: 2000
-        })
+        });
       }
-
+      alert("开始选择");
       chosen(
         this.formatOneQutoaList,
         this.operateForm.oneQuotaName || "",
         res => {
+          alert("oneQuotaId", this.operateForm.oneQuotaId);
+          alert("value", res.value);
+          alert(this.operateForm.oneQuotaId !== res.value);
           if (this.operateForm.oneQuotaId !== res.value) {
             this.operateForm.oneQuotaId = res.value;
             this.operateForm.oneQuotaName = res.key;
@@ -565,11 +639,11 @@ export default {
         });
       }
 
-      if(this.formatTwoQutoaList.length === 0){
+      if (this.formatTwoQutoaList.length === 0) {
         return this.$toast({
-          message: '二级指标为空',
+          message: "二级指标为空",
           duration: 2000
-        })
+        });
       }
 
       chosen(
@@ -597,11 +671,11 @@ export default {
         });
       }
 
-      if(this.formatScoreList.length === 0){
+      if (this.formatScoreList.length === 0) {
         return this.$toast({
-          message: '二级指标为空',
+          message: "二级指标为空",
           duration: 2000
-        })
+        });
       }
 
       const currentKey = `${
@@ -824,6 +898,16 @@ export default {
           hidePreloader();
         });
     }
+    // showQuotaModal() {
+    //   this.isSelectQuota = true;
+    // },
+    // selectQuota(payload) {
+    //   this.isSelectQuota = false
+    //   this.operateForm.oneQuotaId = payload.quotaOne.id;
+    //   this.operateForm.oneQuotaName = payload.quotaOne.name;
+    //   this.operateForm.twoQuotaId = payload.quotaTwo.id;
+    //   this.operateForm.twoQuotaName = payload.quotaTwo.name;
+    // }
   }
 };
 </script>  
@@ -939,6 +1023,10 @@ export default {
   padding: 0.5rem;
 }
 
+.quota-label {
+  color: #576a95;
+}
+
 .operate-btn {
   text-align: center;
   margin: 2rem 0;
@@ -950,6 +1038,13 @@ export default {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+}
+
+.select-quota {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  // padding: 0.5rem;
 }
 
 .select-supplier {
