@@ -6,7 +6,7 @@
       </span>
       <span class="grey-color select-zone">
         <span
-         @click="showSelectSupplierName"
+          @click="showSelectSupplierName"
           :class="[!!operateForm.supplierName? '' :'right']"
         >{{operateForm.supplierName? operateForm.supplierName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right"></svg-icon>
@@ -17,7 +17,7 @@
       <span class="grey-color select-zone">
         <!-- :class="[supplier.projectName? '' :'right']" -->
         <span
-         @click="selectProject"
+          @click="selectProject"
           :class="[!!operateForm.projectName? '' :'right']"
         >{{operateForm.projectName? operateForm.projectName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right" v-if="!operateForm.projectName"></svg-icon>
@@ -26,13 +26,13 @@
     </div>
     <div class="form-item">
       <span class="label">合同名称</span>
-      <span class="grey-color select-zone" @click="selectContract">
+      <span class="grey-color select-zone">
         <span
           :class="[!!operateForm.contractName? '' :'right']"
+          @click="selectContract"
         >{{operateForm.contractName? operateForm.contractName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right" v-if="!operateForm.contractName"></svg-icon>
         <svg-icon iconClass="clear2" v-else @click="clearContract"></svg-icon>
-        
       </span>
     </div>
     <div class="form-item">
@@ -74,7 +74,8 @@
         <span :class="[!!operateForm.quotaScore || operateForm.quotaScore === 0? '' :'right']">
           <span
             v-if="operateForm.quotaScore || operateForm.quotaScore === 0"
-          >{{operateForm.quotaScore | formatQuotaScore( operateForm.quotaType)}}</span>
+          >{{operateForm.quotaScore}}</span>
+          <!-- {{operateForm.quotaScore | formatQuotaScore( operateForm.quotaType)}} -->
           <span v-else>请选择</span>
         </span>
 
@@ -91,6 +92,7 @@
         rows="3"
         v-model="operateForm.problemDescript"
         placeholder="请输入问题描述"
+        maxlength="500"
       ></textarea>
     </div>
     <div class="form-item form-item-input">
@@ -100,6 +102,7 @@
         cols="30"
         rows="3"
         v-model="operateForm.treatmentMeasure"
+        maxlength="500"
         placeholder="请输入建立处理措施"
       ></textarea>
     </div>
@@ -191,6 +194,7 @@ import BScroll from "better-scroll";
 import Config from "@/config.js";
 import Quota from "../quota";
 import { mapGetters } from "vuex";
+import { nextTick } from "q";
 export default {
   props: {
     supplier: {
@@ -307,9 +311,10 @@ export default {
       scoreList &&
         (res = scoreList.split(";").map((item, index) => {
           return {
-            key:
-              (twoQuota.quotaType === 0 ? "+" : "-") +
-              ((item && item.toString()) || ""),
+            // key:
+            //   (twoQuota.quotaType === 0 ? "+" : "-") +
+            //   ((item && item.toString()) || ""),
+            key: item,
             value: index
           };
         }));
@@ -379,21 +384,21 @@ export default {
         problemDescript,
         treatmentMeasure
       } = val;
-      this.operateForm.supplierId = supplierId || '';
-      this.operateForm.supplierName = supplierName || '';
-      this.operateForm.projectId = projectId || '';
-      this.operateForm.projectName = projectName || '';
-      this.operateForm.contractId = contractId || '';
-      this.operateForm.contractName = contractName || '';
-      this.operateForm.leader = leader || '';
-      this.operateForm.oneQuotaId = oneQuotaId || '';
-      this.operateForm.oneQuotaName = oneQuotaName || '';
-      this.operateForm.twoQuotaId = twoQuotaId || '';
-      this.operateForm.twoQuotaName = twoQuotaName || '';
-      this.operateForm.quotaScore = quotaScore || '';
-      this.operateForm.quotaType = quotaType || '';
-      this.operateForm.problemDescript = problemDescript || '';
-      this.operateForm.treatmentMeasure = treatmentMeasure || '';
+      this.operateForm.supplierId = supplierId || "";
+      this.operateForm.supplierName = supplierName || "";
+      this.operateForm.projectId = projectId || "";
+      this.operateForm.projectName = projectName || "";
+      this.operateForm.contractId = contractId || "";
+      this.operateForm.contractName = contractName || "";
+      this.operateForm.leader = leader || "";
+      this.operateForm.oneQuotaId = oneQuotaId || "";
+      this.operateForm.oneQuotaName = oneQuotaName || "";
+      this.operateForm.twoQuotaId = twoQuotaId || "";
+      this.operateForm.twoQuotaName = twoQuotaName || "";
+      this.operateForm.quotaScore = quotaScore || "";
+      this.operateForm.quotaType = quotaType || "";
+      this.operateForm.problemDescript = problemDescript || "";
+      this.operateForm.treatmentMeasure = treatmentMeasure || "";
     },
     "operateForm.supplierName"() {
       this.getContractList();
@@ -430,7 +435,6 @@ export default {
     if (!this.isAdd) {
       this.findFileList();
     }
-    console.log('isSelect', this.isSelect)
   },
   methods: {
     getProjectNames() {},
@@ -455,12 +459,16 @@ export default {
         this.formatProjectList,
         this.operateForm.projectName || "",
         res => {
-          if (!this.operateForm.projectId || (this.operateForm.projectId !== res.value)) {
+          if (
+            !this.operateForm.projectId ||
+            this.operateForm.projectId !== res.value
+          ) {
             this.operateForm.projectId = res.value;
             this.operateForm.projectName = res.key;
-            this.operateForm.leader = this.projectList.find(item => {
-              item.id === this.operateForm.projectId;
-            }).leader || '';
+            this.operateForm.leader =
+              this.projectList.find(item => {
+                item.id === this.operateForm.projectId;
+              }).leader || "";
             this.operateForm.contractId = "";
             this.operateForm.contractName = "";
           }
@@ -614,7 +622,10 @@ export default {
         this.formatOneQutoaList,
         this.operateForm.oneQuotaName || "",
         res => {
-          if (!this.operateForm.oneQuotaId || this.operateForm.oneQuotaId !== res.value) {
+          if (
+            !this.operateForm.oneQuotaId ||
+            this.operateForm.oneQuotaId !== res.value
+          ) {
             this.operateForm.oneQuotaId = res.value;
             this.operateForm.oneQuotaName = res.key;
             this.operateForm.twoQuotaId = "";
@@ -679,22 +690,24 @@ export default {
         });
       }
 
-      const currentKey = `${
-        this.operateForm.quotaType === 0 && this.operateForm.quotaScore !== 0
-          ? "+"
-          : this.operateForm.quotaType === 1 &&
-            this.operateForm.quotaScore !== 0
-          ? "-"
-          : ""
-      }${this.operateForm.quotaScore}`;
+      // const currentKey = `${
+      //   this.operateForm.quotaType === 0 && this.operateForm.quotaScore !== 0
+      //     ? "+"
+      //     : this.operateForm.quotaType === 1 &&
+      //       this.operateForm.quotaScore !== 0
+      //     ? "-"
+      //     : ""
+      // }${this.operateForm.quotaScore}`;
+      const currentKey = this.operateForm.quotaScore;
       chosen(this.formatScoreList, currentKey || "", res => {
-        const hasOperator =
-          res.key.indexOf("+") !== -1 || res.key.indexOf("-") !== -1;
-        if (hasOperator) {
-          this.operateForm.quotaScore = res.key.substr(1);
-        } else {
-          this.operateForm.quotaScore = res.key;
-        }
+        // const hasOperator =
+        //   res.key.indexOf("+") !== -1 || res.key.indexOf("-") !== -1;
+        // if (hasOperator) {
+        //   this.operateForm.quotaScore = res.key.substr(1);
+        // } else {
+        //   this.operateForm.quotaScore = res.key;
+        // }
+        this.operateForm.quotaScore = res.key;
       });
     },
     // 暂存
@@ -900,13 +913,13 @@ export default {
         });
     },
     clearProject() {
-      this.operateForm.projectId = ''
-      this.operateForm.projectName = ''
-      this.operateForm.leader = ''
+      this.operateForm.projectId = "";
+      this.operateForm.projectName = "";
+      this.operateForm.leader = "";
     },
     clearContract() {
-      this.operateForm.contractId = ''
-      this.operateForm.contractName = ''
+      this.operateForm.contractId = "";
+      this.operateForm.contractName = "";
     }
     // showQuotaModal() {
     //   this.isSelectQuota = true;
@@ -951,7 +964,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     word-break: break-all;
-    span{
+    span {
       flex: 1;
     }
     .svg-icon {

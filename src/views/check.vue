@@ -194,7 +194,7 @@ export default {
       showPreloader()
       update({
         id: this.id,
-        evaluateState: this.evaluateState,
+        evaluateState: 0,
         hasback: 1
       })
         .then(() => {
