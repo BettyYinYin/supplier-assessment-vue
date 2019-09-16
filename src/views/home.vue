@@ -137,22 +137,23 @@ export default {
   }
 }
 
-.list-wrap{
-  position: absolute;
-  width: 80%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+// .list-wrap{
+  // position: absolute;
+  // width: 80%;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+// }
 
 .supplier-list {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   // height: 50vh;
   flex-wrap: wrap;
-  // margin: 3rem 10% 0;
+  margin: 3rem 2vw 0;
   // margin: 10% 0;
+  // margin-top: 3rem;
 }
 
 .noSubmit {
@@ -187,8 +188,8 @@ export default {
     display: inline-block;
     // background: #3296fa;
     color: #fff;
-    width: 4.5rem;
-    height: 5.5rem;
+    width: 40vw;
+    height: 45vw;
     line-height: 1.5rem;
     font-size: 0.9rem;
     border-radius: 0.2rem;

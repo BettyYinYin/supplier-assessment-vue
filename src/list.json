@@ -1,765 +1,94 @@
-{
-    "success": true,
-    "errorMsg": null,
-    "data": {
-        "totalPages": 1,
-        "totalCount": 2,
-        "data": [
+[
+    {
+        "id": "1af1e01ab2ec4bc8b158f537a980948f",
+        "parentQuotaType": null,
+        "quotaType": null,
+        "parentId": null,
+        "name": "加加分",
+        "quotaScore": "111",
+        "oneName": null,
+        "oneQuotaScore": null,
+        "quotaLevel": null,
+        "quotaState": null,
+        "deleteFlag": null,
+        "createTime": null,
+        "updateTime": null,
+        "createrId": null,
+        "updaterId": null,
+        "twoList": [
             {
-                "content": {
-                    "今日完成工作": "1、参加创新工作周例会；2、开会汇报当前‘i信通’工作情况和流程并接受指导；3、恒卓公司内开会分析当前团队存在问题，以及讨论后期工作如何开展；4、编制本周工作任务安排表。",
-                    "未完成工作": "未完成工作",
-                    "需协调工作": "需要协调"
-                },
-                "id": "2052b38e3a0e456b9f38671cb09e75ca",
-                "creatorName": "石雷波",
-                "deptName": "‘i信通’项目组",
-                "createTime": "2019-05-05 19:19:37.0",
-                "avatar": "",
-                "dailyType": "日报",
-                "title": "石雷波的日报"
+                "id": "5d0020d8c8d147789b1452aba8938067",
+                "parentQuotaType": null,
+                "quotaType": 1,
+                "parentId": null,
+                "name": "加加分2",
+                "quotaScore": "1;2;3;4;5;6;",
+                "oneName": null,
+                "oneQuotaScore": null,
+                "quotaLevel": null,
+                "quotaState": null,
+                "deleteFlag": null,
+                "createTime": null,
+                "updateTime": null,
+                "createrId": null,
+                "updaterId": null,
+                "twoList": []
             },
             {
-                "content": {
-                    "今日完成工作": "1、开发人员工作任务安排，开发流程和注意细节与开发人员说明2、项目部署架构设计图的绘制，与开会评审3、开会确定开发流程，及当前开发问题及解决方案",
-                    "未完成工作": "未完成",
-                    "需协调工作": "需协调"
-                },
-                "id": "4e23e0097da648db89b8ad936f609d8d",
-                "creatorName": "冯亚",
-                "deptName": "‘i信通’项目组",
-                "createTime": "2019-05-05 18:53:36.0",
-                "avatar": "",
-                "dailyType": "日报",
-                "title": "冯亚的日报"
+                "id": "c96a19f9daef4e3baa2b2cb00a50cbfd",
+                "parentQuotaType": null,
+                "quotaType": 0,
+                "parentId": null,
+                "name": "导入二级1",
+                "quotaScore": "1;2;3;4",
+                "oneName": null,
+                "oneQuotaScore": null,
+                "quotaLevel": null,
+                "quotaState": null,
+                "deleteFlag": null,
+                "createTime": null,
+                "updateTime": null,
+                "createrId": null,
+                "updaterId": null,
+                "twoList": []
+            }
+        ]
+    },
+    {
+        "id": "fa81bcf449c5461fb1e0a5fa8594e624",
+        "parentQuotaType": null,
+        "quotaType": null,
+        "parentId": null,
+        "name": "导入一级1",
+        "quotaScore": "10",
+        "oneName": null,
+        "oneQuotaScore": null,
+        "quotaLevel": null,
+        "quotaState": null,
+        "deleteFlag": null,
+        "createTime": null,
+        "updateTime": null,
+        "createrId": null,
+        "updaterId": null,
+        "twoList": [
+            {
+                "id": "c96a19f9daef4e3baa2b2cb00a50cbfd",
+                "parentQuotaType": null,
+                "quotaType": 0,
+                "parentId": null,
+                "name": "导入二级1",
+                "quotaScore": "1;2;3;4",
+                "oneName": null,
+                "oneQuotaScore": null,
+                "quotaLevel": null,
+                "quotaState": null,
+                "deleteFlag": null,
+                "createTime": null,
+                "updateTime": null,
+                "createrId": null,
+                "updaterId": null,
+                "twoList": []
             }
         ]
     }
-}
-
-
-{
-    "success": true,
-    "errorMsg": null,
-    "data": {
-        "totalPages": 1,
-        "totalCount": 2,
-        "data": [
-            {
-                "content": {
-                    "今日完成工作": "1、参加创新工作周例会；2、开会汇报当前‘i信通’工作情况和流程并接受指导；3、恒卓公司内开会分析当前团队存在问题，以及讨论后期工作如何开展；4、编制本周工作任务安排表。",
-                    "未完成工作": "未完成工作",
-                    "需协调工作": "需要协调"
-                },
-                "id": "2052b38e3a0e456b9f38671cb09e75ca",
-                "creatorName": "石雷波",
-                "deptName": "‘i信通’项目组",
-                "createTime": "2019-05-05 19:19:37.0",
-                "avatar": "",
-                "dailyType": "日报",
-                "title": "石雷波的日报"
-            },
-            {
-                "content": {
-                    "今日完成工作": "1、开发人员工作任务安排，开发流程和注意细节与开发人员说明2、项目部署架构设计图的绘制，与开会评审3、开会确定开发流程，及当前开发问题及解决方案",
-                    "未完成工作": "未完成",
-                    "需协调工作": "需协调"
-                },
-                "id": "4e23e0097da648db89b8ad936f609d8d",
-                "creatorName": "冯亚",
-                "deptName": "‘i信通’项目组",
-                "createTime": "2019-05-05 18:53:36.0",
-                "avatar": "",
-                "dailyType": "日报",
-                "title": "冯亚的日报"
-            }
-        ]
-    }
-}
-
-
-{
-    "success": true,
-    "errorMsg": null,
-    "data": [
-        {
-            "id": "010657331521491847",
-            "userName": "刘鹏飞",
-            "deptNames": "通信检修组",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "0134351031658597",
-            "userName": "侯晴",
-            "deptNames": "186客服(王丽)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "01364215601138829",
-            "userName": "许畅",
-            "deptNames": "统一目录组(许畅)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0138391302849441",
-            "userName": "李环",
-            "deptNames": "项目管理组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "013919542926450953",
-            "userName": "朱荣君",
-            "deptNames": "全国统一电力市场技术支撑(张振龙)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "015269180326068666",
-            "userName": "李传昌",
-            "deptNames": "生产及综合应用组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "0160340626793654",
-            "userName": "张靖",
-            "deptNames": "电力市场运维组(张靖)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0166155112851280",
-            "userName": "李竞",
-            "deptNames": "基础平台组(宫帅)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "023058314330057372",
-            "userName": "田青松",
-            "deptNames": "内外网邮箱(田青松)",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "023769422523200528",
-            "userName": "孙天一",
-            "deptNames": "基础平台组(程航)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "024319572420434623",
-            "userName": "侯文捷",
-            "deptNames": "客户服务组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "024534482329253578",
-            "userName": "王掌锋",
-            "deptNames": "PMS运维组(张永梅)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "026052065128902757",
-            "userName": "熊盼旗",
-            "deptNames": "项目管理组",
-            "userType": "20044",
-            "userTypeName": "其他人员"
-        },
-        {
-            "id": "026249663329718584",
-            "userName": "王鹏远",
-            "deptNames": "用电采集运维组(唐轶轩)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "03096302291215662",
-            "userName": "陆娴",
-            "deptNames": "通信保障组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0315381341681248",
-            "userName": "华亮",
-            "deptNames": "方式资源组(管建超)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "034367521721030660",
-            "userName": "刘春山",
-            "deptNames": "机房巡视组(孙强、张懿操)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "03436752201188798",
-            "userName": "邱鹏",
-            "deptNames": "电力交易中心运维(由媛媛)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "034367523129345943",
-            "userName": "王炳星",
-            "deptNames": "桌面运维(王丽)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "03436752431145037",
-            "userName": "许超",
-            "deptNames": "视频会议保障组(黄芳)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "034414234135749237",
-            "userName": "赵珊珊",
-            "deptNames": "ERP运维组(姚振)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "034535430026214066",
-            "userName": "朱文周",
-            "deptNames": "PMS运维组(张永梅)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "0347274723827526",
-            "userName": "方伟",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "0349273348704527",
-            "userName": "吴跃",
-            "deptNames": "数据库组(吴跃)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0352620253778526",
-            "userName": "徐亮",
-            "deptNames": "‘i信通’项目组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "035346482024072423",
-            "userName": "张军堂",
-            "deptNames": "项目管理组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "03562953301213958",
-            "userName": "陈华",
-            "deptNames": "项目管理组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "035736230624341428",
-            "userName": "张玉国",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "0364654226844204",
-            "userName": "李强",
-            "deptNames": "PMS业务运维(宫政)",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "0367433318937375",
-            "userName": "王俊",
-            "deptNames": "ERP运维组(姚振)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "040615046320911129",
-            "userName": "俞骏豪",
-            "deptNames": "安全组(俞骏豪),信息安全组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "043264015129588632",
-            "userName": "王路远",
-            "deptNames": "系统/服务器运维组(张靖)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "045930566629573201",
-            "userName": "由媛媛",
-            "deptNames": "电力交易中心运维(由媛媛)",
-            "userType": "20002",
-            "userTypeName": "借调人员  "
-        },
-        {
-            "id": "051215463333615582",
-            "userName": "蔡梦臣",
-            "deptNames": "设备维保组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0512224463691814",
-            "userName": "吴尚",
-            "deptNames": "数据库组(吴尚)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "0514685229640964",
-            "userName": "严光",
-            "deptNames": "基础平台组(宫帅)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "051552134226165988",
-            "userName": "林剑派",
-            "deptNames": "营销运维组(张靖)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "051652101226055406",
-            "userName": "李丹丹",
-            "deptNames": "运监项目建设（刘翠玲）",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "0546660234782786",
-            "userName": "张波",
-            "deptNames": "基础平台组(马永)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "060102241637658412",
-            "userName": "陆勤磊",
-            "deptNames": "应用集成组(许畅)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "06445559081137949",
-            "userName": "许燕",
-            "deptNames": "综合管理组(郭骏)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "0806363218945119",
-            "userName": "王渊",
-            "deptNames": "风控风险管理内部控制(李环)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "08272020451215004",
-            "userName": "陈坤",
-            "deptNames": "营销运维组(徐道磊)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "0847330638838193",
-            "userName": "方磊",
-            "deptNames": "全业务统一数据中心(张翠翠)",
-            "userType": null,
-            "userTypeName": null
-        },
-        {
-            "id": "0848133938991604",
-            "userName": "程娟",
-            "deptNames": "项目管理组",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "091724305223238307",
-            "userName": "孙巧云",
-            "deptNames": "ERP运维组(姚振)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "092549190629373108",
-            "userName": "王琦敏",
-            "deptNames": "党建系统业务运维(田青松)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "101547103238963164",
-            "userName": "高梦雪",
-            "deptNames": "财务业务运维(童乃刚)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1015484804886492",
-            "userName": "汪昆",
-            "deptNames": "人资组(方锐)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "10165852621048978",
-            "userName": "胡晓",
-            "deptNames": "系统/服务器运维组(张靖)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "104937645335127290",
-            "userName": "许小山",
-            "deptNames": "运监业务支撑(高少鹏)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "106309143429305532",
-            "userName": "王汝亮",
-            "deptNames": "一体化电量与线损管理系统运维(高少鹏)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1134344361784903",
-            "userName": "徐林",
-            "deptNames": "基础平台组(武秋阳)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1147062925646651",
-            "userName": "万欢",
-            "deptNames": "安全组(俞骏豪)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1154353569775054",
-            "userName": "张亮",
-            "deptNames": "边界防护组(张亮)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "115436482227426734",
-            "userName": "武秋阳",
-            "deptNames": "运维辅助工具组（武秋阳）",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "1165113005887426",
-            "userName": "沈昊",
-            "deptNames": "系统/服务器运维组(张靖)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "120361383826154059",
-            "userName": "朱小辉",
-            "deptNames": "电网资产实物ID建设(张军堂)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "12081766281218042",
-            "userName": "阮晨",
-            "deptNames": "GIS业务运维(宫政)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1266645931895903",
-            "userName": "洪玉",
-            "deptNames": "ERP财务管理(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "1321124368741133",
-            "userName": "姜浩",
-            "deptNames": "视频会议保障组(黄芳)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "133166293121359384",
-            "userName": "吴世强",
-            "deptNames": "人资业务运维(薛晓茹)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "134450383336391189",
-            "userName": "郝宇星",
-            "deptNames": "通信检修组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "135723304727675238",
-            "userName": "汪筱巍",
-            "deptNames": "通信检修组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "135723306933469334",
-            "userName": "蒯文科",
-            "deptNames": "通信检修组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "13631531211293423",
-            "userName": "黄芳",
-            "deptNames": "通信保障组,视频会议保障组(黄芳)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "136511591437224473",
-            "userName": "钟傲冬",
-            "deptNames": "机房巡视组(孙强、张懿操)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "1434006435888289",
-            "userName": "汪洋",
-            "deptNames": "‘i信通’项目组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "1508656052858571",
-            "userName": "李静",
-            "deptNames": "信息通信调度组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "161331454626252458",
-            "userName": "李明洪",
-            "deptNames": "基础平台组(马永)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "165444695121575003",
-            "userName": "唐九月",
-            "deptNames": "运监项目建设（刘翠玲）",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "1708176601691361",
-            "userName": "周吉",
-            "deptNames": "掌上电力运维组(张靖)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "183839004126048591",
-            "userName": "朱保涛",
-            "deptNames": "短信综合应用组(徐道磊)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "185220411926112665",
-            "userName": "曹弯弯",
-            "deptNames": "基础平台组(曹弯弯)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "186607353221627510",
-            "userName": "卢衍繁",
-            "deptNames": "规划计划业务运维(高少鹏)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "21220908071186991",
-            "userName": "邵雄",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "22590404461149816",
-            "userName": "路宇",
-            "deptNames": "松耦合组(路宇)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "240538634921611138",
-            "userName": "周晓萍",
-            "deptNames": "综合管理部",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "241254160723816506",
-            "userName": "宋鹏飞",
-            "deptNames": "通信调度值班(李振伟)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "245421175238291177",
-            "userName": "颛孙奇",
-            "deptNames": "机房巡视组(孙强、张懿操)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "24651214775973",
-            "userName": "强伟",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "25092736657638",
-            "userName": "何涛",
-            "deptNames": "基础平台组(吴跃)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "260745526136631145",
-            "userName": "金宗福",
-            "deptNames": "驾驶班",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "262468511726541511",
-            "userName": "梁文昭",
-            "deptNames": "统一视频组(武秋阳)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "263126545224445862",
-            "userName": "张红雨",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "2640262201644680",
-            "userName": "乔娜",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "2658326661745593",
-            "userName": "孙傲",
-            "deptNames": "财务管控(张振龙)",
-            "userType": "20009",
-            "userTypeName": "建设人员"
-        },
-        {
-            "id": "270137613235449137",
-            "userName": "赵仁宝",
-            "deptNames": "松耦合组(程航)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "27126319071093752",
-            "userName": "薛芳",
-            "deptNames": "财务资产部",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "271313292724689852",
-            "userName": "张鹏程",
-            "deptNames": "通信网控组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "2713163217992780",
-            "userName": "程康",
-            "deptNames": "信息通信调度组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "3466106830269812",
-            "userName": "倪智敏",
-            "deptNames": "统一视频组(武秋阳)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "352016511200441",
-            "userName": "钱俊",
-            "deptNames": "通信网控组",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "370062271178046",
-            "userName": "郭洋",
-            "deptNames": "电能质量项目组(郭洋),移动互联支撑平台及配电网标准化组(郭洋)",
-            "userType": "10000",
-            "userTypeName": "信通员工"
-        },
-        {
-            "id": "4510640727939033",
-            "userName": "滕凤墨",
-            "deptNames": "一体化平台组(郭洋)",
-            "userType": "20014",
-            "userTypeName": "运维人员"
-        },
-        {
-            "id": "51633049668363",
-            "userName": "冯亚",
-            "deptNames": "‘i信通’项目组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        },
-        {
-            "id": "66140364671525",
-            "userName": "刘丽",
-            "deptNames": "数据运维组",
-            "userType": "20020",
-            "userTypeName": "一体化用工"
-        }
-    ]
-}
+]

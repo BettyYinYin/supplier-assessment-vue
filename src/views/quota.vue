@@ -77,14 +77,15 @@ export default {
     padding: 0 1rem;
     word-break: break-all;
     // background: $color-primary;
-    background: $color-primary;
-    color: #fff;
-    // color: $grey-color-1;
+    background: $grey-bg-3;
+    // color: #fff;
+    color: $grey-color-1;
     line-height: 2rem;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
   }
   .quota-two-title {
-    padding: 0 1rem 0.5rem;
+    padding: .5rem 0;
+    margin: 0 1rem;
     // word-break: break-all;
     line-height: 1.6rem;
     color: $grey-color-2;
@@ -99,5 +100,8 @@ export default {
       flex: 0 0 1rem;
     }
   }
+  // .quota-two-title:not(:last-of-type){
+  //   border-bottom:1px solid $grey-bg-1;
+  // }
 }
 </style>
