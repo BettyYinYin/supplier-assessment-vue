@@ -40,8 +40,8 @@
       <span class="grey-color select-zone">{{operateForm.leader? operateForm.leader: ''}}</span>
     </div>
     <!--  @click="showQuotaModal" -->
-    <div class="title quota-label">
-      <router-link to="/quota" class>指标详情</router-link>
+    <div class="title">
+      <router-link to="/quota" class="quota-label">指标详情</router-link>
     </div>
     <div class="form-item">
       <span class="label">
@@ -112,7 +112,7 @@
         <div class="upload-btn">
           <span>上传附件</span>
           <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
-        </div>(建议上传)
+        </div><span class="upload-info">(建议上传)</span>
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
           <!-- <span class="file-name" @click="download(file)">{{file.oldFileName}}</span> -->
           <a :href="download(file)" download="file" class="file-name">{{file.oldFileName}}</a>
@@ -961,7 +961,7 @@ export default {
 }
 .form-item {
   display: flex;
-  font-size: 0.9rem;
+  font-size: 1rem;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 0.5rem;
@@ -988,7 +988,7 @@ export default {
     }
   }
   .label {
-    flex: 0 0 5.5rem;
+    flex: 0 0 6rem;
   }
   .textarea {
     flex: 1;
@@ -1021,7 +1021,7 @@ export default {
       .file-item {
         color: $color-primary;
         line-height: 1.4rem;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         position: relative;
         .file-name {
           display: block;
@@ -1040,12 +1040,16 @@ export default {
           line-height: inherit;
         }
       }
+
+      .upload-info{
+        font-size: .9rem;
+      }
     }
 
     .upload-btn {
       display: inline-block;
       color: $color-primary;
-      margin-right: 0.5rem;
+      margin: 0 0.5rem .5rem 0;
       position: relative;
       .uploader {
         position: absolute;
@@ -1066,7 +1070,7 @@ export default {
 }
 
 .quota-label {
-  color: #576a95;
+  color: $color-primary;
 }
 
 .operate-btn {
