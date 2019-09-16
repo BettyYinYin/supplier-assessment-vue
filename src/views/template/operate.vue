@@ -21,7 +21,7 @@
           :class="[!!operateForm.projectName? '' :'right']"
         >{{operateForm.projectName? operateForm.projectName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right" v-if="!operateForm.projectName"></svg-icon>
-        <svg-icon iconClass="clear2" v-else @click="clearProject"></svg-icon>
+        <svg-icon iconClass="clear2" class="clear-btn" v-else @click="clearProject"></svg-icon>
       </span>
     </div>
     <div class="form-item">
@@ -32,7 +32,7 @@
           @click="selectContract"
         >{{operateForm.contractName? operateForm.contractName: '请选择'}}</span>
         <svg-icon iconClass="arrow-right" v-if="!operateForm.contractName"></svg-icon>
-        <svg-icon iconClass="clear2" v-else @click="clearContract"></svg-icon>
+        <svg-icon iconClass="clear2" class="clear-btn" v-else @click="clearContract"></svg-icon>
       </span>
     </div>
     <div class="form-item">
@@ -112,7 +112,8 @@
         <div class="upload-btn">
           <span>上传附件</span>
           <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
-        </div><span class="upload-info">(建议上传)</span>
+        </div>
+        <span class="upload-info">(建议上传)</span>
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
           <!-- <span class="file-name" @click="download(file)">{{file.oldFileName}}</span> -->
           <a :href="download(file)" download="file" class="file-name">{{file.oldFileName}}</a>
@@ -732,14 +733,14 @@ export default {
             this.$toast({
               message: `${file.name}上传成功`,
               duration: 2000,
-              position: 'top'
+              position: "top"
             });
           })
           .catch(err => {
             this.$toast({
               message: `${file.name}上传失败`,
               duration: 2000,
-              position: 'top'
+              position: "top"
             });
           });
       });
@@ -754,11 +755,15 @@ export default {
             message: `${cur.name}存在重复`,
             duration: 2000
           });
-        }else if(this.remoteFileList.findIndex(item => item.oldFileName === cur.name) !== -1){
+        } else if (
+          this.remoteFileList.findIndex(
+            item => item.oldFileName === cur.name
+          ) !== -1
+        ) {
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
-          })
+          });
         } else {
           fileMap[cur.name] = true;
           if (cur.size === 0) {
@@ -964,7 +969,7 @@ export default {
   font-size: 1rem;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 0.5rem;
+  padding: 0.8rem 1rem;
   .required-index {
     color: #c00;
     vertical-align: middle;
@@ -984,7 +989,11 @@ export default {
       flex: 1;
     }
     .svg-icon {
-      flex: 0 0 0.9rem;
+      flex: 0 0 1.2rem;
+    }
+    .svg-icon.clear-btn {
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
   .label {
@@ -1041,15 +1050,15 @@ export default {
         }
       }
 
-      .upload-info{
-        font-size: .9rem;
+      .upload-info {
+        font-size: 0.9rem;
       }
     }
 
     .upload-btn {
       display: inline-block;
       color: $color-primary;
-      margin: 0 0.5rem .5rem 0;
+      margin: 0 0.5rem 0.5rem 0;
       position: relative;
       .uploader {
         position: absolute;
