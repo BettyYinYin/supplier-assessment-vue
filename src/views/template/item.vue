@@ -8,7 +8,7 @@
       <div class="template-item-right">
         <div class="time-score">
           <div class="supplier-time">{{evaluateTime}}</div>
-          <div class="supplier-score">{{`${supplier.quotaType===0 && supplier.quotaScore!== 0? '+' : supplier.quotaType===1 && supplier.quotaScore !==0 ? '-' : ''}${supplier.quotaScore}`}}</div>
+          <div class="supplier-score">{{`${supplier.quotaType===0 && supplier.quotaScore? '+' : supplier.quotaType===1 && supplier.quotaScore? '-' : ''}${(supplier.quotaScore || supplier.quotaScore === 0)?supplier.quotaScore: ''}`}}</div>
         </div>
         <svg-icon iconClass="arrow-right"></svg-icon>
       </div>
