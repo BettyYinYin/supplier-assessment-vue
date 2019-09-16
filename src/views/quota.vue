@@ -76,9 +76,10 @@ export default {
   .quota-one-title {
     padding: 0 1rem;
     word-break: break-all;
+    // background: $color-primary;
     background: $color-primary;
-    // color: #fff;
-    color: $grey-color-1;
+    color: #fff;
+    // color: $grey-color-1;
     line-height: 2rem;
     margin-bottom: 0.5rem;
   }

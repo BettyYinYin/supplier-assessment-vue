@@ -3,28 +3,32 @@
     <div class="username-condition">
       <div class="search-input" @touchstart.stop="goList">搜索供应商</div>
     </div>
-
-    <div class="supplier-list">
-      <router-link
-        class="list-item"
-        :class="[item.value]"
-        v-for="(item, index) in list"
-        :key="index"
-        :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
-      >
-        <span class="item-wrap">
-          <span class="item-label">{{item.label}}</span>
-          <span class="item-num">({{nums[item.value]}})</span>
-        </span>
-      </router-link>
-      <router-link class="list-item new-add" to="/add">
+    <div class="list-wrap">
+      <div class="supplier-list">
+        <router-link
+          class="list-item"
+          :class="[item.value]"
+          v-for="(item, index) in list"
+          :key="index"
+          :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
+        >
+          <span class="item-wrap">
+            <span class="item-label">{{item.label}}</span>
+            <span class="item-num">({{nums[item.value]}})</span>
+          </span>
+        </router-link>
+        <!-- <router-link class="list-item new-add" to="/add">
         <span class="item-wrap">
           <svg-icon iconClass="add" class="item-label" />
           <span class="item-num">新增</span>
         </span>
-      </router-link>
+        </router-link>-->
+      </div>
     </div>
+
+    <mt-button @click="goAdd" class="new-add" size="large" type="primary">新增</mt-button>
     <!-- <loading :status="loading" /> -->
+    <loading-wrap :status="loading"></loading-wrap>
   </div>
 </template>
 
@@ -79,11 +83,12 @@ export default {
   },
   created() {
     setTitle("供应商评价");
+    this.loading = true
     this.getTotalSupplierEvaluate();
   },
   methods: {
     getTotalSupplierEvaluate() {
-      showPreloader()
+      showPreloader();
       getTotalSupplierEvaluate()
         .then(res => {
           const data = res.data;
@@ -94,11 +99,18 @@ export default {
         })
         .catch(err => {})
         .finally(() => {
-          hidePreloader()
+          this.loading = false
+          hidePreloader();
         });
     },
     goList() {
-      this.$router.push({path: "/supplierList", query: {searchFlag: 'yes', evaluateState: ''}});
+      this.$router.push({
+        path: "/supplierList",
+        query: { searchFlag: "yes", evaluateState: "" }
+      });
+    },
+    goAdd() {
+      this.$router.push("/add");
     }
   }
 };
@@ -124,43 +136,48 @@ export default {
     }
   }
 }
+
+.list-wrap{
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .supplier-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
   // height: 50vh;
   flex-wrap: wrap;
-  margin: 3rem 10% 0;
+  // margin: 3rem 10% 0;
+  // margin: 10% 0;
 }
 
-
-
-
-
-.noSubmit{
-  .item-wrap{
+.noSubmit {
+  .item-wrap {
     background: #ff943e;
-  } 
+  }
 }
 
-.reject{
-  .item-wrap{
+.reject {
+  .item-wrap {
     background: #f25643;
-  } 
+  }
 }
 
-.noApprove{
-  .item-wrap{
+.noApprove {
+  .item-wrap {
     background: #576a95;
   }
 }
 
-.pass{
-  .item-wrap{
+.pass {
+  .item-wrap {
     background: #15bc83;
-  } 
+  }
 }
-
 
 .list-item {
   flex: 0 0 50%;
@@ -196,5 +213,16 @@ export default {
       line-height: 1.2rem;
     }
   }
+}
+
+.new-add {
+  position: absolute;
+  bottom: 2rem;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2rem;
+  font-size: 1rem;
+  margin-top: 2rem;
 }
 </style>

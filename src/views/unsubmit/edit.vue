@@ -1,6 +1,7 @@
 <template>
   <div>
     <operate :supplier="supplier" :isAdd="false" :id="id" />
+    <loading-wrap :status="loading"></loading-wrap>
   </div>
 </template>
 <script>
@@ -15,11 +16,13 @@ export default {
   data() {
     return {
       supplier: {},
-      id: ""
+      id: "",
+      loading: false
     };
   },
   created() {
     this.id = this.$route.query.id;
+    this.loading = true
     this.info();
     setTitle("编辑");
   },
@@ -35,6 +38,7 @@ export default {
         .catch(err => {})
         .finally(() => {
           hidePreloader();
+          this.loading = false
         });
     }
   },

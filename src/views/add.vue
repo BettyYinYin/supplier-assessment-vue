@@ -1,6 +1,7 @@
 <template>
   <div>
     <operate :supplier="supplier" :isAdd="true" :id="id" />
+    <loading-wrap :status="loading"></loading-wrap>
   </div>
 </template>
 
@@ -15,11 +16,13 @@ export default {
   data() {
     return {
       supplier: {},
-      id: ''
+      id: '',
+      loading: false
     };
   },
   created() {
     setTitle('新增')
+    this.loading = true
     this.fetchInitial();
   },
   methods: {
@@ -33,6 +36,7 @@ export default {
         })
         .catch(err => {}).finally(() => {
           hidePreloader()
+          this.loading = false
         });
     }
   },
