@@ -686,7 +686,7 @@ export default {
 
       if (this.formatScoreList.length === 0) {
         return this.$toast({
-          message: "二级指标为空",
+          message: "分数列表为空",
           duration: 2000
         });
       }
