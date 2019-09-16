@@ -13,6 +13,7 @@
           :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
         >
           <span class="item-wrap">
+            <img :src="getImgUrl(item.value)" />
             <span class="item-label">{{item.label}}</span>
             <span class="item-num">({{nums[item.value]}})</span>
           </span>
@@ -116,6 +117,9 @@ export default {
     },
     goAdd() {
       this.$router.push("/add");
+    },
+    getImgUrl(name) {
+      return require(`@/assets/images/${name}.png`)
     }
   }
 };
@@ -163,25 +167,25 @@ export default {
 
 .noSubmit {
   .item-wrap {
-    background: #ff943e;
+    // background: #576a95;
   }
 }
 
 .reject {
   .item-wrap {
-    background: #f25643;
+    // background: #f25643;
   }
 }
 
 .noApprove {
   .item-wrap {
-    background: #576a95;
+    // background: #ff943e;
   }
 }
 
 .pass {
   .item-wrap {
-    background: #15bc83;
+    // background: #15bc83;
   }
 }
 
@@ -192,7 +196,7 @@ export default {
   .item-wrap {
     display: inline-block;
     // background: #3296fa;
-    color: #fff;
+    color: $grey-color-1;
     width: 40vw;
     height: 45vw;
     line-height: 1.5rem;
@@ -202,8 +206,12 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border: 1px solid $grey-bg-1;
     .item-num {
       font-size: 0.8rem;
+    }
+    img{
+      width: 2.5rem;
     }
   }
 }
