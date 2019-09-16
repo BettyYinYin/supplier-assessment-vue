@@ -187,14 +187,14 @@
 </template>
 
 <script>
-import { chosen, showPreloader, hidePreloader } from "@/utils";
+import { chosen, showPreloader, hidePreloader, confirm } from "@/utils";
 import * as operateApi from "@/api/operate.js";
 import * as quotaApi from "@/api/quota.js";
 import BScroll from "better-scroll";
 import Config from "@/config.js";
 import Quota from "../quota";
 import { mapGetters } from "vuex";
-import { nextTick } from "q";
+
 export default {
   props: {
     supplier: {
@@ -725,7 +725,7 @@ export default {
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
         formData.append("file", file);
-        
+
         operateApi
           .upload(formData)
           .then(res => {
@@ -887,31 +887,39 @@ export default {
       return true;
     },
     deleteSupplier() {
-      showPreloader();
-      operateApi
-        .update({
-          id: this.id,
-          delteFlag: 1
-        })
-        .then(res => {
-          this.$toast({
-            message: "删除成功",
-            duration: 2000
-          });
-          this.$router.push({
-            path: "supplierList",
-            query: { searchFlag: "no", evaluateState: 0 }
-          });
-        })
-        .catch(err => {
-          this.$toast({
-            message: "删除失败",
-            duration: 2000
-          });
-        })
-        .finally(() => {
-          hidePreloader();
-        });
+      confirm(
+        "此操作将删除供应商评价，是否删除？",
+        "提示",
+        ["确定", "取消"],
+        () => {
+          showPreloader();
+          operateApi
+            .update({
+              id: this.id,
+              deleteFlag: 1
+            })
+            .then(res => {
+              this.$toast({
+                message: "删除成功",
+                duration: 2000
+              });
+              // this.$router.push({
+              //   path: "/supplierList",
+              //   query: { searchFlag: "no", evaluateState: 0 }
+              // });
+              this.$router.go(-1);
+            })
+            .catch(err => {
+              this.$toast({
+                message: "删除失败",
+                duration: 2000
+              });
+            })
+            .finally(() => {
+              hidePreloader();
+            });
+        }
+      );
     },
     clearProject() {
       this.operateForm.projectId = "";

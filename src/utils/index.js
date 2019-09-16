@@ -145,9 +145,19 @@ export function pullToRefreshEnable(vm) {
 }
 
 export function pullToRefreshStop() {
-  if(dd.version){
+  if (dd.version) {
     dd.ready(function () {
       dd.ui.pullToRefresh.stop()
     })
   }
+}
+
+export function confirm(message, title, buttonLabels, onSuccess) {
+  dd.device.notification.confirm({
+    message,
+    title,
+    buttonLabels,
+    onSuccess,
+    onFail: function (err) {}
+  });
 }
