@@ -725,19 +725,20 @@ export default {
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
         formData.append("file", file);
-        alert(file.name)
         operateApi
           .upload(formData)
           .then(res => {
             this.$toast({
               message: `${file.name}上传成功`,
-              duration: 2000
+              duration: 2000,
+              position: 'top'
             });
           })
           .catch(err => {
             this.$toast({
               message: `${file.name}上传失败`,
-              duration: 2000
+              duration: 2000,
+              position: 'top'
             });
           });
       });
@@ -815,7 +816,7 @@ export default {
         });
     },
     download(file) {
-      return `${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`;
+      return `${Config.API_PREFIX_DD}/file/download?fileId=${file.id}`;
     },
     // 暂存接口
     save(evaluateState) {
