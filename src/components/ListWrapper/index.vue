@@ -93,6 +93,8 @@ export default {
               this.status = "loaded";
               this.list = [];
               this.onDataChange(this.list);
+            }else {
+              this.status = 'loaded'
             }
             return;
           }

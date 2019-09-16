@@ -725,7 +725,7 @@ export default {
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
         formData.append("file", file);
-
+        alert(file.name)
         operateApi
           .upload(formData)
           .then(res => {
@@ -752,6 +752,11 @@ export default {
             message: `${cur.name}存在重复`,
             duration: 2000
           });
+        }else if(this.remoteFileList.findIndex(item => item.oldFileName === cur.name) !== -1){
+          this.$toast({
+            message: `${cur.name}存在重复`,
+            duration: 2000
+          })
         } else {
           fileMap[cur.name] = true;
           if (cur.size === 0) {
