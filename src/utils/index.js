@@ -131,23 +131,34 @@ export function hidePreloader() {
   }
 }
 
+// 启用下拉刷新
 export function pullToRefreshEnable(vm) {
-  if (vm.$route.path === '/supplierList') {
-    if (dd.version) {
-      dd.ready(function () {
-        dd.ui.pullToRefresh.enable({
-          onSuccess: function () {},
-          onFail: function () {}
-        })
+  if (dd.version) {
+    dd.ready(function () {
+      dd.ui.pullToRefresh.enable({
+        onSuccess: function () {
+          vm.$refs.listWrapper.refresh();
+        },
+        onFail: function () {}
       })
-    }
+    })
   }
 }
 
+// 收起下拉刷新
 export function pullToRefreshStop() {
   if (dd.version) {
     dd.ready(function () {
       dd.ui.pullToRefresh.stop()
+    })
+  }
+}
+
+// 禁用下拉刷新
+export function pullToRefreshDisable() {
+  if (dd.version) {
+    dd.ready(function () {
+      dd.ui.pullToRefresh.disable()
     })
   }
 }

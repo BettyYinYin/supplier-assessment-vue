@@ -33,7 +33,7 @@
 import TemplateList from "@/views/template/list.vue";
 import TemplateItem from "@/views/template/item.vue";
 import { getList } from "@/api/supplierList.js";
-import { setTitle, pullToRefreshEnable, pullToRefreshStop } from "@/utils";
+import { setTitle, pullToRefreshEnable, pullToRefreshStop, pullToRefreshDisable } from "@/utils";
 import { isString } from "util";
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
     } else {
       setTitle(this.titleMap[this.evaluateState]);
     }
-    // pullToRefreshEnable(this);
+    pullToRefreshEnable(this);
   },
   methods: {
     getList({ current, pageSize }) {
@@ -90,6 +90,7 @@ export default {
           return Promise.reject(err.message || "获取供应商评价失败");
         })
         .finally(() => {
+          pullToRefreshStop()
           this.loading = false;
         });
     },
@@ -98,13 +99,17 @@ export default {
     },
     search(e) {
       if (e.keyCode == 13) {
-        this.list = [];
+        // this.list = [];
         this.$refs.listWrapper.refresh();
       }
     },
     goHome() {
       this.$router.push("/home");
     }
+  },
+  beforeRouteLeave(to, from ,next) {
+    pullToRefreshDisable()
+    next()
   }
 };
 </script>
