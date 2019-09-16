@@ -97,7 +97,12 @@ export default {
           this.nums.pass = data.passNum || 0;
           this.nums.reject = data.rejectNum || 0;
         })
-        .catch(err => {})
+        .catch(err => {
+          this.$toast({
+            message: err.message || '获取数据失败',
+            duration: 2000
+          })
+        })
         .finally(() => {
           this.loading = false
           hidePreloader();
@@ -222,7 +227,7 @@ export default {
   width: 80%;
   left: 50%;
   transform: translateX(-50%);
-  height: 2rem;
+  height: 2.4rem;
   font-size: 1rem;
   margin-top: 2rem;
 }
