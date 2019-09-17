@@ -111,7 +111,7 @@
       <div class="file-list">
         <div class="upload-btn">
           <span>上传附件</span>
-          <input type="file" ref="uploader" @change="fileChange" class="uploader" multiple />
+          <input type="file" accept='file/*' ref="uploader" @change="fileChange" class="uploader" multiple />
         </div>
         <span class="upload-info">(建议上传)</span>
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">

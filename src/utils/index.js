@@ -137,7 +137,7 @@ export function pullToRefreshEnable(vm) {
     dd.ready(function () {
       dd.ui.pullToRefresh.enable({
         onSuccess: function () {
-          vm.$refs.listWrapper.refresh();
+          vm.$refs && vm.$refs.listWrapper && vm.$refs.listWrapper.refresh();
         },
         onFail: function () {}
       })
