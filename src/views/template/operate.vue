@@ -1037,6 +1037,7 @@ export default {
     line-height: 1.5;
     border-radius: 0.2rem;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    font-size: .9rem;
   }
 
   .textarea:focus {
