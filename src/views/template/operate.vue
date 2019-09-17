@@ -1019,8 +1019,8 @@ export default {
       flex: 0 0 1.2rem;
     }
     .svg-icon.clear-btn {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.3rem;
+      height: 1.3rem;
     }
   }
   .label {

@@ -52,7 +52,6 @@ export default {
 .template-item {
   display: flex;
   justify-content: space-between;
-  // align-items: center;
   line-height: 1.5rem;
   .name-status {
     margin-right: 0.5rem;
