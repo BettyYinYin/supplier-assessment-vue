@@ -743,18 +743,8 @@ export default {
         operateApi
           .upload(formData)
           .then(res => {
-            this.$toast({
-              message: `${file.name}上传成功`,
-              duration: 2000,
-              position: "top"
-            });
           })
           .catch(err => {
-            this.$toast({
-              message: `${file.name}上传失败`,
-              duration: 2000,
-              position: "top"
-            });
           });
       });
     },
