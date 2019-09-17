@@ -111,7 +111,14 @@
       <div class="file-list">
         <div class="upload-btn">
           <span>上传附件</span>
-          <input type="file" accept='file/*' ref="uploader" @change="fileChange" class="uploader" multiple />
+          <input
+            type="file"
+            accept="file/*"
+            ref="uploader"
+            @change="fileChange"
+            class="uploader"
+            multiple
+          />
         </div>
         <span class="upload-info">(建议上传)</span>
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
@@ -153,6 +160,12 @@
                 class="input"
                 placeholder="搜索供应商"
               />
+              <svg-icon
+                iconClass="clear2"
+                v-if="!!keyword"
+                @click="clearSearch"
+                class="search-clear-btn"
+              ></svg-icon>
             </form>
             <div @click="closeSelectSupplierName" class="close-select-btn">取消</div>
           </div>
@@ -855,8 +868,10 @@ export default {
       ) {
         showPreloader();
         this.uploadFile();
+        const params = { ...this.submitParams, evaluateState };
+        evaluateState === 0 && (params.zancun = 1);
         operateApi
-          .save({ ...this.submitParams, evaluateState })
+          .save(params)
           .then(res => {
             this.$toast({
               message: evaluateState === 0 ? "暂存成功" : "提交成功",
@@ -937,10 +952,22 @@ export default {
       this.operateForm.projectId = "";
       this.operateForm.projectName = "";
       this.operateForm.leader = "";
+      this.operateForm.contractId = ''
+      this.operateForm.contractName = ''
     },
     clearContract() {
-      this.operateForm.contractId = "";
-      this.operateForm.contractName = "";
+      this.operateForm.projectId = "";
+      this.operateForm.projectName = "";
+      this.operateForm.leader = "";
+      this.operateForm.contractId = ''
+      this.operateForm.contractName = ''
+    },
+    // 清除搜索条件
+    clearSearch() {
+      this.keyword = "";
+      this.$refs.searchInput.focus();
+      this.supplierList = [];
+      this.getSupplierList();
     }
     // showQuotaModal() {
     //   this.isSelectQuota = true;
@@ -1114,6 +1141,15 @@ export default {
     margin-bottom: 1rem;
     .search-form {
       flex: 1;
+      position: relative;
+      .search-clear-btn {
+        width: 1.3rem;
+        height: 1.3rem;
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
     .close-select-btn {
       font-size: 0.9rem;

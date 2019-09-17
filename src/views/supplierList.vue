@@ -4,12 +4,14 @@
       <form action="#" class="search-form" onsubmit="return false;">
         <input
           type="search"
+          ref="searchInput"
           autocomplete="off"
           v-model="keyword"
           @keydown="search($event)"
           class="input"
           placeholder="搜索供应商"
         />
+        <svg-icon iconClass="clear2" v-if="!!keyword" @click="clearSearch" class="search-clear-btn"></svg-icon>
       </form>
       <div @click="goHome" class="close-select-btn" v-if="isSearch === 'yes'">取消</div>
     </div>
@@ -99,12 +101,18 @@ export default {
     },
     search(e) {
       if (e.keyCode == 13) {
-        // this.list = [];
+        this.list = [];
         this.$refs.listWrapper.refresh();
       }
     },
     goHome() {
       this.$router.push("/home");
+    },
+    clearSearch() {
+      this.keyword = ''
+      this.$refs.searchInput.focus();
+      this.list = []
+      this.$refs.listWrapper.refresh();
     }
   },
   beforeRouteLeave(to, from ,next) {
@@ -119,6 +127,15 @@ export default {
   padding: 0.5rem;
   .search-form {
     flex: 1;
+    position: relative;
+    .search-clear-btn{
+      width: 1.3rem;
+      height: 1.3rem;
+      position: absolute;
+      right: .5rem;
+      top: 50%;
+      transform: translateY(-50%)
+    }
   }
   .list-height {
     height: calc(100vh - 4.2rem) !important;
