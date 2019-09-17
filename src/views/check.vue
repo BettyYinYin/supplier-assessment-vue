@@ -96,6 +96,7 @@
         <mt-button size="small" type="primary" @click="submit" :disabled="isSubmiting">确定</mt-button>
       </div>
     </mt-popup>
+    <loading-wrap :status="loading"></loading-wrap>
   </div>
 </template>
 
@@ -142,7 +143,8 @@ export default {
           value: "3"
         }
       ],
-      isSubmiting: false
+      isSubmiting: false,
+      loading: false
     };
   },
   watch: {
@@ -155,6 +157,7 @@ export default {
     }
   },
   created() {
+    this.loading = true
     const { id, evaluateState } = this.$route.query;
     this.id = id;
     this.evaluateState = evaluateState;
@@ -173,6 +176,7 @@ export default {
         })
         .catch(err => {})
         .finally(() => {
+          this.loading = false
           hidePreloader();
         });
     },
