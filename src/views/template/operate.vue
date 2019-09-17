@@ -481,7 +481,7 @@ export default {
             this.operateForm.projectName = res.key;
             this.operateForm.leader =
               this.projectList.find(item => {
-                item.id === this.operateForm.projectId;
+                return item.id === this.operateForm.projectId;
               }).leader || "";
             this.operateForm.contractId = "";
             this.operateForm.contractName = "";
