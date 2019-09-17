@@ -52,12 +52,16 @@
     <div class="form-item upload-btn-wrap">
       <span class="label">佐证材料</span>
       <div>
-        <div
+        <!-- <div
           v-for="file in remoteFileList"
           class="file-item"
           @click="download(file)"
           :key="file.id"
-        >{{file.oldFileName}}</div>
+        >{{file.oldFileName}}</div> -->
+        <div class="file-item" v-for="(file) in remoteFileList" :key="file.id">
+          <!-- <span class="file-name" @click="download(file)">{{file.oldFileName}}</span> -->
+          <a :href="download(file)" download="file" class="file-name">{{file.oldFileName}}</a>
+        </div>
       </div>
     </div>
     <div class="form-item form-item-input">
@@ -187,7 +191,7 @@ export default {
         });
     },
     download(file) {
-      window.open(`${Config.API_FILE_SERVER}/file/download?fileId=${file.id}`);
+      return `${Config.API_PREFIX_DD}/file/download?fileId=${file.id}`;
     },
     // 撤销接口
     cancel() {
@@ -298,10 +302,18 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     .file-item {
-      line-height: 1.4rem;
-      font-size: 0.8rem;
-      color: $color-primary;
-    }
+        color: $color-primary;
+        line-height: 1.4rem;
+        font-size: 0.9rem;
+        position: relative;
+        .file-name {
+          display: block;
+          margin-right: 1.2rem;
+          margin-bottom: 0.5rem;
+          word-break: break-all;
+          color: $color-primary;
+        }
+      }
     .upload-btn {
       color: $color-primary;
       margin-right: 0.5rem;

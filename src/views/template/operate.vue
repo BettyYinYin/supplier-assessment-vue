@@ -749,25 +749,43 @@ export default {
       });
     },
     fileChange(file) {
+      console.log(66666666666)
       let fileMap = {};
+      console.log(this.$refs.uploader.files)
+      console.log(this.$refs.uploader.value)
       let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
+      
       fileList = fileList.reduce((pre, cur) => {
         if (fileMap[cur.name]) {
+          console.log(11111111111)
           fileMap[cur.name] = "";
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
           });
         } else if (
+          
           this.remoteFileList.findIndex(
             item => item.oldFileName === cur.name
           ) !== -1
         ) {
+          console.log(22222222222)
+          this.$toast({
+            message: `${cur.name}存在重复`,
+            duration: 2000
+          });
+        }else if (
+          this.fileList.findIndex(
+            item => item.name === cur.name
+          ) !== -1
+        ) {
+          console.log(3333333333)
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
           });
         } else {
+          console.log(44444444444)
           fileMap[cur.name] = true;
           if (cur.size === 0) {
             this.$toast({
@@ -780,12 +798,14 @@ export default {
               duration: 2000
             });
           } else {
+            console.log(555555555)
             pre.push(cur);
           }
         }
         return pre;
       }, []);
-      this.fileList = fileList;
+      this.fileList = [...this.fileList, ...fileList];
+      this.$refs.uploader.value = ''
     },
     deleteFile(index) {
       this.fileList.splice(index, 1);
