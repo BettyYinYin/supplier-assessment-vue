@@ -137,8 +137,6 @@
       </div>
     </div>
     <div class="operate-btn">
-      <!--  v-if="isAdd" -->
-      <!--  v-if="isAdd" -->
       <mt-button size="small" type="primary" @click="storage">暂存</mt-button>
       <mt-button size="small" type="primary" @click="submit">提交</mt-button>
       <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
@@ -171,22 +169,21 @@
           </div>
           <div style="position: relative;min-height: calc(100vh - 3.8rem);">
             <div v-if="supplierList.length !== 0">
-            <div
-              class="supplier-item"
-              v-for="supplier in supplierList"
-              :key="supplier.id"
-              @click="selectSupplier(supplier.id, supplier.supplierName)"
-            >
-              <div class="supplier-name">{{supplier.supplierName}}</div>
-              <svg-icon iconClass="arrow-right"></svg-icon>
+              <div
+                class="supplier-item"
+                v-for="supplier in supplierList"
+                :key="supplier.id"
+                @click="selectSupplier(supplier.id, supplier.supplierName)"
+              >
+                <div class="supplier-name">{{supplier.supplierName}}</div>
+                <svg-icon iconClass="arrow-right"></svg-icon>
+              </div>
+            </div>
+            <div v-else>
+              <loading :status="loadingSupplierList" />
+              <no-data v-if="!loadingSupplierList"></no-data>
             </div>
           </div>
-          <div v-else>
-            <loading :status="loadingSupplierList" />
-            <no-data v-if="!loadingSupplierList"></no-data>
-          </div>
-          </div>
-          
         </div>
       </div>
     </mt-popup>
@@ -397,9 +394,10 @@ export default {
         twoQuotaId,
         twoQuotaName,
         quotaScore,
-        quotaType,
+        // quotaType,
         problemDescript,
-        treatmentMeasure
+        treatmentMeasure,
+        onequotaState
       } = val;
       this.operateForm.supplierId = supplierId || "";
       this.operateForm.supplierName = supplierName || "";
@@ -408,12 +406,21 @@ export default {
       this.operateForm.contractId = contractId || "";
       this.operateForm.contractName = contractName || "";
       this.operateForm.leader = leader || "";
-      this.operateForm.oneQuotaId = oneQuotaId || "";
-      this.operateForm.oneQuotaName = oneQuotaName || "";
-      this.operateForm.twoQuotaId = twoQuotaId || "";
-      this.operateForm.twoQuotaName = twoQuotaName || "";
-      this.operateForm.quotaScore = quotaScore || "";
-      this.operateForm.quotaType = quotaType || "";
+      if (onequotaState === 0) {
+        this.operateForm.oneQuotaId = "";
+        this.operateForm.oneQuotaName = "";
+        this.operateForm.twoQuotaId = "";
+        this.operateForm.twoQuotaName = "";
+        this.operateForm.quotaScore = "";
+      } else {
+        this.operateForm.oneQuotaId = oneQuotaId || "";
+        this.operateForm.oneQuotaName = oneQuotaName || "";
+        this.operateForm.twoQuotaId = twoQuotaId || "";
+        this.operateForm.twoQuotaName = twoQuotaName || "";
+        this.operateForm.quotaScore = quotaScore || "";
+      }
+
+      // this.operateForm.quotaType = quotaType || "";
       this.operateForm.problemDescript = problemDescript || "";
       this.operateForm.treatmentMeasure = treatmentMeasure || "";
     },
@@ -421,7 +428,6 @@ export default {
       this.getContractList();
     },
     "operateForm.oneQuotaId"() {
-      console.log(111111111);
       this.getTwoQuotaList();
     },
     "operateForm.twoQuotaId"(val) {
@@ -429,9 +435,9 @@ export default {
         const twoQuota = this.twoQutoaList.find(item => {
           return item.id === val;
         });
-        if (twoQuota) {
-          this.operateForm.quotaType = twoQuota.quotaType;
-        }
+        // if (twoQuota) {
+        //   this.operateForm.quotaType = twoQuota.quotaType;
+        // }
       }
     },
     isSelect(val) {
@@ -648,7 +654,7 @@ export default {
             this.operateForm.twoQuotaId = "";
             this.operateForm.twoQuotaName = "";
             this.operateForm.quotaScore = "";
-            this.operateForm.quotaType = "";
+            // this.operateForm.quotaType = "";
           }
         }
       );
@@ -681,7 +687,7 @@ export default {
         res => {
           this.operateForm.twoQuotaId = res.value;
           this.operateForm.twoQuotaName = res.key;
-          this.operateForm.quotaScore = ''
+          this.operateForm.quotaScore = "";
         }
       );
     },
@@ -746,50 +752,45 @@ export default {
         formData.append("file", file);
         operateApi
           .upload(formData)
-          .then(res => {
-          })
-          .catch(err => {
-          });
+          .then(res => {})
+          .catch(err => {});
       });
     },
     fileChange(file) {
-      console.log(66666666666)
+      console.log(66666666666);
       let fileMap = {};
-      console.log(this.$refs.uploader.files)
-      console.log(this.$refs.uploader.value)
+      console.log(this.$refs.uploader.files);
+      console.log(this.$refs.uploader.value);
       let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
-      
+
       fileList = fileList.reduce((pre, cur) => {
         if (fileMap[cur.name]) {
-          console.log(11111111111)
+          console.log(11111111111);
           fileMap[cur.name] = "";
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
           });
         } else if (
-          
           this.remoteFileList.findIndex(
             item => item.oldFileName === cur.name
           ) !== -1
         ) {
-          console.log(22222222222)
+          console.log(22222222222);
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
           });
-        }else if (
-          this.fileList.findIndex(
-            item => item.name === cur.name
-          ) !== -1
+        } else if (
+          this.fileList.findIndex(item => item.name === cur.name) !== -1
         ) {
-          console.log(3333333333)
+          console.log(3333333333);
           this.$toast({
             message: `${cur.name}存在重复`,
             duration: 2000
           });
         } else {
-          console.log(44444444444)
+          console.log(44444444444);
           fileMap[cur.name] = true;
           if (cur.size === 0) {
             this.$toast({
@@ -802,14 +803,14 @@ export default {
               duration: 2000
             });
           } else {
-            console.log(555555555)
+            console.log(555555555);
             pre.push(cur);
           }
         }
         return pre;
       }, []);
       this.fileList = [...this.fileList, ...fileList];
-      this.$refs.uploader.value = ''
+      this.$refs.uploader.value = "";
     },
     deleteFile(index) {
       this.fileList.splice(index, 1);
@@ -932,34 +933,34 @@ export default {
         "此操作将删除供应商评价，是否删除？",
         "提示",
         ["确定", "取消"],
-        (res) => {
-          if(res.buttonIndex === 0){
+        res => {
+          if (res.buttonIndex === 0) {
             showPreloader();
-          operateApi
-            .update({
-              id: this.id,
-              deleteFlag: 1
-            })
-            .then(res => {
-              this.$toast({
-                message: "删除成功",
-                duration: 2000
+            operateApi
+              .update({
+                id: this.id,
+                deleteFlag: 1
+              })
+              .then(res => {
+                this.$toast({
+                  message: "删除成功",
+                  duration: 2000
+                });
+                // this.$router.push({
+                //   path: "/supplierList",
+                //   query: { searchFlag: "no", evaluateState: 0 }
+                // });
+                this.$router.go(-1);
+              })
+              .catch(err => {
+                this.$toast({
+                  message: "删除失败",
+                  duration: 2000
+                });
+              })
+              .finally(() => {
+                hidePreloader();
               });
-              // this.$router.push({
-              //   path: "/supplierList",
-              //   query: { searchFlag: "no", evaluateState: 0 }
-              // });
-              this.$router.go(-1);
-            })
-            .catch(err => {
-              this.$toast({
-                message: "删除失败",
-                duration: 2000
-              });
-            })
-            .finally(() => {
-              hidePreloader();
-            });
           }
         }
       );
@@ -968,15 +969,15 @@ export default {
       this.operateForm.projectId = "";
       this.operateForm.projectName = "";
       this.operateForm.leader = "";
-      this.operateForm.contractId = ''
-      this.operateForm.contractName = ''
+      this.operateForm.contractId = "";
+      this.operateForm.contractName = "";
     },
     clearContract() {
       this.operateForm.projectId = "";
       this.operateForm.projectName = "";
       this.operateForm.leader = "";
-      this.operateForm.contractId = ''
-      this.operateForm.contractName = ''
+      this.operateForm.contractId = "";
+      this.operateForm.contractName = "";
     },
     // 清除搜索条件
     clearSearch() {
@@ -1053,7 +1054,7 @@ export default {
     line-height: 1.5;
     border-radius: 0.2rem;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .textarea:focus {
