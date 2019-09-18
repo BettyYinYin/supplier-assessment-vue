@@ -169,7 +169,8 @@
             </form>
             <div @click="closeSelectSupplierName" class="close-select-btn">取消</div>
           </div>
-          <div v-if="supplierList.length !== 0">
+          <div style="position: relative;min-height: calc(100vh - 3.8rem);">
+            <div v-if="supplierList.length !== 0">
             <div
               class="supplier-item"
               v-for="supplier in supplierList"
@@ -184,6 +185,8 @@
             <loading :status="loadingSupplierList" />
             <no-data v-if="!loadingSupplierList"></no-data>
           </div>
+          </div>
+          
         </div>
       </div>
     </mt-popup>
