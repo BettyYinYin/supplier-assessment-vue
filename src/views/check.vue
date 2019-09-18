@@ -39,7 +39,7 @@
       <span class="label">分值</span>
       <span
         class="grey-color select-zone"
-      >{{checkForm.quotaScore | formatQuotaScore( checkForm.quotaType)}}</span>
+      >{{checkForm.quotaScore}}</span>
     </div>
     <div class="form-item form-item-input">
       <span class="label">问题描述</span>

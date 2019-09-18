@@ -73,7 +73,7 @@ export default {
   methods: {
     getList({ current, pageSize }) {
       return getList({
-        supplierName: this.keyword,
+        supplierName: this.keyword.trim(),
         evaluateState: this.evaluateState,
         pageNo: current,
         pageSize

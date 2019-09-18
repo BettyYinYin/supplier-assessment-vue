@@ -525,7 +525,7 @@ export default {
       this.loadingSupplierList = true;
       operateApi
         .getSupplierList({
-          param: this.keyword
+          param: this.keyword.trim()
         })
         .then(res => {
           this.supplierList = res.data;
@@ -678,6 +678,7 @@ export default {
         res => {
           this.operateForm.twoQuotaId = res.value;
           this.operateForm.twoQuotaName = res.key;
+          this.operateForm.quotaScore = ''
         }
       );
     },
@@ -838,10 +839,10 @@ export default {
           this.remoteFileList = res.data;
         })
         .catch(err => {
-          this.$toast({
-            message: "获取文件列表失败",
-            duration: 2000
-          });
+          // this.$toast({
+          //   message: "获取文件列表失败",
+          //   duration: 2000
+          // });
         });
     },
     download(file) {
@@ -928,8 +929,9 @@ export default {
         "此操作将删除供应商评价，是否删除？",
         "提示",
         ["确定", "取消"],
-        () => {
-          showPreloader();
+        (res) => {
+          if(res.buttonIndex === 0){
+            showPreloader();
           operateApi
             .update({
               id: this.id,
@@ -955,6 +957,7 @@ export default {
             .finally(() => {
               hidePreloader();
             });
+          }
         }
       );
     },
