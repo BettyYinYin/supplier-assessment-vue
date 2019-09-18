@@ -7,7 +7,8 @@
       </div>
       <div class="template-item-right">
         <div class="time-score">
-          <div class="supplier-time">{{evaluateTime}}</div>
+          <div class="supplier-time" v-if="supplier.evaluateState === 0">{{updateTime}}</div>
+          <div class="supplier-time" v-else>{{evaluateTime}}</div>
           <div class="supplier-score">{{`${supplier.quotaType===0 && supplier.quotaScore? '+' : supplier.quotaType===1 && supplier.quotaScore? '-' : ''}${(supplier.quotaScore || supplier.quotaScore === 0)?supplier.quotaScore: ''}`}}</div>
         </div>
         <svg-icon iconClass="arrow-right"></svg-icon>
@@ -37,6 +38,9 @@ export default {
   computed: {
     evaluateTime() {
       return this.supplier.evaluateTime && moment(this.supplier.evaluateTime).format('YYYY-MM-DD')
+    },
+    updateTime() {
+      return this.supplier.updateTime && moment(this.supplier.updateTime).format('YYYY-MM-DD')
     }
   }, 
   data() {
