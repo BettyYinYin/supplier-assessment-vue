@@ -407,17 +407,17 @@ export default {
       this.operateForm.contractName = contractName || "";
       this.operateForm.leader = leader || "";
       if (onequotaState === 0) {
-        this.operateForm.oneQuotaId = "";
-        this.operateForm.oneQuotaName = "";
-        this.operateForm.twoQuotaId = "";
-        this.operateForm.twoQuotaName = "";
-        this.operateForm.quotaScore = "";
-      } else {
         this.operateForm.oneQuotaId = oneQuotaId || "";
         this.operateForm.oneQuotaName = oneQuotaName || "";
         this.operateForm.twoQuotaId = twoQuotaId || "";
         this.operateForm.twoQuotaName = twoQuotaName || "";
         this.operateForm.quotaScore = quotaScore || "";
+      } else {
+        this.operateForm.oneQuotaId = "";
+        this.operateForm.oneQuotaName = "";
+        this.operateForm.twoQuotaId = "";
+        this.operateForm.twoQuotaName = "";
+        this.operateForm.quotaScore = "";
       }
 
       // this.operateForm.quotaType = quotaType || "";
@@ -446,6 +446,7 @@ export default {
         this.operateForm.oneQuotaName = this.quotaOne.name;
         this.operateForm.twoQuotaId = this.quotaTwo.id;
         this.operateForm.twoQuotaName = this.quotaTwo.name;
+        this.operateForm.quotaScore = ''
         this.$store.commit("quota/TOGGLE_STATUS");
       }
     }
