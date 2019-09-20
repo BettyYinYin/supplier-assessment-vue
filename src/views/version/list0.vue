@@ -70,13 +70,11 @@ export default {
       setTitle('版本日志')
     },
     loadMoreVersion() {
-      console.log('@@@@@@@@@@@@@@@@@@@@@')
       this.pageNo = this.pageNo + 1;
       this.findAllVersionList(1);
       // this.$refs.loadmore.onBottomLoaded();
     },
     findAllVersionList(flag) {
-      console.log('flag', flag)
       if (flag === 0) {
         this.loading = true;
       } else {
