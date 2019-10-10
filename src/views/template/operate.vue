@@ -772,6 +772,7 @@ export default {
           .catch(err => {
             console.log('err', err)
             file.status = 'error'
+            this.fileList.splice(this.fileList.findIndex(item => item.raw.name === file.name), 1)
             this.$toast({
               message: '上传失败',
               duration: 2000
