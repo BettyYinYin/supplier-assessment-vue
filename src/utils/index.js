@@ -172,3 +172,14 @@ export function confirm(message, title, buttonLabels, onSuccess) {
     onFail: function (err) {}
   });
 }
+
+// 文件名重复处理
+export function handleDuplication(origin, list, temp = '', count = 0) {
+  if (list.findIndex(item => item.toLocaleLowerCase() === (temp && temp.toLocaleLowerCase() || origin.toLocaleLowerCase())) !== -1) {
+    count++
+    temp = origin.replace(/^(.+)(\.)(.*)$/, '$1' + `${count}` + '$2' + '$3')
+    return handleDuplication(origin, list, temp, count)
+  } else {
+    return count === 0 && origin || origin.replace(/^(.+)(\.)(.*)$/, '$1' + `${count}` + '$2' + '$3')
+  }
+}

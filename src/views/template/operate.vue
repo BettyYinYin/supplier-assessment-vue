@@ -124,13 +124,13 @@
         <div class="file-item" v-for="(file, index) in remoteFileList" :key="file.id">
           <!-- <span class="file-name" @click="download(file)">{{file.oldFileName}}</span> -->
           <a :href="download(file)" download="file" class="file-name">{{file.oldFileName}}</a>
-          <span class="delete-btn" @click="deleteRemoteFile(file, index)">
+          <span class="delete-btn" @click="deleteRemoteFile(file, index, remoteFileList)">
             <svg-icon icon-class="clear2" />
           </span>
         </div>
-        <div v-for="(file,index) in fileList" class="file-item" :key="file.name">
-          <span class="file-name">{{file.name}}</span>
-          <span class="delete-btn" @click="deleteFile(index)">
+        <div v-for="(file,index) in fileList" class="file-item" :key="file.raw.name">
+          <span class="file-name">{{file.raw.name}}</span>
+          <span class="delete-btn" @click="deleteFile(file, index, fileList)">
             <svg-icon icon-class="clear2" />
           </span>
         </div>
@@ -201,7 +201,13 @@
 </template>
 
 <script>
-import { chosen, showPreloader, hidePreloader, confirm } from "@/utils";
+import {
+  chosen,
+  showPreloader,
+  hidePreloader,
+  confirm,
+  handleDuplication
+} from "@/utils";
 import * as operateApi from "@/api/operate.js";
 import * as quotaApi from "@/api/quota.js";
 import BScroll from "better-scroll";
@@ -368,18 +374,6 @@ export default {
         });
       }
     },
-    // isSelectQuota(val) {
-    //   if (val) {
-    //     this.$nextTick(() => {
-    //       this.scroll = new BScroll(this.$refs.popupContentQuota, {
-    //         scrollY: true,
-    //         click: true,
-    //         bounce: false,
-    //         mouseWheel: true
-    //       });
-    //     });
-    //   }
-    // },
     supplier(val) {
       const {
         supplierId,
@@ -446,7 +440,7 @@ export default {
         this.operateForm.oneQuotaName = this.quotaOne.name;
         this.operateForm.twoQuotaId = this.quotaTwo.id;
         this.operateForm.twoQuotaName = this.quotaTwo.name;
-        this.operateForm.quotaScore = ''
+        this.operateForm.quotaScore = "";
         this.$store.commit("quota/TOGGLE_STATUS");
       }
     }
@@ -714,101 +708,177 @@ export default {
           duration: 2000
         });
       }
-
-      // const currentKey = `${
-      //   this.operateForm.quotaType === 0 && this.operateForm.quotaScore !== 0
-      //     ? "+"
-      //     : this.operateForm.quotaType === 1 &&
-      //       this.operateForm.quotaScore !== 0
-      //     ? "-"
-      //     : ""
-      // }${this.operateForm.quotaScore}`;
       const currentKey = this.operateForm.quotaScore;
       chosen(this.formatScoreList, currentKey || "", res => {
-        // const hasOperator =
-        //   res.key.indexOf("+") !== -1 || res.key.indexOf("-") !== -1;
-        // if (hasOperator) {
-        //   this.operateForm.quotaScore = res.key.substr(1);
-        // } else {
-        //   this.operateForm.quotaScore = res.key;
-        // }
         this.operateForm.quotaScore = res.key;
       });
     },
     // 暂存
     storage() {
-      this.save(0);
+      showPreloader();
+      const file = this.fileList.find(item => item.status === 'ready')
+      if(file){
+        this.uploadFile(file, 0)
+      }else {
+        this.save(0);
+      }
     },
     // 提交
     submit() {
-      this.save(1);
+      showPreloader();
+      const file = this.fileList.find(item => item.status === 'ready')
+      if(file){
+        this.uploadFile(file, 1)
+      }else {
+        this.save(1);
+      }
     },
-    uploadFile() {
-      this.fileList.forEach(file => {
-        let formData = new FormData();
+    uploadFile(file, status) {
+      // this.fileList.forEach(file => {
+      //   let formData = new FormData();
+      //   formData.append("sysCode", "project");
+      //   formData.append("businessNode", "project_supplier");
+      //   formData.append("businessId", this.id);
+      //   formData.append("oldFileName", file.name);
+      //   formData.append("file", file);
+      //   operateApi
+      //     .upload(formData)
+      //     .then(res => {})
+      //     .catch(err => {});
+      // });
+      let formData = new FormData();
         formData.append("sysCode", "project");
         formData.append("businessNode", "project_supplier");
         formData.append("businessId", this.id);
-        formData.append("oldFileName", file.name);
-        formData.append("file", file);
+        formData.append("oldFileName", file.raw.name);
+        formData.append("file", file.raw);
         operateApi
           .upload(formData)
-          .then(res => {})
-          .catch(err => {});
-      });
+          .then(res => {
+            file.status = 'success'
+            file.response = res.data
+            const nextFile = this.fileList.find(item => item.status === 'ready')
+            if(nextFile){
+              this.uploadFile(nextFile, status)
+            }else {
+              console.log(11111111111111111)
+              if(status === 0){
+                this.storage()
+              }else if(status === 1){
+                this.submit()
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err', err)
+            file.status = 'error'
+            this.$toast({
+              message: '上传失败',
+              duration: 2000
+            })
+          });
     },
     fileChange(file) {
+      console.log("file", file);
       let fileMap = {};
       let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
 
-      fileList = fileList.reduce((pre, cur) => {
-        if (fileMap[cur.name]) {
-          fileMap[cur.name] = "";
-          this.$toast({
-            message: `${cur.name}存在重复`,
-            duration: 2000
-          });
-        } else if (
-          this.remoteFileList.findIndex(
-            item => item.oldFileName === cur.name
-          ) !== -1
-        ) {
-          this.$toast({
-            message: `${cur.name}存在重复`,
-            duration: 2000
-          });
-        } else if (
-          this.fileList.findIndex(item => item.name === cur.name) !== -1
-        ) {
-          this.$toast({
-            message: `${cur.name}存在重复`,
-            duration: 2000
+      const fileNames = this.remoteFileList
+        .map(item => item.oldFileName)
+        .concat(this.fileList.map(item => item.raw.name));
+
+      // console.log("fileNames", fileNames);
+      // const handledName = handleDuplication(file.name, fileNames);
+      // if (handledName !== file.name) {
+      //   const currentFile = fileList.find(item => item.name === file.name);
+      //   currentFile = new File([currentFile], handledName);
+      // }
+
+      fileList = fileList.reduce((pre, cur, index) => {
+        console.log('cur', cur)
+        const handledName = handleDuplication(cur.name, fileNames);
+        console.log("handledName", handledName);
+        console.log("item.name", cur.name);
+        if (handledName !== cur.name) {
+          console.log(1111111);
+          pre.push({
+            status: "ready",
+            raw: new File([cur], handledName, { type: cur.type })
           });
         } else {
-          fileMap[cur.name] = true;
-          if (cur.size === 0) {
-            this.$toast({
-              message: `${cur.name}材料为空`,
-              duration: 2000
-            });
-          } else if (!(cur.size / 1024 / 1024 < 20)) {
-            this.$toast({
-              message: `${cur.name}材料超过20M最大限制`,
-              duration: 2000
-            });
-          } else {
-            pre.push(cur);
-          }
+          pre.push({ status: "ready", raw: cur });
         }
-        return pre;
+        return pre
+        console.log('pre', pre)
       }, []);
+
+      // fileList.forEach(item => {
+
+      //   const handledName = handleDuplication(item.name, fileNames);
+      //   console.log('handledName', handledName)
+      //   console.log('item.name', item.name)
+      //   if (handledName !== item.name) {
+      //     console.log(1111111)
+      //     const fileIndex = fileList.findIndex(item => item.name === file.name);
+      //     fileList.splice(fileIndex, 1, new File([item], handledName, { type: item.type }))
+      //   }
+      // });
+
+      // fileList = fileList.reduce((pre, cur) => {
+      //   if (fileMap[cur.name]) {
+      //     fileMap[cur.name] = "";
+      //     this.$toast({
+      //       message: `${cur.name}存在重复`,
+      //       duration: 2000
+      //     });
+      //   } else if (
+      //     this.remoteFileList.findIndex(
+      //       item => item.oldFileName === cur.name
+      //     ) !== -1
+      //   ) {
+      //     this.$toast({
+      //       message: `${cur.name}存在重复`,
+      //       duration: 2000
+      //     });
+      //   } else if (
+      //     this.fileList.findIndex(item => item.name === cur.name) !== -1
+      //   ) {
+      //     this.$toast({
+      //       message: `${cur.name}存在重复`,
+      //       duration: 2000
+      //     });
+      //   } else {
+      //     fileMap[cur.name] = true;
+      //     if (cur.size === 0) {
+      //       this.$toast({
+      //         message: `${cur.name}材料为空`,
+      //         duration: 2000
+      //       });
+      //     } else if (!(cur.size / 1024 / 1024 < 20)) {
+      //       this.$toast({
+      //         message: `${cur.name}材料超过20M最大限制`,
+      //         duration: 2000
+      //       });
+      //     } else {
+      //       pre.push(cur);
+      //     }
+      //   }
+      //   return pre;
+      // }, []);
+      console.log('this.fileList', this.fileList)
+      console.log('fileList', fileList)
       this.fileList = [...this.fileList, ...fileList];
+
       this.$refs.uploader.value = "";
     },
-    deleteFile(index) {
-      this.fileList.splice(index, 1);
+    deleteFile(file, index) {
+      if(file.response && file.response.id){
+        this.deleteRemoteFile(file.response, index, this.fileList)
+      }else {
+        this.fileList.splice(index, 1);
+      }
     },
-    deleteRemoteFile(file, index) {
+    deleteRemoteFile(file, index, list) {
       operateApi
         .deleteFile({
           fileId: file.id
@@ -818,9 +888,10 @@ export default {
             message: "删除成功",
             duration: 2000
           });
-          this.remoteFileList.splice(index, 1);
+          list.splice(index, 1);
         })
         .catch(err => {
+          console.log('err', err)
           this.$toast({
             message: "删除失败",
             duration: 2000
@@ -874,8 +945,8 @@ export default {
             "问题描述不能为空"
           ))
       ) {
-        showPreloader();
-        this.uploadFile();
+        
+        // this.uploadFile();
         const params = { ...this.submitParams, evaluateState };
         evaluateState === 0 && (params.zancun = 1);
         operateApi
