@@ -761,7 +761,6 @@ export default {
             if(nextFile){
               this.uploadFile(nextFile, status)
             }else {
-              console.log(11111111111111111)
               if(status === 0){
                 this.storage()
               }else if(status === 1){
