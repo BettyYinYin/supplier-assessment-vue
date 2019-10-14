@@ -769,7 +769,6 @@ export default {
             }
           })
           .catch(err => {
-            console.log('err', err)
             file.status = 'error'
             this.fileList.splice(this.fileList.findIndex(item => item.raw.name === file.name), 1)
             this.$toast({
@@ -779,7 +778,6 @@ export default {
           });
     },
     fileChange(file) {
-      console.log("file", file);
       let fileMap = {};
       let fileList = Array.prototype.slice.call(this.$refs.uploader.files);
 
@@ -795,12 +793,8 @@ export default {
       // }
 
       fileList = fileList.reduce((pre, cur, index) => {
-        console.log('cur', cur)
         const handledName = handleDuplication(cur.name, fileNames);
-        console.log("handledName", handledName);
-        console.log("item.name", cur.name);
         if (handledName !== cur.name) {
-          console.log(1111111);
           pre.push({
             status: "ready",
             raw: new File([cur], handledName, { type: cur.type })
@@ -809,7 +803,6 @@ export default {
           pre.push({ status: "ready", raw: cur });
         }
         return pre
-        console.log('pre', pre)
       }, []);
 
       // fileList.forEach(item => {
@@ -865,8 +858,6 @@ export default {
       //   }
       //   return pre;
       // }, []);
-      console.log('this.fileList', this.fileList)
-      console.log('fileList', fileList)
       this.fileList = [...this.fileList, ...fileList];
 
       this.$refs.uploader.value = "";
@@ -891,7 +882,6 @@ export default {
           list.splice(index, 1);
         })
         .catch(err => {
-          console.log('err', err)
           this.$toast({
             message: "删除失败",
             duration: 2000
