@@ -775,6 +775,8 @@ export default {
               message: '上传失败',
               duration: 2000
             })
+          }).finally(() =>{
+            hidePreloader()
           });
     },
     fileChange(file) {
@@ -978,6 +980,7 @@ export default {
           message,
           duration: 2000
         });
+        hidePreloader()
         return false;
       }
       return true;
