@@ -11,6 +11,7 @@ import * as filters from '@/filters'
 import * as directives from '@/directives'
 import '@/utils/ui.config'
 import moment from 'moment'
+import FastClick from 'fastclick'
 
 moment.locale('zh-cn');
 
@@ -23,6 +24,13 @@ Object.keys(directives).forEach(key => {
 })
 
 Vue.config.productionTip = false
+
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', function () {
+    FastClick.attach(document.body)
+  }, false);
+}
+
 
 new Vue({
   el: '#app',

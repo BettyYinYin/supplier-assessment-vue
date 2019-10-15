@@ -12,6 +12,7 @@
     "better-scroll": "^1.15.2",
     "core-js": "^2.6.5",
     "dingtalk-jsapi": "^2.6.44",
+    "fastclick": "^1.0.6",
     "lodash": "^4.17.15",
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
