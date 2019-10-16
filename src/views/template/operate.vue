@@ -140,7 +140,13 @@
       <!--  :disabled="isSubmiting" -->
       <mt-button size="small" type="primary" @click="storage" :disabled="isSubmiting">暂存</mt-button>
       <mt-button size="small" type="primary" @click="submit" :disabled="isSubmiting">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier" :disabled="isSubmiting">删除</mt-button>
+      <mt-button
+        size="small"
+        type="primary"
+        v-if="!isAdd"
+        @click="deleteSupplier"
+        :disabled="isSubmiting"
+      >删除</mt-button>
     </div>
 
     <!-- 选择供应商弹窗开始 -->
@@ -717,24 +723,30 @@ export default {
     },
     // 暂存
     storage() {
-      this.isSubmiting = true
-      showPreloader();
-      const file = this.fileList.find(item => item.status === 'ready')
-      if(file){
-        this.uploadFile(file, 0)
-      }else {
-        this.save(0);
+      if (!this.isSubmiting) {
+        console.log(11111111111)
+        this.isSubmiting = true;
+        showPreloader();
+        const file = this.fileList.find(item => item.status === "ready");
+        if (file) {
+          this.uploadFile(file, 0);
+        } else {
+          this.save(0);
+        }
       }
     },
     // 提交
     submit() {
-      this.isSubmiting = true
-      showPreloader();
-      const file = this.fileList.find(item => item.status === 'ready')
-      if(file){
-        this.uploadFile(file, 1)
-      }else {
-        this.save(1);
+      if (!this.isSubmiting) {
+        console.log(2222222222)
+        this.isSubmiting = true;
+        showPreloader();
+        const file = this.fileList.find(item => item.status === "ready");
+        if (file) {
+          this.uploadFile(file, 1);
+        } else {
+          this.save(1);
+        }
       }
     },
     uploadFile(file, status) {
@@ -751,37 +763,40 @@ export default {
       //     .catch(err => {});
       // });
       let formData = new FormData();
-        formData.append("sysCode", "project");
-        formData.append("businessNode", "project_supplier");
-        formData.append("businessId", this.id);
-        formData.append("oldFileName", file.raw.name);
-        formData.append("file", file.raw);
-        operateApi
-          .upload(formData)
-          .then(res => {
-            file.status = 'success'
-            file.response = res.data
-            const nextFile = this.fileList.find(item => item.status === 'ready')
-            if(nextFile){
-              this.uploadFile(nextFile, status)
-            }else {
-              if(status === 0){
-                this.storage()
-              }else if(status === 1){
-                this.submit()
-              }
+      formData.append("sysCode", "project");
+      formData.append("businessNode", "project_supplier");
+      formData.append("businessId", this.id);
+      formData.append("oldFileName", file.raw.name);
+      formData.append("file", file.raw);
+      operateApi
+        .upload(formData)
+        .then(res => {
+          file.status = "success";
+          file.response = res.data;
+          const nextFile = this.fileList.find(item => item.status === "ready");
+          if (nextFile) {
+            this.uploadFile(nextFile, status);
+          } else {
+            if (status === 0) {
+              this.save(0);
+            } else if (status === 1) {
+              this.save(1);
             }
-          })
-          .catch(err => {
-            file.status = 'error'
-            this.fileList.splice(this.fileList.findIndex(item => item.raw.name === file.name), 1)
-            this.$toast({
-              message: '上传失败',
-              duration: 2000
-            })
-            this.isSubmiting = false
-            hidePreloader()
-          })
+          }
+        })
+        .catch(err => {
+          file.status = "error";
+          this.fileList.splice(
+            this.fileList.findIndex(item => item.raw.name === file.name),
+            1
+          );
+          this.$toast({
+            message: "上传失败",
+            duration: 2000
+          });
+          this.isSubmiting = false;
+          hidePreloader();
+        });
     },
     fileChange(file) {
       let fileMap = {};
@@ -808,7 +823,7 @@ export default {
         } else {
           pre.push({ status: "ready", raw: cur });
         }
-        return pre
+        return pre;
       }, []);
 
       // fileList.forEach(item => {
@@ -869,9 +884,9 @@ export default {
       this.$refs.uploader.value = "";
     },
     deleteFile(file, index) {
-      if(file.response && file.response.id){
-        this.deleteRemoteFile(file.response, index, this.fileList)
-      }else {
+      if (file.response && file.response.id) {
+        this.deleteRemoteFile(file.response, index, this.fileList);
+      } else {
         this.fileList.splice(index, 1);
       }
     },
@@ -941,7 +956,6 @@ export default {
             "问题描述不能为空"
           ))
       ) {
-        
         // this.uploadFile();
         const params = { ...this.submitParams, evaluateState };
         evaluateState === 0 && (params.zancun = 1);
@@ -974,7 +988,7 @@ export default {
             });
           })
           .finally(() => {
-            this.isSubmiting = false
+            this.isSubmiting = false;
             hidePreloader();
           });
       }
@@ -985,8 +999,8 @@ export default {
           message,
           duration: 2000
         });
-        this.isSubmiting = false
-        hidePreloader()
+        this.isSubmiting = false;
+        hidePreloader();
         return false;
       }
       return true;
