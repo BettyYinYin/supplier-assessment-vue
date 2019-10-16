@@ -787,7 +787,7 @@ export default {
         .catch(err => {
           file.status = "error";
           this.fileList.splice(
-            this.fileList.findIndex(item => item.raw.name === file.name),
+            this.fileList.findIndex(item => item.raw.name === file.raw.name),
             1
           );
           this.$toast({
