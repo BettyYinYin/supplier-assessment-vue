@@ -138,9 +138,9 @@
     </div>
     <div class="operate-btn">
       <!--  :disabled="isSubmiting" -->
-      <mt-button size="small" type="primary" @click="storage">暂存</mt-button>
-      <mt-button size="small" type="primary" @click="submit">提交</mt-button>
-      <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
+      <mt-button size="small" type="primary" @click="storage" :disabled="isSubmiting">暂存</mt-button>
+      <mt-button size="small" type="primary" @click="submit" :disabled="isSubmiting">提交</mt-button>
+      <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier" :disabled="isSubmiting">删除</mt-button>
     </div>
 
     <!-- 选择供应商弹窗开始 -->
@@ -271,7 +271,7 @@ export default {
       loadingTwoQutoaList: false,
       remoteFileList: [],
       fileList: [],
-      // isSubmiting: false
+      isSubmiting: false
       // isSelectQuota: false
     };
   },
@@ -717,7 +717,7 @@ export default {
     },
     // 暂存
     storage() {
-      // this.isSubmiting = true
+      this.isSubmiting = true
       showPreloader();
       const file = this.fileList.find(item => item.status === 'ready')
       if(file){
@@ -728,7 +728,7 @@ export default {
     },
     // 提交
     submit() {
-      // this.isSubmiting = true
+      this.isSubmiting = true
       showPreloader();
       const file = this.fileList.find(item => item.status === 'ready')
       if(file){
@@ -779,6 +779,7 @@ export default {
               message: '上传失败',
               duration: 2000
             })
+            this.isSubmiting = false
             hidePreloader()
           })
     },
@@ -973,6 +974,7 @@ export default {
             });
           })
           .finally(() => {
+            this.isSubmiting = false
             hidePreloader();
           });
       }
@@ -983,6 +985,7 @@ export default {
           message,
           duration: 2000
         });
+        this.isSubmiting = false
         hidePreloader()
         return false;
       }
