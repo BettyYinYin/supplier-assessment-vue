@@ -137,6 +137,7 @@
       </div>
     </div>
     <div class="operate-btn">
+      <!--  :disabled="isSubmiting" -->
       <mt-button size="small" type="primary" @click="storage">暂存</mt-button>
       <mt-button size="small" type="primary" @click="submit">提交</mt-button>
       <mt-button size="small" type="primary" v-if="!isAdd" @click="deleteSupplier">删除</mt-button>
@@ -269,7 +270,8 @@ export default {
       loadingOneQutoaList: false,
       loadingTwoQutoaList: false,
       remoteFileList: [],
-      fileList: []
+      fileList: [],
+      // isSubmiting: false
       // isSelectQuota: false
     };
   },
@@ -715,6 +717,7 @@ export default {
     },
     // 暂存
     storage() {
+      // this.isSubmiting = true
       showPreloader();
       const file = this.fileList.find(item => item.status === 'ready')
       if(file){
@@ -725,6 +728,7 @@ export default {
     },
     // 提交
     submit() {
+      // this.isSubmiting = true
       showPreloader();
       const file = this.fileList.find(item => item.status === 'ready')
       if(file){
@@ -775,9 +779,8 @@ export default {
               message: '上传失败',
               duration: 2000
             })
-          }).finally(() =>{
             hidePreloader()
-          });
+          })
     },
     fileChange(file) {
       let fileMap = {};
