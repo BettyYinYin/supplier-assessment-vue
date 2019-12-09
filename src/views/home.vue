@@ -107,9 +107,9 @@ export default {
   methods: {
     pullToRefreshEnable() {
       if (dd.version) {
-        dd.ready(function() {
+        dd.ready(()=> {
           dd.ui.pullToRefresh.enable({
-            onSuccess: function() {
+            onSuccess: ()=>{
               this.getTotalSupplierEvaluate()
             },
             onFail: function() {}
