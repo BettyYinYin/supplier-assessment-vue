@@ -10,12 +10,18 @@
           :class="[item.value]"
           v-for="(item, index) in list"
           :key="index"
-          :to="{path: '/supplierList', query: {searchFlag: 'no', evaluateState: supplierStatus[item.value]}}"
+          :to="{
+            path: '/supplierList',
+            query: {
+              searchFlag: 'no',
+              evaluateState: supplierStatus[item.value]
+            }
+          }"
         >
           <span class="item-wrap">
             <img :src="getImgUrl(item.value)" />
-            <span class="item-label">{{item.label}}</span>
-            <span class="item-num">({{nums[item.value]}})</span>
+            <span class="item-label">{{ item.label }}</span>
+            <span class="item-num">({{ nums[item.value] }})</span>
           </span>
         </router-link>
         <!-- <router-link class="list-item new-add" to="/add">
@@ -27,17 +33,27 @@
       </div>
     </div>
 
-    <mt-button @click="goAdd" class="new-add" size="large" type="primary">新增</mt-button>
+    <mt-button @click="goAdd" class="new-add" size="large" type="primary"
+      >新增</mt-button
+    >
     <!-- <loading :status="loading" /> -->
     <loading-wrap :status="loading"></loading-wrap>
   </div>
 </template>
 
 <script>
-import { setTitle, showPreloader, hidePreloader } from "@/utils";
+import {
+  setTitle,
+  showPreloader,
+  hidePreloader,
+  pullToRefreshEnable,
+  pullToRefreshStop,
+  pullToRefreshDisable
+} from "@/utils";
 import _ from "lodash";
 import { getTotalSupplierEvaluate } from "@/api/home.js";
 import { getQuotaMaintainList } from "@/api/operate.js";
+import * as dd from "dingtalk-jsapi";
 export default {
   name: "home",
   data() {
@@ -84,10 +100,23 @@ export default {
   },
   created() {
     setTitle("供应商评价");
-    this.loading = true
+    this.loading = true;
     this.getTotalSupplierEvaluate();
+    this.pullToRefreshEnable();
   },
   methods: {
+    pullToRefreshEnable() {
+      if (dd.version) {
+        dd.ready(function() {
+          dd.ui.pullToRefresh.enable({
+            onSuccess: function() {
+              this.getTotalSupplierEvaluate()
+            },
+            onFail: function() {}
+          });
+        });
+      }
+    },
     getTotalSupplierEvaluate() {
       showPreloader();
       getTotalSupplierEvaluate()
@@ -100,13 +129,14 @@ export default {
         })
         .catch(err => {
           this.$toast({
-            message: err.message || '获取数据失败',
+            message: err.message || "获取数据失败",
             duration: 2000
-          })
+          });
         })
         .finally(() => {
-          this.loading = false
+          this.loading = false;
           hidePreloader();
+          pullToRefreshStop();
         });
     },
     goList() {
@@ -119,8 +149,12 @@ export default {
       this.$router.push("/add");
     },
     getImgUrl(name) {
-      return require(`@/assets/images/${name}.png`)
+      return require(`@/assets/images/${name}.png`);
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    pullToRefreshDisable();
+    next();
   }
 };
 </script>
@@ -147,11 +181,11 @@ export default {
 }
 
 // .list-wrap{
-  // position: absolute;
-  // width: 80%;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
+// position: absolute;
+// width: 80%;
+// top: 50%;
+// left: 50%;
+// transform: translate(-50%, -50%);
 // }
 
 .supplier-list {
@@ -210,7 +244,7 @@ export default {
     .item-num {
       font-size: 0.8rem;
     }
-    img{
+    img {
       width: 2.5rem;
     }
   }
